@@ -1,0 +1,7 @@
+/*
+.button,
+button,
+input[type='button'],
+input[type='reset'],
+input[type='submit']
+ */

@@ -2,6 +2,17 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "paths": {
+      "@xpr/components": [
+        "dist/xpr/components"
+      ],
+      "@xpr/monaco": [
+        "dist/xpr/monaco"
+      ],
+      "@xpr/tiny": [
+        "dist/xpr/tiny"
+      ]
+    },
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,

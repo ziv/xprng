@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/placeholder.json",
+  "title": "Query",
+  "description": "MongoDB Find<Collection>",
+  "type": "object",
+  "properties": {
+
+  }
+}
