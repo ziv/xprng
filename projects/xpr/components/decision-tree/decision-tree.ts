@@ -61,10 +61,6 @@ export class DecisionTreeResource {
         </section>
       </ng-container>
     </div>
-    <div class="actions" *ngIf="showReset || showBack">
-      <button *ngIf="showBack && stack.length > 1" (click)="back()">back</button>
-      <button *ngIf="showReset && stack.length > 1" (click)="reset()">reset</button>
-    </div>
   `,
   styles: [
     `
@@ -81,9 +77,6 @@ export class DecisionTree {
     return this.stack[this.stack.length - 1];
   }
 
-  @Input() showBack = true;
-  @Input() showReset = true;
-
   @Input() set tree(tree: Question[]) {
     this.next(tree);
   }
@@ -95,10 +88,12 @@ export class DecisionTree {
   }
 
   back() {
-    this.stack = this.stack.slice(0, this.stack.length - 1);
+    this.stack.pop();
+    this.stack = [...this.stack];
   }
 
   reset() {
-    this.stack = [this.stack[0]];
+    const first = this.stack[0];
+    this.stack = [first];
   }
 }
