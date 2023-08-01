@@ -1,6 +1,6 @@
 {
   "name": "xprng",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "link": "cd dist/xpr/components && npm link",
     "ng": "ng",
