@@ -1,0 +1,353 @@
+:root {
+  --color-initial: #fff;
+  --color-primary: #9b4dca;
+  --color-secondary: #606c76;
+  --color-tertiary: #f4f5f6;
+  --color-quaternary: #d1d1d1;
+  --color-quinary: #e1e1e1;
+
+  --input-height: 3rem;
+  --input-border-radius: .4rem;
+}
+
+*, *:after, *:before {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+body {
+  color: var(--color-secondary);
+  font-size: 1.6em;
+  font-family: 'Roboto', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  font-weight: 300;
+  letter-spacing: .01em;
+  line-height: 1.6;
+}
+
+.button,
+button,
+input[type='button'],
+input[type='reset'],
+input[type='submit'] {
+  background-color: var(--color-primary);
+  border: .1rem solid var(--color-primary);
+  border-radius: var(--input-border-radius);
+  color: var(--color-initial);
+  height: var(--input-height);
+  line-height: var(--input-height);
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: .1rem;
+  padding: 0 3.0rem;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  &:focus,
+  &:hover {
+    background-color: var(--color-secondary);
+    border-color: var(--color-secondary);
+    color: var(--color-initial);
+    outline: 0;
+  }
+
+  &[disabled] {
+    cursor: default;
+    opacity: .5;
+
+    &:focus,
+    &:hover {
+      background-color: var(--color-primary);
+      border-color: var(--color-primary);
+    }
+  }
+
+  &.button-outline {
+    background-color: transparent;
+    color: var(--color-primary);
+
+    &:focus,
+    &:hover {
+      background-color: transparent;
+      border-color: var(--color-secondary);
+      color: var(--color-secondary);
+    }
+
+    &[disabled] {
+      &:focus,
+      &:hover {
+        border-color: inherit;
+        color: var(--color-primary);
+      }
+    }
+  }
+
+  &.button-clear {
+    background-color: transparent;
+    border-color: transparent;
+    color: var(--color-primary);
+
+    &:focus,
+    &:hover {
+      background-color: transparent;
+      border-color: transparent;
+      color: var(--color-secondary);
+    }
+
+    &[disabled] {
+      &:focus,
+      &:hover {
+        color: var(--color-primary);
+      }
+    }
+  }
+}
+
+
+input[type='color'],
+input[type='date'],
+input[type='datetime'],
+input[type='datetime-local'],
+input[type='email'],
+input[type='month'],
+input[type='number'],
+input[type='password'],
+input[type='search'],
+input[type='tel'],
+input[type='text'],
+input[type='url'],
+input[type='week'],
+input:not([type]),
+textarea,
+select {
+  color: var(--color-secondary);
+  border-radius: var(--input-border-radius);
+  border: .1rem solid var(--color-quaternary);
+  height: var(--input-height);
+  background-color: transparent;
+  box-shadow: none;
+  box-sizing: inherit;
+  padding: .6rem 1.0rem .7rem;
+  width: 100%;
+  -webkit-appearance: none;
+
+  &:focus {
+    border-color: var(--color-primary);
+    outline: 0;
+  }
+}
+
+input[type='checkbox'],
+input[type='radio'] {
+  display: inline;
+}
+
+select {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 8" width="30"><path fill="%23' + str-slice(inspect('red'), 2) + '" d="M0,0l6,8l6-8"/></svg>') center right no-repeat;
+  padding-right: 3.0rem;
+
+  &:focus {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 8" width="30"><path fill="%23' + str-slice(inspect('blue'), 2) + '" d="M0,0l6,8l6-8"/></svg>');
+  }
+
+  &[multiple] {
+    background: none;
+    height: auto;
+  }
+}
+
+textarea {
+  min-height: 6.5rem;
+}
+
+.icon {
+  font-family: 'Material Icons', emoji;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+
+///**
+//font-family: 'Roboto Mono', monospace;
+//font-family: 'Special Elite', cursive;
+//font-family: 'Ubuntu', sans-serif;
+//font-family: 'Ubuntu Mono', monospace;
+// */
+////@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&family=Special+Elite&family=Ubuntu+Mono&family=Ubuntu:wght@300;400&display=swap');
+///* You can add global styles to this file, and also import other style files */
+////:root {
+////  --form-control-disabled: #959495;
+////}
+//
+////// global
+////@import "./styles/00-base.scss";
+////
+////.xpr-core {
+////  @import "./styles/10-typography.scss";
+////}
+//
+
+//
+//$color-initial: #fff !default;
+//$color-primary: #9b4dca !default;
+//$color-secondary: #606c76 !default;
+//$color-tertiary: #f4f5f6 !default;
+//$color-quaternary: #d1d1d1 !default;
+//$color-quinary: #e1e1e1 !default;
+//
+//$input-height: 3.8rem;
+//
+//*, *:after, *:before {
+//  box-sizing: inherit;
+//}
+//
+//html {
+//  box-sizing: border-box;
+//  font-size: 62.5%;
+//}
+//
+//body {
+//  color: var(--color-secondary);
+//  font-size: 1.6em;
+//  font-family: 'Roboto', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+//  font-weight: 300;
+//  letter-spacing: .01em;
+//  line-height: 1.6;
+//}
+//
+//
+//// icons (material icons or any other ligatures fonts should be imported)
+////
+////icon {
+////  font-family: 'Material Icons', emoji;
+////  font-weight: normal;
+////  font-style: normal;
+////  font-size: 24px;
+////  line-height: 1;
+////  letter-spacing: normal;
+////  text-transform: none;
+////  display: inline-block;
+////  white-space: nowrap;
+////  word-wrap: normal;
+////  direction: ltr;
+////  -webkit-font-feature-settings: 'liga';
+////  -webkit-font-smoothing: antialiased;
+////}
+////
+////
+////// forms
+////
+////field {
+////  display: flex;
+////}
+////
+////label {
+////  display: flex;
+////}
+////
+////.cols {
+////  flex-direction: column;
+////}
+////
+////.rows {
+////  flex-direction: row;
+////}
+////
+////
+
+////
+////
+////// Form
+////// ––––––––––––––––––––––––––––––––––––––––––––––––––
+////
+////input[type='color'],
+////input[type='date'],
+////input[type='datetime'],
+////input[type='datetime-local'],
+////input[type='email'],
+////input[type='month'],
+////input[type='number'],
+////input[type='password'],
+////input[type='search'],
+////input[type='tel'],
+////input[type='text'],
+////input[type='url'],
+////input[type='week'],
+////input:not([type]),
+////textarea,
+////select {
+////  -webkit-appearance: none;
+////  background-color: transparent;
+////  border: .1rem solid $color-quaternary;
+////  border-radius: .4rem;
+////  box-shadow: none;
+////  box-sizing: inherit;
+////  height: $input-height;
+////  padding: .6rem 1.0rem .7rem;
+////  width: 100%;
+////
+////  &:focus {
+////    border-color: $color-primary;
+////    outline: 0;
+////  }
+////}
+////
+
+////
+////legend {
+////  display: block;
+////  font-size: 1.6rem;
+////  //font-weight: 700;
+////  //margin-bottom: .5rem;
+////}
+////
+////label {
+////  display: flex;
+////}
+////
+////fieldset {
+////  border-width: 0;
+////  padding: 0;
+////}
+////
+////input[type='checkbox'],
+////input[type='radio'] {
+////  display: inline;
+////}
+////
+////.label-inline {
+////  display: inline-block;
+////  font-weight: normal;
+////  margin-left: .5rem;
+////}
+
+xpr-decision-tree {
+  display: block;
+  max-width: 50em;
+}
+
+xpr-decision-tree section {
+  margin: 0.5em 0;
+}
+
+xpr-decision-tree .actions {
+  display: flex;
+  justify-content: space-between;
+}

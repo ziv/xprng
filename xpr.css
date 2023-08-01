@@ -1,0 +1,262 @@
+:root {
+  --font-family: "Ubuntu", sans-serif;
+  --color-initial: #fff;
+  --color-primary: #9b4dca;
+  --color-secondary: #606c76;
+  --color-tertiary: #f4f5f6;
+  --color-quaternary: #d1d1d1;
+  --color-quinary: #e1e1e1;
+  --input-height: 3rem;
+  --input-height-dense: 2rem;
+  --input-border-radius: .4rem;
+  --input-border-radius-dense: .2rem;
+}
+
+*, *:after, *:before {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+body {
+  color: var(--color-secondary);
+  font-size: 1.6em;
+  font-family: var(--font-family);
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+.button,
+button,
+input[type=button],
+input[type=reset],
+input[type=submit] {
+  background-color: var(--color-primary);
+  border: 0.1rem solid var(--color-primary);
+  border-radius: var(--input-border-radius);
+  color: var(--color-initial);
+  height: var(--input-height);
+  line-height: var(--input-height);
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.1rem;
+  padding: 0 1rem;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.button.icon,
+button.icon,
+input[type=button].icon,
+input[type=reset].icon,
+input[type=submit].icon {
+  background-color: var(--color-initial);
+  color: var(--color-primary);
+  border: none;
+  padding: 0 0.25rem;
+}
+.button.dense,
+button.dense,
+input[type=button].dense,
+input[type=reset].dense,
+input[type=submit].dense {
+  height: var(--input-height-dense);
+  line-height: var(--input-height-dense);
+  border-radius: var(--input-border-radius-dense);
+}
+.button:focus, .button:hover,
+button:focus,
+button:hover,
+input[type=button]:focus,
+input[type=button]:hover,
+input[type=reset]:focus,
+input[type=reset]:hover,
+input[type=submit]:focus,
+input[type=submit]:hover {
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
+  color: var(--color-initial);
+  outline: 0;
+}
+.button[disabled],
+button[disabled],
+input[type=button][disabled],
+input[type=reset][disabled],
+input[type=submit][disabled] {
+  cursor: default;
+  opacity: 0.5;
+}
+.button[disabled]:focus, .button[disabled]:hover,
+button[disabled]:focus,
+button[disabled]:hover,
+input[type=button][disabled]:focus,
+input[type=button][disabled]:hover,
+input[type=reset][disabled]:focus,
+input[type=reset][disabled]:hover,
+input[type=submit][disabled]:focus,
+input[type=submit][disabled]:hover {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+.button.button-outline,
+button.button-outline,
+input[type=button].button-outline,
+input[type=reset].button-outline,
+input[type=submit].button-outline {
+  background-color: transparent;
+  color: var(--color-primary);
+}
+.button.button-outline:focus, .button.button-outline:hover,
+button.button-outline:focus,
+button.button-outline:hover,
+input[type=button].button-outline:focus,
+input[type=button].button-outline:hover,
+input[type=reset].button-outline:focus,
+input[type=reset].button-outline:hover,
+input[type=submit].button-outline:focus,
+input[type=submit].button-outline:hover {
+  background-color: transparent;
+  border-color: var(--color-secondary);
+  color: var(--color-secondary);
+}
+.button.button-outline[disabled]:focus, .button.button-outline[disabled]:hover,
+button.button-outline[disabled]:focus,
+button.button-outline[disabled]:hover,
+input[type=button].button-outline[disabled]:focus,
+input[type=button].button-outline[disabled]:hover,
+input[type=reset].button-outline[disabled]:focus,
+input[type=reset].button-outline[disabled]:hover,
+input[type=submit].button-outline[disabled]:focus,
+input[type=submit].button-outline[disabled]:hover {
+  border-color: inherit;
+  color: var(--color-primary);
+}
+.button.button-clear,
+button.button-clear,
+input[type=button].button-clear,
+input[type=reset].button-clear,
+input[type=submit].button-clear {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--color-primary);
+}
+.button.button-clear:focus, .button.button-clear:hover,
+button.button-clear:focus,
+button.button-clear:hover,
+input[type=button].button-clear:focus,
+input[type=button].button-clear:hover,
+input[type=reset].button-clear:focus,
+input[type=reset].button-clear:hover,
+input[type=submit].button-clear:focus,
+input[type=submit].button-clear:hover {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--color-secondary);
+}
+.button.button-clear[disabled]:focus, .button.button-clear[disabled]:hover,
+button.button-clear[disabled]:focus,
+button.button-clear[disabled]:hover,
+input[type=button].button-clear[disabled]:focus,
+input[type=button].button-clear[disabled]:hover,
+input[type=reset].button-clear[disabled]:focus,
+input[type=reset].button-clear[disabled]:hover,
+input[type=submit].button-clear[disabled]:focus,
+input[type=submit].button-clear[disabled]:hover {
+  color: var(--color-primary);
+}
+
+input[type=color],
+input[type=date],
+input[type=datetime],
+input[type=datetime-local],
+input[type=email],
+input[type=month],
+input[type=number],
+input[type=password],
+input[type=search],
+input[type=tel],
+input[type=text],
+input[type=url],
+input[type=week],
+input:not([type]),
+textarea,
+select {
+  color: var(--color-secondary);
+  border-radius: var(--input-border-radius);
+  border: 0.1rem solid var(--color-quaternary);
+  height: var(--input-height);
+  background-color: transparent;
+  box-shadow: none;
+  box-sizing: inherit;
+  padding: 0.6rem 1rem 0.7rem;
+  width: 100%;
+  -webkit-appearance: none;
+}
+input[type=color]:focus,
+input[type=date]:focus,
+input[type=datetime]:focus,
+input[type=datetime-local]:focus,
+input[type=email]:focus,
+input[type=month]:focus,
+input[type=number]:focus,
+input[type=password]:focus,
+input[type=search]:focus,
+input[type=tel]:focus,
+input[type=text]:focus,
+input[type=url]:focus,
+input[type=week]:focus,
+input:not([type]):focus,
+textarea:focus,
+select:focus {
+  border-color: var(--color-primary);
+  outline: 0;
+}
+
+input[type=checkbox],
+input[type=radio] {
+  display: inline;
+}
+
+select {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 8" width="30"><path fill="%23red"" d="M0,0l6,8l6-8"/></svg>') center right no-repeat;
+  padding-right: 3rem;
+}
+select:focus {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 8" width="30"><path fill="%23blue"" d="M0,0l6,8l6-8"/></svg>');
+}
+select[multiple] {
+  background: none;
+  height: auto;
+}
+
+textarea {
+  min-height: 6.5rem;
+}
+
+.icon {
+  font-family: "Material Icons", emoji;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 1.5em;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: "liga";
+  -webkit-font-smoothing: antialiased;
+}
+.icon.dense {
+  font-size: 1em;
+}
