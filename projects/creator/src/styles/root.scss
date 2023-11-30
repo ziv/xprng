@@ -1,0 +1,56 @@
+:root {
+  // colors
+  --xpr-color-primary: #b90063;
+  --xpr-color-on-primary: #ffffff;
+  --xpr-color-primary-container: #ffd9e2;
+  --xpr-color-on-primary-container: #3e001d;
+  --xpr-color-secondary: #0060a9;
+  --xpr-color-on-secondary: #ffffff;
+  --xpr-color-secondary-container: #d3e4ff;
+  --xpr-color-on-secondary-container: #001c38;
+  --xpr-color-tertiary: #984061;
+  --xpr-color-on-tertiary: #ffffff;
+  --xpr-color-tertiary-container: #ffd9e2;
+  --xpr-color-on-tertiary-container: #3e001d;
+  --xpr-color-error: #ba1a1a;
+  --xpr-color-error-container: #ffdad6;
+  --xpr-color-on-error: #ffffff;
+  --xpr-color-on-error-container: #410002;
+  --xpr-color-background: #f8fdff;
+  --xpr-color-on-background: #001f25;
+  --xpr-color-surface: #f8fdff;
+  --xpr-color-on-surface: #001f25;
+  --xpr-color-surface-variant: #f2dde1;
+  --xpr-color-on-surface-variant: #514347;
+  --xpr-color-outline: #837377;
+  --xpr-color-inverse-on-surface: #d6f6ff;
+  --xpr-color-inverse-surface: #00363f;
+  --xpr-color-inverse-primary: #ffb1c8;
+  --xpr-color-shadow: #000000;
+  --xpr-color-surface-tint: #b90063;
+  --xpr-color-outline-variant: #d5c2c6;
+  --xpr-color-scrim: #000000;
+
+  // forms
+  --xpr-input-height: 3rem;
+  --xpr-input-font-size: 1.1rem;
+  --xpr-input-font-weight: 700;
+  --xpr-input-letter-spacing: .1rem;
+  --xpr-input-padding: 0 1rem;
+
+  // typography
+
+
+  --font-family: 'Ubuntu', sans-serif;
+  //--color-initial: #fff;
+  //--color-primary: #9b4dca;
+  //--color-secondary: #606c76;
+  //--color-tertiary: #f4f5f6;
+  //--color-quaternary: #d1d1d1;
+  //--color-quinary: #e1e1e1;
+
+  --input-height: 2rem;
+  --input-height-dense: 2rem;
+  --input-border-radius: .4rem;
+  --input-border-radius-dense: .2rem;
+}

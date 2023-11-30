@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   selector: 'creator-sample-form',
   template: `
   <div>
-    <section>
+    <section data-color="primary">
       <input type="text">
       <input type="text">
       <button data-color="primary">save</button>
@@ -19,6 +19,13 @@ import { Component } from '@angular/core';
         <option>value B</option>
       </select>
     </section>
+    <section class="buttons">
+      <button>default</button>
+      <button data-color="primary">primary</button>
+      <button data-color="secondary">secondary</button>
+      <button data-color="error">error</button>
+      <button class="icon">icon</button>
+    </section>
   </div>
   `,
   styles: [
@@ -28,6 +35,11 @@ import { Component } from '@angular/core';
       display: flex;
       gap: 1em;
       margin-bottom: 1em;
+    }
+
+    .buttons {
+      flex-direction: column;
+      width: 10em;
     }
     `
   ]

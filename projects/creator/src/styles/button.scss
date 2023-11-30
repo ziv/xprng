@@ -1,0 +1,94 @@
+.button,
+button,
+input[type='button'],
+input[type='reset'],
+input[type='submit'] {
+  background-color: var(--xpr-color-primary);
+  border: .1rem solid var(--xpr-color-primary);
+  border-radius: var(--input-border-radius);
+  color: var(--xpr-color-on-primary);
+  height: var(--xpr-input-height);
+  line-height: var(--xpr-input-height);
+  font-size: var(--xpr-input-font-size);
+  font-weight: var(--xpr-input-font-weight);
+  letter-spacing: var(--xpr-input-letter-spacing);
+  padding: var(--xpr-input-padding);
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  &.icon {
+    background-color: var(--color-initial);
+    color: var(--color-primary);
+    border: none;
+    padding: 0 .25rem;
+  }
+
+  &.dense {
+    height: var(--input-height-dense);
+    line-height: var(--input-height-dense);
+    border-radius: var(--input-border-radius-dense);
+  }
+
+  &:focus,
+  &:hover {
+    background-color: var(--color-secondary);
+    border-color: var(--color-secondary);
+    color: var(--color-initial);
+    outline: 0;
+  }
+
+  &[disabled] {
+    cursor: default;
+    opacity: .5;
+
+    &:focus,
+    &:hover {
+      background-color: var(--color-primary);
+      border-color: var(--color-primary);
+    }
+  }
+
+  &.button-outline {
+    background-color: transparent;
+    color: var(--color-primary);
+
+    &:focus,
+    &:hover {
+      background-color: transparent;
+      border-color: var(--color-secondary);
+      color: var(--color-secondary);
+    }
+
+    &[disabled] {
+      &:focus,
+      &:hover {
+        border-color: inherit;
+        color: var(--color-primary);
+      }
+    }
+  }
+
+  &.button-clear {
+    background-color: transparent;
+    border-color: transparent;
+    color: var(--color-primary);
+
+    &:focus,
+    &:hover {
+      background-color: transparent;
+      border-color: transparent;
+      color: var(--color-secondary);
+    }
+
+    &[disabled] {
+      &:focus,
+      &:hover {
+        color: var(--color-primary);
+      }
+    }
+  }
+}

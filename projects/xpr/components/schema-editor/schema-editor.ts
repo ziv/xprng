@@ -17,6 +17,10 @@ import { jsonSchema } from 'codemirror-json-schema';
 // todo complete this type
 export type Schema = any;
 
+export function create() {
+
+}
+
 @Component({
   standalone: true,
   selector: 'xpr-schema-editor',
@@ -42,7 +46,7 @@ export class SchemaEditor implements OnInit {
       throw new Error('unable to render xpr-schema-editor without a schema definition');
     }
     const parent = this.el.nativeElement,
-      doc = this.value,
+      doc = this.value ?? '',
       extensions = [
         ...this.extensions,
         // todo do we need the basicSetup?!

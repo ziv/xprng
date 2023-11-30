@@ -1,22 +1,31 @@
+import vars from './vars';
 
 export enum InputType {
   Text,
   Length,
   Color,
 }
-export type StylerInput = [string, InputType[]];
+
+export interface StyleDescriptor {
+  key: string;
+  type: number;
+  value: string;
+  unit?: string;
+}
 
 export default class Styler {
-  // todo currently support only :root pseudo element
-  root = getComputedStyle(document.documentElement);
-
-  constructor(public readonly inputs: StylerInput[]) {
-  }
+  styles: StyleDescriptor[] = structuredClone(vars);
+  el!: HTMLElement;
 
   update() {
-    const r = Math.round(Math.random() * 255);
-    const g = Math.round(Math.random() * 255);
-    const b = Math.round(Math.random() * 255);
-    document.documentElement.style.setProperty('--color-initial', `rgb(${r},${g},${b})`);
+    console.log('update', this.el);
+    if (!this.el) {
+      return;
+    }
+    for (const s of this.styles) {
+      // @ts-ignore
+      const value = s.unit ? s.value + s.unit : s.value;
+      this.el.style.setProperty(s.key, value);
+    }
   }
 }

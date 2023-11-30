@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, JsonPipe, NgFor, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 import { marked } from 'marked';
+import { DecisionController } from './decision';
 
 // todo remove from here!
 marked.use({mangle: false, headerIds: false});
@@ -46,21 +47,19 @@ export class DecisionTreeResource {
 @Component({
   standalone: true,
   selector: 'xpr-decision-tree',
-  imports: [NgIf, NgFor, DecisionTreeResource],
+  imports: [NgIf, NgFor, NgSwitch, NgSwitchCase, DecisionTreeResource, AsyncPipe, JsonPipe],
   template: `
-    <div class="tree">
-      <ng-container *ngFor="let item of current">
-        <section *ngIf="item.options" class="question">
-          <button (click)="next(item.options)">{{item.content}}</button>
-        </section>
-        <section *ngIf="item.result" class="result">
-          <xpr-decision-tree-resource *ngIf="item.resource"
-                                      [src]="item.content"></xpr-decision-tree-resource>
-          <xpr-decision-tree-resource *ngIf="!item.resource"
-                                      [content]="item.content"></xpr-decision-tree-resource>
-        </section>
+    <ng-container *ngIf="ctrl?.current$ | async as node">
+      <ng-container [ngSwitch]="node.type">
+        <ng-container *ngSwitchCase="'text'">{{node.text}}</ng-container>
+        <ng-container *ngSwitchCase="'url'">{{node.url}}</ng-container>
+        <ng-container *ngSwitchCase="'options'">
+          <section *ngFor="let sub of node.options">
+            <button (click)="ctrl?.select(sub)">{{sub.title}}</button>
+          </section>
+        </ng-container>
       </ng-container>
-    </div>
+    </ng-container>
   `,
   styles: [
     `
@@ -71,29 +70,5 @@ export class DecisionTreeResource {
   ]
 })
 export class DecisionTree {
-  stack: Question[][] = [];
-
-  get current() {
-    return this.stack[this.stack.length - 1];
-  }
-
-  @Input() set tree(tree: Question[]) {
-    this.next(tree);
-  }
-
-  next(tree?: Question[]) {
-    if (tree) {
-      this.stack.push(tree);
-    }
-  }
-
-  back() {
-    this.stack.pop();
-    this.stack = [...this.stack];
-  }
-
-  reset() {
-    const first = this.stack[0];
-    this.stack = [first];
-  }
+  @Input() ctrl?: DecisionController;
 }
