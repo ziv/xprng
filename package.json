@@ -2,6 +2,7 @@
   "name": "xprng",
   "version": "0.0.0",
   "scripts": {
+    "build-simple-form": "ng build @xpr/simple-form",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
