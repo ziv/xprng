@@ -1,8 +1,23 @@
-import {Component, computed, inject, input} from "@angular/core";
-import {httpResource} from "@angular/common/http";
-import {DomSanitizer} from "@angular/platform-browser";
-import DOMPurify, {Config} from "dompurify";
-import {marked, type MarkedOptions} from "marked";
+import {
+  AfterContentInit,
+  AfterViewInit,
+  Component,
+  computed,
+  contentChild,
+  Directive,
+  effect,
+  inject,
+  input,
+  OnInit,
+  untracked,
+  viewChild,
+  ViewContainerRef,
+} from "@angular/core";
+import { httpResource } from "@angular/common/http";
+import { DomSanitizer } from "@angular/platform-browser";
+import DOMPurify, { Config } from "dompurify";
+import { marked, type MarkedOptions } from "marked";
+import { NgComponentOutlet } from "@angular/common";
 
 export type MarkdownOptions = {
   /**
@@ -26,43 +41,47 @@ export type MarkdownOptions = {
 
 @Component({
   selector: "xpr-markdown",
+  host: {
+    "[style.display]": '"block"',
+    class: "xpr-markdown",
+  },
   template: `
     @if (markdownSource.error()) {
-      <!--
-      display error message if markdown source fails to load
-      -->
-      <div class="xpr-markdown xpr-error">{{ this.errmsg() }}</div>
-      <!--
-      -->
+      <ng-content select="xpr-markdown-error"></ng-content>
     } @else if (markdownSource.isLoading()) {
-      <!--
-      display loading message while markdown source is being fetched
-      -->
-      <div class="xpr-markdown xpr-loading">{{ this.loading() }}</div>
-      <!--
-      -->
+      <ng-content select="xpr-markdown-loading"></ng-content>
     } @else if (markdownSource.hasValue()) {
-      <!--
-      display the markdown content once it is successfully loaded
-      -->
-      <div class="xpr-markdown xpr-value" [innerHTML]="markdown()"></div>
-      <!--
-      -->
+      <div class="xpr-markdown xpr-ok" [innerHTML]="markdown()"></div>
     }
   `,
+  imports: [
+    NgComponentOutlet,
+  ],
 })
-export default class Markdown {
-  readonly options = input<MarkdownOptions | undefined | null>();
+export class Markdown {
+  /**
+   * The source URL of the markdown content.
+   */
   readonly src = input.required<string>();
-  readonly errmsg = input<string>('');
-  readonly loading = input<string>('');
+
+  /**
+   * Options for parsing and sanitizing the markdown content.
+   */
+  readonly options = input<Partial<MarkdownOptions> | undefined | null>();
+
+  //
 
   protected readonly markdown = computed(() => {
     // no value yet...
     if (!this.markdownSource.hasValue()) {
-      return this.sanitize('');
+      return this.sanitize("");
     }
-    const html = marked.parse(this.markdownSource.value(), (this.options()?.marked ?? {}) as MarkedOptions) as string;
+
+    // convert markdown to HTML
+    const html = marked.parse(
+      this.markdownSource.value(),
+      (this.options()?.marked ?? {}) as MarkedOptions,
+    ) as string;
 
     // another layer of sanitization
     if (this.options()?.sanitize) {
@@ -76,6 +95,28 @@ export default class Markdown {
     return this.sanitize(html);
   });
 
-  private readonly sanitize = inject(DomSanitizer).bypassSecurityTrustHtml.bind(inject(DomSanitizer));
   protected readonly markdownSource = httpResource.text(() => this.src());
+  private readonly sanitize = inject(DomSanitizer).bypassSecurityTrustHtml.bind(
+    inject(DomSanitizer),
+  );
+}
+
+@Directive({
+  selector: "xpr-markdown-loading,[xpr-markdown-loading]",
+  exportAs: "xprMarkdownLoading",
+  host: {
+    class: "xpr-markdown xpr-loading",
+  },
+})
+export class MarkdownLoading {
+}
+
+@Directive({
+  selector: "xpr-markdown-error,[xpr-markdown-error]",
+  exportAs: "xprMarkdownError",
+  host: {
+    class: "xpr-markdown xpr-error",
+  },
+})
+export class MarkdownError {
 }

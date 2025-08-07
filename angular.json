@@ -30,6 +30,84 @@
           }
         }
       }
+    },
+    "example": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "xprng/example",
+      "sourceRoot": "xprng/example/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "xprng/example/src/main.ts",
+            "tsConfig": "xprng/example/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "xprng/example/public"
+              }
+            ],
+            "styles": [
+              "xprng/example/src/styles.css"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "example:build:production"
+            },
+            "development": {
+              "buildTarget": "example:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular/build:extract-i18n"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "xprng/example/tsconfig.spec.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "xprng/example/public"
+              }
+            ],
+            "styles": [
+              "xprng/example/src/styles.css"
+            ]
+          }
+        }
+      }
     }
   }
 }

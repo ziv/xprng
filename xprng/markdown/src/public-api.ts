@@ -1,3 +1,1 @@
-import Markdown from "./markdown";
-
-export { Markdown };
+export * from "./markdown";

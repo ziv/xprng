@@ -35,6 +35,12 @@
     },
     {
       "path": "./xprng/markdown/tsconfig.spec.json"
+    },
+    {
+      "path": "./xprng/example/tsconfig.app.json"
+    },
+    {
+      "path": "./xprng/example/tsconfig.spec.json"
     }
   ]
 }
