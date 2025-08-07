@@ -11,5 +11,45 @@
   "dependencies": {
     "tslib": "^2.3.0"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "author": "Ziv Perry",
+  "license": "MIT",
+  "keywords": [
+    "angular",
+    "component",
+    "markdown",
+    "xpr-markdown",
+    "xprng",
+    "ng",
+    "xpr"
+  ],
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ziv/xprng.git",
+    "directory": "xprng/markdown"
+  },
+  "bugs": {
+    "url": "https://github.com/ziv/xprng/issues"
+  },
+  "homepage": "https://github.com/ziv/xprng#readme",
+  "files": [
+    "**/*.js",
+    "*.js",
+    "*.d.ts",
+    "README.md",
+    "license"
+  ],
+  "release": {
+    "extends": "semantic-release-monorepo",
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/npm",
+      "@semantic-release/github"
+    ]
+  }
 }
