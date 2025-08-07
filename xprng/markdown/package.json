@@ -48,7 +48,7 @@
     "license"
   ],
   "release": {
-    "extends": "semantic-release-monorepo",
+    "tagFormat": "markdown-v${version}",
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
