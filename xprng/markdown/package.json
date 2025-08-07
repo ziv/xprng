@@ -4,13 +4,12 @@
   "peerDependencies": {
     "@angular/common": "^20.1.0",
     "@angular/core": "^20.1.0",
+    "@angular/platform-browser": "^20.1.0",
     "dompurify": "^3.2.6",
-    "marked": "^16.1.2",
-    "marked-highlight": "^2.2.2"
+    "marked": "^16.1.2"
   },
   "devDependencies": {
-    "semantic-release": "^24.2.7",
-    "semantic-release-monorepo": "^8.0.2"
+    "semantic-release": "^24.2.7"
   },
   "dependencies": {
     "tslib": "^2.3.0"
