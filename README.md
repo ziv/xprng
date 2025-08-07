@@ -8,7 +8,7 @@ Compatible with **Zoneless** Angular 20+.
 
 | Component | Package           | Reference                           |
 |-----------|-------------------|-------------------------------------|
-| Markdown  | `@xprng/markdown` | [0.1.0](./xprng/markdown/README.md) |
+| Markdown  | `@xprng/markdown` | [0.2.0](./xprng/markdown/README.md) |
 
 ## Packages
 
