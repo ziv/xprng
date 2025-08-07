@@ -25,11 +25,11 @@ export type MarkdownOptions = {
 }
 
 @Component({
-  selector: 'td-markdown',
+  selector: 'xpr-markdown',
   template: '<div class="markdown" [innerHTML]="markdown()"></div>',
 
 })
-export default class Markdown {
+export class Markdown {
   readonly options = input<any>();
   readonly src = input.required<string>();
   readonly err = input<string | null>(null);
