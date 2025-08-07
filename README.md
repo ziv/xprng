@@ -1,3 +1,3 @@
-# @xpr/...
+# Experimental Angular Components (XPRNG)
 
-@xpr features for Angular
+Simple smart components.

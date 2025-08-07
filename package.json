@@ -2,39 +2,57 @@
   "name": "xprng",
   "version": "0.0.0",
   "scripts": {
-    "build-simple-form": "ng build @xpr/simple-form",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
+  "prettier": {
+    "overrides": [
+      {
+        "files": "*.html",
+        "options": {
+          "parser": "angular"
+        }
+      }
+    ]
+  },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^18.1.0",
-    "@angular/common": "^18.1.0",
-    "@angular/compiler": "^18.1.0",
-    "@angular/core": "^18.1.0",
-    "@angular/forms": "^18.1.0",
-    "@angular/platform-browser": "^18.1.0",
-    "@angular/platform-browser-dynamic": "^18.1.0",
-    "@angular/router": "^18.1.0",
+    "@angular/common": "^20.1.0",
+    "@angular/compiler": "^20.1.0",
+    "@angular/core": "^20.1.0",
+    "@angular/forms": "^20.1.0",
+    "@angular/platform-browser": "^20.1.0",
+    "@angular/router": "^20.1.0",
     "rxjs": "~7.8.0",
-    "tslib": "^2.3.0",
-    "zone.js": "~0.14.3"
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^18.1.1",
-    "@angular/cli": "^18.1.1",
-    "@angular/compiler-cli": "^18.1.0",
+    "@angular/build": "^20.1.5",
+    "@angular/cli": "^20.1.0",
+    "@angular/compiler-cli": "^20.1.0",
     "@types/jasmine": "~5.1.0",
-    "jasmine-core": "~5.1.0",
+    "@types/markdown-it": "^14.1.2",
+    "cz-conventional-changelog": "^3.3.0",
+    "dompurify": "^3.2.6",
+    "jasmine-core": "~5.8.0",
+    "jsdom": "^26.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "ng-packagr": "^18.1.0",
-    "typescript": "~5.5.2"
+    "marked": "^16.1.2",
+    "marked-highlight": "^2.2.2",
+    "ng-packagr": "^20.1.0",
+    "typescript": "~5.8.2",
+    "vitest": "^3.2.4"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
