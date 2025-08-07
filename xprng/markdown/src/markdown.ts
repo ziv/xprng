@@ -29,7 +29,7 @@ export type MarkdownOptions = {
   template: '<div class="markdown" [innerHTML]="markdown()"></div>',
 
 })
-export class Markdown {
+export default class Markdown {
   readonly options = input<any>();
   readonly src = input.required<string>();
   readonly err = input<string | null>(null);

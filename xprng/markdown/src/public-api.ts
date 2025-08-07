@@ -1,5 +1,5 @@
-/*
- * Public API Surface of markdown
- */
+import Markdown from './markdown';
 
-export * from './markdown';
+export {
+  Markdown
+};
