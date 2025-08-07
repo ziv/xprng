@@ -1,12 +1,15 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import Markdown from './markdown';
-import {provideZonelessChangeDetection} from '@angular/core';
-import {HttpTestingController, provideHttpClientTesting} from '@angular/common/http/testing';
-import {provideHttpClient} from '@angular/common/http';
-import {expect} from 'vitest';
+import Markdown from "./markdown";
+import { provideZonelessChangeDetection } from "@angular/core";
+import {
+  HttpTestingController,
+  provideHttpClientTesting,
+} from "@angular/common/http/testing";
+import { provideHttpClient } from "@angular/common/http";
+import { expect } from "vitest";
 
-describe('Markdown', () => {
+describe("Markdown", () => {
   let component: Markdown;
   let fixture: ComponentFixture<Markdown>;
   let httpTesting: HttpTestingController;
@@ -18,7 +21,7 @@ describe('Markdown', () => {
         provideZonelessChangeDetection(),
         provideHttpClient(),
         provideHttpClientTesting(),
-      ]
+      ],
     });
 
     httpTesting = TestBed.inject(HttpTestingController);
@@ -26,17 +29,17 @@ describe('Markdown', () => {
     component = fixture.componentInstance;
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 
-  it('should load markdown from src', async () => {
+  it("should load markdown from src", async () => {
     // set a new input for the component
-    fixture.componentRef.setInput('src', 'test.md');
+    fixture.componentRef.setInput("src", "test.md");
     fixture.detectChanges();
 
     // the component should request the markdown file
-    httpTesting.expectOne('test.md').flush('# Test Markdown');
+    httpTesting.expectOne("test.md").flush("# Test Markdown");
 
     // wait for the component to stabilize
     await fixture.whenStable();
@@ -44,6 +47,6 @@ describe('Markdown', () => {
 
     // the template should render the markdown as HTML
     expect(el).toBeInstanceOf(HTMLElement);
-    expect(el.querySelectorAll('h1').length).toBe(1);
+    expect(el.querySelectorAll("h1").length).toBe(1);
   });
 });

@@ -1,5 +1,3 @@
-import Markdown from './markdown';
+import Markdown from "./markdown";
 
-export {
-  Markdown
-};
+export { Markdown };
