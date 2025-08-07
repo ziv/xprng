@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "postbuild": "cp license dist/xprng/markdown/.",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
