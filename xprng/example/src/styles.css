@@ -1,4 +1,4 @@
-@import "tailwindcss";
+/*@import "tailwindcss";*/
 
 aside {
   position: fixed;
@@ -20,28 +20,28 @@ main {
 }
 
 a {
-  @apply text-blue-500 dark:text-blue-300 hover:text-blue-700
-    dark:hover:text-blue-500 hover:underline;
+  /*@apply text-blue-500 dark:text-blue-300 hover:text-blue-700*/
+  /*  dark:hover:text-blue-500 hover:underline;*/
 }
 
 p, h1, h2, h3, h4, h5, h6, code, article {
-  @apply my-3;
+  /*@apply my-3;*/
 }
 
 h1 {
-  @apply text-3xl font-light;
+  /*@apply text-3xl font-light;*/
 }
 
 h2 {
-  @apply text-2xl font-light;
+  /*@apply text-2xl font-light;*/
 }
 
-code {
-  @apply block rounded-md bg-amber-50 dark:bg-amber-100 p-4 font-mono
-    border-gray-500 border-1;
-}
+/*code {*/
+/*  @apply block rounded-md bg-amber-50 dark:bg-amber-100 p-4 font-mono*/
+/*    border-gray-500 border-1;*/
+/*}*/
 
-article {
-  @apply block rounded-md bg-blue-50 dark:bg-amber-100 p-4 font-mono
-    border-gray-500 border-1;
-}
+/*article {*/
+/*  @apply block rounded-md bg-blue-50 dark:bg-amber-100 p-4 font-mono*/
+/*    border-gray-500 border-1;*/
+/*}*/

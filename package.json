@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build @xprng/markdown",
-    "postbuild": "cp license dist/xprng/markdown/.",
+    "build": "./build.sh",
+    "postbuild": "cp license dist/xprng/markdown/. && cp license dist/xprng/highlighter/.",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -42,6 +42,7 @@
     "commitizen": "^4.3.1",
     "cz-conventional-changelog": "^3.0.1",
     "dompurify": "^3.2.6",
+    "highlight.js": "^11.11.1",
     "jasmine-core": "~5.8.0",
     "jsdom": "^26.1.0",
     "karma": "~6.4.0",
@@ -54,6 +55,7 @@
     "ng-packagr": "^20.1.0",
     "semantic-release": "^24.2.7",
     "semantic-release-monorepo": "^8.0.2",
+    "shiki": "^3.9.2",
     "typescript": "~5.8.2",
     "vitest": "^3.2.4"
   },

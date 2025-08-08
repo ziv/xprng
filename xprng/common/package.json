@@ -1,11 +1,9 @@
 {
-  "name": "@xprng/markdown",
+  "name": "@xprng/common",
   "version": "0.0.0",
   "peerDependencies": {
     "@angular/common": "^20.1.0",
-    "@angular/core": "^20.1.0",
-    "@angular/platform-browser": "^20.1.0",
-    "marked": "^16.1.2"
+    "@angular/core": "^20.1.0"
   },
   "devDependencies": {
     "semantic-release": "^24.2.7"
@@ -19,8 +17,7 @@
   "keywords": [
     "angular",
     "component",
-    "markdown",
-    "xpr-markdown",
+    "common",
     "xprng",
     "ng",
     "xpr"
@@ -32,7 +29,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ziv/xprng.git",
-    "directory": "xprng/markdown"
+    "directory": "xprng/common"
   },
   "bugs": {
     "url": "https://github.com/ziv/xprng/issues"
@@ -42,11 +39,11 @@
     "**/*.js",
     "*.js",
     "*.d.ts",
-    "../../packages/xprng/components/md/README.md",
+    "README.md",
     "license"
   ],
   "release": {
-    "tagFormat": "markdown-v${version}",
+    "tagFormat": "common-v${version}",
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",

@@ -1,15 +1,14 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing";
-
-import Markdown from "./markdown";
-import { provideZonelessChangeDetection } from "@angular/core";
+import {ComponentFixture, TestBed} from "@angular/core/testing";
+import {Markdown} from "./markdown";
+import {provideZonelessChangeDetection} from "@angular/core";
 import {
   HttpTestingController,
   provideHttpClientTesting,
 } from "@angular/common/http/testing";
-import { provideHttpClient } from "@angular/common/http";
-import { expect } from "vitest";
+import {provideHttpClient} from "@angular/common/http";
+import {expect} from "vitest";
 
-describe("Markdown", () => {
+describe("markdown.ts", () => {
   let component: Markdown;
   let fixture: ComponentFixture<Markdown>;
   let httpTesting: HttpTestingController;
@@ -33,19 +32,25 @@ describe("Markdown", () => {
     expect(component).toBeTruthy();
   });
 
-  it("should load markdown from src", async () => {
-    // set a new input for the component
-    fixture.componentRef.setInput("src", "test.md");
+  it('should render markdown from input', async () => {
+    fixture.componentRef.setInput("md", "# Test Markdown\n\n# Another Heading");
+
     fixture.detectChanges();
-
-    // the component should request the markdown file
-    httpTesting.expectOne("test.md").flush("# Test Markdown");
-
-    // wait for the component to stabilize
     await fixture.whenStable();
-    const el = fixture.debugElement.nativeElement as HTMLElement;
 
-    // the template should render the markdown as HTML
+    const el = fixture.debugElement.nativeElement as HTMLElement;
+    expect(el).toBeInstanceOf(HTMLElement);
+    expect(el.querySelectorAll("h1").length).toBe(2);
+  });
+
+  it("should load markdown from src", async () => {
+    fixture.componentRef.setInput("src", "test.md");
+
+    fixture.detectChanges();
+    httpTesting.expectOne("test.md").flush("# Test Markdown");
+    await fixture.whenStable();
+
+    const el = fixture.debugElement.nativeElement as HTMLElement;
     expect(el).toBeInstanceOf(HTMLElement);
     expect(el.querySelectorAll("h1").length).toBe(1);
   });

@@ -36,8 +36,20 @@ jobs:
       - name: 🌈 build
         run: npm run build
 
+      - name: 🦋release common
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: cd dist/xprng/common && npx semantic-release
+
       - name: 🦋release markdown
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: cd dist/xprng/markdown && npx semantic-release
+
+      - name: 🦋release code
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: cd dist/xprng/code && npx semantic-release

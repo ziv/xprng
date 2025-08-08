@@ -13,6 +13,9 @@ import { RouterLink, RouterOutlet } from "@angular/router";
         <li>
           <a routerLink="/markdown">Markdown</a>
         </li>
+        <li>
+          <a routerLink="/highlighter">Highlighter</a>
+        </li>
       </ul>
     </aside>
     <main>

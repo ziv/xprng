@@ -1,23 +1,7 @@
-import {
-  AfterContentInit,
-  AfterViewInit,
-  Component,
-  computed,
-  contentChild,
-  Directive,
-  effect,
-  inject,
-  input,
-  OnInit,
-  untracked,
-  viewChild,
-  ViewContainerRef,
-} from "@angular/core";
-import { httpResource } from "@angular/common/http";
-import { DomSanitizer } from "@angular/platform-browser";
-import DOMPurify, { Config } from "dompurify";
-import { marked, type MarkedOptions } from "marked";
-import { NgComponentOutlet } from "@angular/common";
+import {Component, computed, inject, input,} from "@angular/core";
+import {httpResource} from "@angular/common/http";
+import {DomSanitizer} from "@angular/platform-browser";
+import {marked, type MarkedOptions} from "marked";
 
 export type MarkdownOptions = {
   /**
@@ -25,18 +9,6 @@ export type MarkdownOptions = {
    * @see https://marked.js.org/using_advanced#options
    */
   marked: MarkedOptions;
-
-  /**
-   * DOMPurify configuration for sanitizing HTML.
-   * @see https://github.com/cure53/DOMPurify
-   */
-  dompurify: Config;
-
-  /**
-   * Whether to sanitize the output HTML.
-   * If true, the output will be sanitized using DOMPurify.
-   */
-  sanitize: boolean;
 };
 
 @Component({
@@ -46,77 +18,52 @@ export type MarkdownOptions = {
     class: "xpr-markdown",
   },
   template: `
-    @if (markdownSource.error()) {
-      <ng-content select="xpr-markdown-error"></ng-content>
+    @if (md()) {
+      <div class="xpr-value" [innerHTML]="markdown()"></div>
+    } @else if (markdownSource.error()) {
+      <ng-content select="xpr-error-state"></ng-content>
     } @else if (markdownSource.isLoading()) {
-      <ng-content select="xpr-markdown-loading"></ng-content>
+      <ng-content select="xpr-oading-state"></ng-content>
     } @else if (markdownSource.hasValue()) {
-      <div class="xpr-markdown xpr-ok" [innerHTML]="markdown()"></div>
+      <div class="xpr-value xpr-loaded" [innerHTML]="markdown()"></div>
     }
   `,
-  imports: [
-    NgComponentOutlet,
-  ],
 })
 export class Markdown {
   /**
-   * The source URL of the markdown content.
+   * The markdown content to be rendered.
    */
-  readonly src = input.required<string>();
+  readonly md = input<string | undefined>();
 
   /**
-   * Options for parsing and sanitizing the markdown content.
+   * The source URL of the markdown content.
+   * If `md` is provided, this will be ignored.
+   */
+  readonly src = input<string | undefined>();
+
+  /**
+   * Options for the markdown content.
    */
   readonly options = input<Partial<MarkdownOptions> | undefined | null>();
 
   //
 
+  /**
+   * If attribute `md` is set, it will be used as the markdown content.
+   * If attribute `src` is set, it will be used to fetch the markdown content.
+   * If neither is set, the component will not render any content.
+   * @protected
+   */
   protected readonly markdown = computed(() => {
-    // no value yet...
-    if (!this.markdownSource.hasValue()) {
-      return this.sanitize("");
+    let text = this.md() ?? "";
+    if (!text && this.markdownSource.hasValue()) {
+      text = this.markdownSource.value() ?? "";
     }
-
-    // convert markdown to HTML
-    const html = marked.parse(
-      this.markdownSource.value(),
-      (this.options()?.marked ?? {}) as MarkedOptions,
-    ) as string;
-
-    // another layer of sanitization
-    if (this.options()?.sanitize) {
-      return this.sanitize(
-        DOMPurify.sanitize(
-          html,
-          this.options()?.dompurify ?? {},
-        ).toString(),
-      );
-    }
-    return this.sanitize(html);
+    const opts = this.options()?.marked ?? {};
+    return this.sanitize.bypassSecurityTrustHtml(marked.parse(text, opts) as string);
   });
 
   protected readonly markdownSource = httpResource.text(() => this.src());
-  private readonly sanitize = inject(DomSanitizer).bypassSecurityTrustHtml.bind(
-    inject(DomSanitizer),
-  );
+  private readonly sanitize = inject(DomSanitizer);
 }
 
-@Directive({
-  selector: "xpr-markdown-loading,[xpr-markdown-loading]",
-  exportAs: "xprMarkdownLoading",
-  host: {
-    class: "xpr-markdown xpr-loading",
-  },
-})
-export class MarkdownLoading {
-}
-
-@Directive({
-  selector: "xpr-markdown-error,[xpr-markdown-error]",
-  exportAs: "xprMarkdownError",
-  host: {
-    class: "xpr-markdown xpr-error",
-  },
-})
-export class MarkdownError {
-}

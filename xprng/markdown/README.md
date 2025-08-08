@@ -1,57 +1,34 @@
-# Markdown
+# @xprng/markdown
 
-## Installation
-
-```shell
-npm install @xprng/markdown
-```
-
-Require `HttpClient` to load markdown files. Add the `provideHttpClient()` to
-your app configuration:
-
-```typescript
-import { provideHttpClient } from "@angular/common/http";
-```
+An image like (with `src` attribute) component to load and render markdown
+content.
 
 ## Usage
 
-```html
-<xpr-markdown src="https://example.com/README.md" />
-```
-
-### Sanitization
-
-If you load markdown from a remote source, you need to sanitize the HTML output.
-Use the `sanitize` option to enable sanitization:
-
-```typescript
-import { Markdown } from "@xprng/markdown";
-
-@Component({
-  template: `
-<xpr-markdown [src]="src" [options]="opt"/>`,
-  imports: [Markdown],
-})
-class Component {
-  src = "https://example.com/README.md";
-
-  // all options are optional :)
-  opt = {
-    sanitize: true,
-    dompurify: {/* DOM Purify options */},
-    marked: {/* Marked options */},
-  };
-}
-```
-
-### Error Handling
-
-If the markdown file cannot be loaded the component can display an error
-message:
+### Binding markdown content
 
 ```html
-<xpr-markdown
-  src="https://example.com/README.md"
-  err="Error loading markdown"
-/>
+
+<xpr-markdown md="# Markdown"/>
+  <xpr-markdown [md]="markdownContent"/>
+```
+
+### Loading markdown from a URL
+
+```html
+
+<xpr-markdown src="https://example.com/README.md"/>
+<xpr-markdown [src]="markdownUrl"/>
+```
+
+### Nested state components
+
+You can use nested components to display loading and error states.
+
+```html
+
+<xpr-markdown src="https://example.com/README.md">
+  <xpr-loading-state>loading...</xpr-loading-state>
+  <xpr-error-state>error loading markdown</xpr-error-state>
+</xpr-markdown>
 ```
