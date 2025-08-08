@@ -38,7 +38,7 @@ jobs:
         run: npm run build
 
       - name: 🦋release common
-        if: contains(github.event.release.message, '(common)')
+        if: contains(github.event.release.message, 'common')
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
