@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "./build.sh",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "docs": "compodoc -p tsconfig.doc.json"
   },
   "prettier": {
     "overrides": [
@@ -36,6 +37,7 @@
     "@angular/build": "^20.1.5",
     "@angular/cli": "^20.1.5",
     "@angular/compiler-cli": "^20.1.0",
+    "@compodoc/compodoc": "^1.1.26",
     "@types/jasmine": "~5.1.0",
     "@types/markdown-it": "^14.1.2",
     "commitizen": "^4.3.1",
@@ -62,5 +64,11 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "compodoc": {
+    "name": "XPRNG",
+    "hideGenerator": true,
+    "output": "docs",
+    "theme": "postmark"
   }
 }
