@@ -45,14 +45,14 @@ jobs:
         run: cd dist/xprng/common && npx semantic-release
 
       - name: 🦋release markdown
-        if: contains(github.event.release.message, '(markdown)')
+        if: contains(github.event.head_commit.message, '(markdown)')
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: cd dist/xprng/markdown && npx semantic-release
 
       - name: 🦋release code
-        if: contains(github.event.release.message, '(code)')
+        if: contains(github.event.head_commit.message, '(code)')
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
