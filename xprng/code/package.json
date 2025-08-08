@@ -14,6 +14,10 @@
     "tslib": "^2.3.0"
   },
   "sideEffects": false,
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "author": "Ziv Perry",
   "license": "MIT",
   "keywords": [
