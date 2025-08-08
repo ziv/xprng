@@ -12,8 +12,9 @@ permissions:
   issues: write # to be able to comment on released issues
   pull-requests: write # to be able to comment on released pull requests
   id-token: write # to enable use of OIDC for npm provenance (npm and jsr)
+
 jobs:
-  prepare:
+  release:
     name: release
     runs-on: ubuntu-latest
     steps:
@@ -37,18 +38,21 @@ jobs:
         run: npm run build
 
       - name: 🦋release common
+        if: contains(github.event.release.message, '(common)')
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: cd dist/xprng/common && npx semantic-release
 
       - name: 🦋release markdown
+        if: contains(github.event.release.message, '(markdown)')
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: cd dist/xprng/markdown && npx semantic-release
 
       - name: 🦋release code
+        if: contains(github.event.release.message, '(code)')
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
