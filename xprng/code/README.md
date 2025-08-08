@@ -2,6 +2,12 @@
 
 An image like (with `src` attribute) component to load and highlight source code.
 
+## Installation
+
+```shell
+npm install @xprng/code shiki
+```
+
 ## Usage
 
 ### Binding source content
