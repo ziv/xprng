@@ -2,10 +2,12 @@
   "name": "@xprng/markdown",
   "version": "0.0.0",
   "peerDependencies": {
+    "@angular/cdk": "^20.1.5",
     "@angular/common": "^20.1.0",
     "@angular/core": "^20.1.0",
     "@angular/platform-browser": "^20.1.0",
-    "marked": "^16.1.2"
+    "marked": "^16.1.2",
+    "shiki": "^3.9.2"
   },
   "devDependencies": {
     "semantic-release": "^24.2.7"

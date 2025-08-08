@@ -10,7 +10,8 @@
     "types": []
   },
   "include": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "testing/**/*.ts",
   ],
   "exclude": [
     "**/*.spec.ts"

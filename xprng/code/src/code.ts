@@ -1,15 +1,9 @@
-import {Component, computed, inject, input,} from "@angular/core";
+import {Component, computed, inject, input, OnInit} from "@angular/core";
 import {httpResource} from "@angular/common/http";
 import {DomSanitizer} from "@angular/platform-browser";
-import shiki from './shiki';
-
-export type Highlighter = (input: string, opts: { theme: string; lang: string; }) => string;
-
-export type CodeOptions = {
-  highlighter: Highlighter;
-  theme?: string;
-  lang?: string;
-};
+import shiki from "./shiki";
+import type {HighlighterCore} from "shiki";
+import {Highlighter} from '@xprng/vendor/shiki'
 
 @Component({
   selector: "xpr-code",
@@ -19,27 +13,39 @@ export type CodeOptions = {
   },
   template: `
     @if (code()) {
-      <div class="xpr-value" [innerHTML]="content()"></div>
-    } @else if (codeResource.error()) {
-      <ng-content select="xpr-error-state"></ng-content>
-    } @else if (codeResource.isLoading()) {
-      <ng-content select="xpr-oading-state"></ng-content>
-    } @else if (codeResource.hasValue()) {
-      <div class="xpr-value xpr-loaded" [innerHTML]="content()"></div>
+      <div class="xpr-value xpr-local" [innerHTML]="content()"></div>
+    }
+    @if (src()) {
+      @switch (res.status()) {
+        @case ("error") {
+          <ng-content select="xpr-error-state"></ng-content>
+        }
+        @case ("loading") {
+          <ng-content select="xpr-loading-state"></ng-content>
+        }
+        @case ("resolved") {
+          <div class="xpr-value xpr-loaded" [innerHTML]="content()"></div>
+        }
+        @default {
+          <ng-content select="xpr-empty-state"></ng-content>
+        }
+      }
     }
   `,
 })
-export class Code {
+export class Code implements OnInit {
   /**
    * Source code content as a string
    * This can be used to directly provide source code content.
    * If this is set, the `src` attribute will be ignored.
+   * @input
    */
   readonly code = input<string | undefined>();
 
   /**
    * The source URL of the source code content.
    * This is optional and can be used to fetch source code content from a URL.
+   * @input
    */
   readonly src = input<string | undefined>();
 
@@ -47,6 +53,7 @@ export class Code {
    * The programming language of the source code.
    * This should be a valid language identifier supported by Shiki.
    * @see https://shiki.style/languages
+   * @input
    */
   readonly lang = input<string>("javascript");
 
@@ -54,36 +61,45 @@ export class Code {
    * The theme to use for syntax highlighting.
    * This can be any theme supported by Shiki.
    * @see https://shiki.style/themes
+   * @input
    */
   readonly theme = input<string>("nord");
 
   /**
    * Options for the code content.
    * This can include a custom highlighter function and marked options.
+   * @input
    */
-  readonly options = input<CodeOptions | undefined | null>();
+  readonly highlighter = input<HighlighterCore>(Highlighter);
 
   //
 
-  /**
-   * If attribute `code` is set, it will be used as the source content.
-   * If attribute `src` is set, it will be used to fetch the source content.
-   * If neither is set, the component will not render any content.
-   * @protected
-   */
-  protected readonly content = computed(() => {
-    let code = this.code() ?? "";
-    if (!code && this.codeResource.hasValue()) {
-      code = this.codeResource.value() ?? "";
+  protected content = computed(() => {
+    if (this.code()) {
+      return this.parse(this.code() ?? "");
     }
-    const fn = (this.options()?.highlighter ?? shiki) as Highlighter;
-    return this.sanitize.bypassSecurityTrustHtml(fn(code as string, {
-      lang: this.options()?.lang ?? this.lang(),
-      theme: this.options()?.theme ?? this.theme(),
-    }).toString());
+    if (this.src()) {
+      return this.parse(this.res.hasValue() ? this.res.value() : "");
+    }
+    throw new Error("Either 'code' or 'src' must be provided.");
   });
 
-  protected readonly codeResource = httpResource.text(() => this.src());
-  private readonly sanitize = inject(DomSanitizer);
-}
+  private parse(text: string) {
+    return this.sanitize.bypassSecurityTrustHtml(
+      this.highlighter().codeToHtml(text, {
+        lang: this.lang(),
+        theme: this.theme(),
+      }).toString()
+    );
+  }
 
+  protected readonly res = httpResource.text(() => this.src());
+  private readonly sanitize = inject(DomSanitizer);
+
+
+  ngOnInit() {
+    if (!this.code() && !this.src()) {
+      throw new Error("Either 'code' or 'src' input must be provided.");
+    }
+  }
+}

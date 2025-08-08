@@ -1,6 +1,7 @@
 # @xprng/code
 
-An image like (with `src` attribute) component to load and highlight source code.
+An image like (with `src` attribute) component to load and highlight source
+code.
 
 ## Installation
 
@@ -13,17 +14,15 @@ npm install @xprng/code shiki
 ### Binding source content
 
 ```html
-
-<xpr-code code="foo()"/>
-<xpr-code [code]="codeContent"/>
+<xpr-code code="foo()" />
+<xpr-code [code]="codeContent" />
 ```
 
 ### Loading source from a URL
 
 ```html
-
-<xpr-code src="https://example.com/README.md"/>
-<xpr-code [src]="codeUrl"/>
+<xpr-code src="https://example.com/README.md" />
+<xpr-code [src]="codeUrl" />
 ```
 
 ### Nested state components
@@ -31,7 +30,6 @@ npm install @xprng/code shiki
 You can use nested components to display loading and error states.
 
 ```html
-
 <xpr-code src="https://example.com/README.md">
   <xpr-loading-state>loading...</xpr-loading-state>
   <xpr-error-state>error loading source</xpr-error-state>

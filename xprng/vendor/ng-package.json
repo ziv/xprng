@@ -1,6 +1,6 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "../../dist/xprng/common",
+  "dest": "../../dist/xprng/vendor",
   "lib": {
     "entryFile": "src/public-api.ts"
   }

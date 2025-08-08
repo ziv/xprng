@@ -1,4 +1,18 @@
-/*@import "tailwindcss";*/
+@import "tailwindcss";
+
+html, body {
+  height: 100%;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  font-family: "Noto Sans", Roboto, Helvetica Neue, sans-serif;
+  font-weight: 300;
+}
 
 aside {
   position: fixed;
@@ -25,23 +39,26 @@ a {
 }
 
 p, h1, h2, h3, h4, h5, h6, code, article {
-  /*@apply my-3;*/
+  @apply my-3;
 }
 
 h1 {
-  /*@apply text-3xl font-light;*/
+  @apply text-3xl font-light;
 }
 
 h2 {
-  /*@apply text-2xl font-light;*/
+  @apply text-2xl font-light;
 }
 
-/*code {*/
-/*  @apply block rounded-md bg-amber-50 dark:bg-amber-100 p-4 font-mono*/
-/*    border-gray-500 border-1;*/
-/*}*/
+h3 {
+  @apply text-xl font-light;
+}
 
-/*article {*/
-/*  @apply block rounded-md bg-blue-50 dark:bg-amber-100 p-4 font-mono*/
-/*    border-gray-500 border-1;*/
-/*}*/
+pre {
+  @apply px-4 py-0 text-xs;
+}
+
+article {
+  @apply block rounded-md dark:bg-amber-100 p-4 font-mono border-gray-500
+    border-1;
+}

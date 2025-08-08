@@ -160,6 +160,58 @@
           }
         }
       }
+    },
+    "harness": {
+      "projectType": "library",
+      "root": "harness",
+      "sourceRoot": "harness/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "harness/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "harness/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "harness/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "@xprng/vendor": {
+      "projectType": "library",
+      "root": "xprng/vendor",
+      "sourceRoot": "xprng/vendor/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "xprng/vendor/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "xprng/vendor/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "xprng/vendor/tsconfig.spec.json"
+          }
+        }
+      }
     }
   }
 }

@@ -3,10 +3,14 @@ import { Routes } from "@angular/router";
 export const routes: Routes = [
   {
     path: "markdown",
-    loadComponent: () => import("./markdown-example/markdown-example"),
+    loadComponent: () => import("../routes/markdown-example"),
   },
   {
     path: "highlighter",
-    loadComponent: () => import("./code-example/code-example"),
+    loadComponent: () => import("../routes/code-example"),
+  },
+  {
+    path: "",
+    loadComponent: () => import("../routes/free"),
   },
 ];

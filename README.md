@@ -1,6 +1,6 @@
 # (XP)Experimental (NG)Angular Components
 
-Micro packages of simple and smart components.
+Micro packages of very simple - but high quality - smart components.
 
 [![xprng-auto-release](https://github.com/ziv/xprng/actions/workflows/ci.yml/badge.svg)](https://github.com/ziv/xprng/actions/workflows/ci.yml)
 

@@ -1,26 +1,16 @@
-.xpr-loading {
-}
+.xpr-loading {}
 
-.xpr-loaded {
+.xpr-loaded {}
 
-}
+.xpr-error {}
 
-.xpr-error {
-}
+.xpr-ok {}
 
-.xpr-ok {
-}
+.xpr-value {}
 
-.xpr-value {
-}
+.xpr-error-state {}
 
-.xpr-error-state {
+.xpr-loading-state {}
 
-}
-
-.xpr-loading-state {
-}
-
-.xpr-ok-state {
-
-}
+.xpr-ok-state {}
+.xpr-empty-state {}

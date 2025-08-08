@@ -11,20 +11,26 @@
       "@xprng/code": [
         "./dist/xprng/code"
       ],
+      "@xprng/code/*": [
+        "./dist/xprng/code/*"
+      ],
       "@xprng/common": [
         "./dist/xprng/common"
       ],
-      "@xprng/components": [
-        "./dist/xprng/components"
-      ],
-      "@xprng/highlighter": [
-        "./dist/xprng/highlighter"
+      "@xprng/common/*": [
+        "./dist/xprng/common/*"
       ],
       "@xprng/markdown": [
         "./dist/xprng/markdown"
       ],
-      "@xprng/styles": [
-        "./dist/xprng/styles"
+      "@xprng/markdown/*": [
+        "./dist/xprng/markdown/*"
+      ],
+      "@xprng/vendor": [
+        "./dist/xprng/vendor"
+      ],
+      "@xprng/vendor/*": [
+        "./dist/xprng/vendor/*"
       ]
     },
     "noImplicitReturns": true,
@@ -58,24 +64,6 @@
       "path": "./xprng/example/tsconfig.spec.json"
     },
     {
-      "path": "./xprng/code1/tsconfig.lib.json"
-    },
-    {
-      "path": "./xprng/code1/tsconfig.spec.json"
-    },
-    {
-      "path": "./packages/xprng/components/tsconfig.lib.json"
-    },
-    {
-      "path": "./packages/xprng/components/tsconfig.spec.json"
-    },
-    {
-      "path": "./packages/xprng/styles/tsconfig.lib.json"
-    },
-    {
-      "path": "./packages/xprng/styles/tsconfig.spec.json"
-    },
-    {
       "path": "./xprng/common/tsconfig.lib.json"
     },
     {
@@ -86,6 +74,12 @@
     },
     {
       "path": "./xprng/code/tsconfig.spec.json"
+    },
+    {
+      "path": "./xprng/vendor/tsconfig.lib.json"
+    },
+    {
+      "path": "./xprng/vendor/tsconfig.spec.json"
     }
   ]
 }

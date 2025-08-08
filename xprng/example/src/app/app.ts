@@ -1,4 +1,4 @@
-import { Component, signal } from "@angular/core";
+import { Component, OnInit, signal } from "@angular/core";
 import { RouterLink, RouterOutlet } from "@angular/router";
 
 @Component({
@@ -23,6 +23,9 @@ import { RouterLink, RouterOutlet } from "@angular/router";
     </main>
   `,
 })
-export class App {
+export class App implements OnInit {
   protected readonly title = signal("example");
+
+  async ngOnInit() {
+  }
 }

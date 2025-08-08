@@ -1,15 +1,21 @@
-import {Component, computed, inject, input,} from "@angular/core";
-import {httpResource} from "@angular/common/http";
-import {DomSanitizer} from "@angular/platform-browser";
-import {marked, type MarkedOptions} from "marked";
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  input,
+  OnInit,
+} from "@angular/core";
+import { httpResource } from "@angular/common/http";
+import { DomSanitizer } from "@angular/platform-browser";
+import { Marked, type MarkedOptions } from "marked";
+import { highlight } from "@xprng/vendor/shiki";
 
-export type MarkdownOptions = {
-  /**
-   * Marked options for parsing markdown.
-   * @see https://marked.js.org/using_advanced#options
-   */
-  marked: MarkedOptions;
-};
+/**
+ * Marked options for parsing markdown.
+ * @see https://marked.js.org/using_advanced#options
+ */
+export type MarkdownOptions = MarkedOptions;
 
 @Component({
   selector: "xpr-markdown",
@@ -19,51 +25,87 @@ export type MarkdownOptions = {
   },
   template: `
     @if (md()) {
-      <div class="xpr-value" [innerHTML]="markdown()"></div>
-    } @else if (markdownSource.error()) {
-      <ng-content select="xpr-error-state"></ng-content>
-    } @else if (markdownSource.isLoading()) {
-      <ng-content select="xpr-oading-state"></ng-content>
-    } @else if (markdownSource.hasValue()) {
-      <div class="xpr-value xpr-loaded" [innerHTML]="markdown()"></div>
+      <!--
+      Markdown content is provided directly mode.
+      -->
+      <div class="xpr-value xpr-local" [innerHTML]="mdContent()"></div>
+
+    } @else if (src()) {
+      <!--
+      Source URL is provided mode.
+      -->
+      @if (res.hasValue() && res.value()) {
+        <div class="xpr-value xpr-loaded" [innerHTML]="srcContent()"></div>
+      } @else if (res.isLoading()) {
+        <ng-content select="xpr-loading-state"/>
+      } @else if (res.error()) {
+        <ng-content select="xpr-error-state"/>
+      } @else {
+        <ng-content select="xpr-empty-state"/>
+      }
     }
   `,
 })
-export class Markdown {
+export class Markdown implements OnInit {
   /**
    * The markdown content to be rendered.
+   * @input
    */
   readonly md = input<string | undefined>();
 
   /**
    * The source URL of the markdown content.
    * If `md` is provided, this will be ignored.
+   * @input
    */
   readonly src = input<string | undefined>();
 
   /**
-   * Options for the markdown content.
+   * The theme to use for syntax highlighting.
+   * @input
    */
-  readonly options = input<Partial<MarkdownOptions> | undefined | null>();
+  readonly theme = input<string>("github-light");
+
+  /**
+   * Options for the Maerked parser
+   * @input
+   */
+  readonly options = input<Partial<MarkdownOptions>>({});
 
   //
 
-  /**
-   * If attribute `md` is set, it will be used as the markdown content.
-   * If attribute `src` is set, it will be used to fetch the markdown content.
-   * If neither is set, the component will not render any content.
-   * @protected
-   */
-  protected readonly markdown = computed(() => {
-    let text = this.md() ?? "";
-    if (!text && this.markdownSource.hasValue()) {
-      text = this.markdownSource.value() ?? "";
-    }
-    const opts = this.options()?.marked ?? {};
-    return this.sanitize.bypassSecurityTrustHtml(marked.parse(text, opts) as string);
-  });
+  protected mdContent = computed(() => this.content(this.md() ?? ""));
+  protected srcContent = computed(() =>
+    this.content(this.res.hasValue() ? this.res.value() : "")
+  );
 
-  protected readonly markdownSource = httpResource.text(() => this.src());
+  private content(text: string) {
+    const marked = new Marked(highlight(this.theme()));
+    return this.sanitize.bypassSecurityTrustHtml(
+      marked.parse(text, this.options()) as string,
+    );
+  }
+
+  protected readonly res = httpResource.text(() => this.src());
   private readonly sanitize = inject(DomSanitizer);
-}
 
+  ngOnInit() {
+    if (!this.md() && !this.src()) {
+      throw new Error("Either 'md' or 'src' input must be provided.");
+    }
+  }
+
+  constructor() {
+    effect(() => {
+      console.log({
+        md: this.md(),
+        src: this.src(),
+        theme: this.theme(),
+        options: this.options(),
+        resStatus: this.res.status(),
+        resHasValue: this.res.hasValue(),
+        resError: this.res.error(),
+      });
+    });
+  }
+}

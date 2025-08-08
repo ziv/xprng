@@ -1,4 +1,4 @@
-import {Directive} from '@angular/core';
+import { Directive } from "@angular/core";
 
 @Directive({
   selector: "xpr-loading-state,[xpr-loading-state]",
@@ -7,7 +7,7 @@ import {Directive} from '@angular/core';
     class: "xpr-loading-state",
   },
 })
-export class XprLoadingState {
+export class LoadingState {
 }
 
 @Directive({
@@ -17,7 +17,7 @@ export class XprLoadingState {
     class: "xpr-error-state",
   },
 })
-export class XprErrorState {
+export class ErrorState {
 }
 
 @Directive({
@@ -27,5 +27,15 @@ export class XprErrorState {
     class: "xpr-ok-state",
   },
 })
-export class XprOkState {
+export class OkState {
+}
+
+@Directive({
+  selector: "xpr-empty-state,[xpr-empty-state]",
+  exportAs: "xprEmptyState",
+  host: {
+    class: "xpr-empty-state",
+  },
+})
+export class EmptyState {
 }

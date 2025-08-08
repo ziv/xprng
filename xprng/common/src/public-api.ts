@@ -1,5 +1,1 @@
-/*
- * Public API Surface of common
- */
-
-export * from './states';
+export * from "./states";
