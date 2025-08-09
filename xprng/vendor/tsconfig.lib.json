@@ -10,9 +10,7 @@
     "types": []
   },
   "include": [
-    "src/**/*.ts",
-    "shiki/**/*.ts",
-    "marked-shiki/**/*.ts",
+    "**/*.ts",
   ],
   "exclude": [
     "**/*.spec.ts"

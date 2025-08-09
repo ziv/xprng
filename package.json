@@ -1,13 +1,19 @@
 {
   "name": "xprng",
   "version": "0.0.0",
+  "private": true,
   "scripts": {
+    "build": "./build.sh",
+    "docs": "compodoc -p tsconfig.doc.json",
     "ng": "ng",
     "start": "ng serve",
-    "build": "./build.sh",
-    "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "docs": "compodoc -p tsconfig.doc.json"
+    "watch": "ng build --watch --configuration development"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   },
   "prettier": {
     "overrides": [
@@ -19,28 +25,25 @@
       }
     ]
   },
-  "private": true,
   "dependencies": {
-    "@angular/cdk": "^20.1.5",
-    "@angular/common": "^20.1.0",
-    "@angular/compiler": "^20.1.0",
-    "@angular/core": "^20.1.0",
-    "@angular/forms": "^20.1.0",
-    "@angular/platform-browser": "^20.1.0",
-    "@angular/router": "^20.1.0",
-    "@tailwindcss/postcss": "^4.1.11",
-    "postcss": "^8.5.6",
-    "rxjs": "~7.8.0",
-    "tailwindcss": "^4.1.11",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
     "@angular/build": "^20.1.5",
+    "@angular/cdk": "^20.1.5",
     "@angular/cli": "^20.1.5",
+    "@angular/common": "^20.1.0",
+    "@angular/compiler": "^20.1.0",
     "@angular/compiler-cli": "^20.1.0",
+    "@angular/core": "^20.1.0",
+    "@angular/forms": "^20.1.0",
+    "@angular/platform-browser": "^20.1.0",
+    "@angular/router": "^20.1.0",
     "@compodoc/compodoc": "^1.1.26",
+    "@tailwindcss/postcss": "^4.1.11",
     "@types/jasmine": "~5.1.0",
     "@types/markdown-it": "^14.1.2",
+    "@types/prismjs": "^1.26.5",
     "commitizen": "^4.3.1",
     "cz-conventional-changelog": "^3.0.1",
     "dompurify": "^3.2.6",
@@ -55,16 +58,13 @@
     "marked": "^16.1.2",
     "marked-highlight": "^2.2.2",
     "ng-packagr": "^20.1.0",
+    "postcss": "^8.5.6",
+    "rxjs": "~7.8.0",
     "semantic-release": "^24.2.7",
-    "semantic-release-monorepo": "^8.0.2",
     "shiki": "^3.9.2",
+    "tailwindcss": "^4.1.11",
     "typescript": "~5.8.2",
     "vitest": "^3.2.4"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
   },
   "compodoc": {
     "name": "XPRNG",
