@@ -117,14 +117,38 @@
 </p>
 
 
-
-
     <p class="comment">
-        <h3>Implements</h3>
+        <h3>Description</h3>
     </p>
     <p class="comment">
-                <code>OnInit</code>
+        <h1>Code</h1>
+<p>This component is used to display source code with syntax highlighting.
+It can either take a string of code directly or fetch it from a remote source.</p>
+<h2>Inputs</h2>
+<ul>
+<li><code>code</code>: A string containing the source code to be displayed. Unable to be used with <code>src</code>.</li>
+<li><code>src</code>: A URL from which to fetch the source code. Unable to be used with <code>code</code>.</li>
+<li><code>lang</code>: The programming language of the source code. This should be a valid language identifier supported by Shiki.</li>
+<li><code>theme</code>: The theme to use for syntax highlighting. This can be any theme supported by Shiki.</li>
+<li><code>highlighter</code>: A custom highlighter function (Should be an instance of Shiki&#39;s <code>HighlighterCore</code>).</li>
+</ul>
+<h2>Nested Content</h2>
+<p>The component supports nested content for different states, loading, error, and empty states.
+See the example below for how to use these states.</p>
+<h2>Examples</h2>
+<h3>Importing the component</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-typescript">import { Code } from &quot;&#64;xprng/code&quot;;</code></pre></div><h3>Importing states directives</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-typescript">import { LoadingState, ErrorState, EmptyState } from &quot;&#64;xprng/common&quot;;</code></pre></div><h3>Directly providing code content</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">&lt;xpr-code [code]=&quot;myCode&quot; lang=&quot;javascript&quot; theme=&quot;nord&quot;&gt;&lt;/xpr-code&gt;</code></pre></div><h3>Fetching code from a remote source</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">&lt;xpr-code src=&quot;https://example.com/my-code.js&quot; lang=&quot;javascript&quot; theme=&quot;nord&quot;&gt;&lt;/xpr-code&gt;</code></pre></div><h3>Using nested content for different states</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">&lt;xpr-code src=&quot;https://example.com/my-code.js&quot; lang=&quot;javascript&quot; theme=&quot;nord&quot;&gt;
+  &lt;xpr-loading-state&gt;Loading...&lt;/xpr-loading-state&gt;
+  &lt;xpr-error-state&gt;Error loading code.&lt;/xpr-error-state&gt;
+  &lt;xpr-empty-state&gt;No code available.&lt;/xpr-empty-state&gt;
+&lt;/xpr-code&gt;</code></pre></div>
     </p>
+
+
 
 
 <section data-compodoc="block-metadata">
@@ -242,24 +266,6 @@
                     </td>
                 </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <h6><b>Methods</b></h6>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <ul class="index-list">
-                            <li>
-                                <a href="#ngOnInit" >ngOnInit</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#parse" >parse</a>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
 
 
 
@@ -274,118 +280,7 @@
 
 
 
-    <section data-compodoc="block-methods">
-    
-    <h3 id="methods">
-        Methods
-    </h3>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="ngOnInit"></a>
-                    <span class="name">
-                        <span ><b>ngOnInit</b></span>
-                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>ngOnInit()</code>
-                </td>
-            </tr>
 
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="98"
-                                    class="link-to-prism">xprng/code/src/code.ts:98</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                        </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="parse"></a>
-                    <span class="name">
-                            <span class="modifier">Private</span>
-                        <span ><b>parse</b></span>
-                        <a href="#parse"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>parse(text: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="86"
-                                    class="link-to-prism">xprng/code/src/code.ts:86</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>text</td>
-                                            <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</section>
     <section data-compodoc="block-properties">
     
     <h3 id="inputs">
@@ -410,7 +305,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">xprng/code/src/code.ts:42</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="100" class="link-to-prism">xprng/code/src/code.ts:100</a></div>
                         </td>
                     </tr>
 
@@ -440,19 +335,34 @@ If this is set, the <code>src</code> attribute will be ignored.</p>
                 <tr>
                     <td class="col-md-4">
                         <i>Default value : </i><code>computed(() &#x3D;&gt; {
-    if (this.code()) return this.parse(this.code() ?? &quot;&quot;);
-
-    if (this.src()) {
-      return this.parse(this.res.hasValue() ? this.res.value() : &quot;&quot;);
+    if (!this.code() &amp;&amp; !this.src()) {
+      throw new Error(ERROR_NONE);
+    }
+    if (this.code() &amp;&amp; this.src()) {
+      throw new Error(ERROR_BOTH);
     }
 
-    return this.parse(&quot;&quot;);
+    const parse &#x3D; (text: string) &#x3D;&gt;
+      this.sanitize.bypassSecurityTrustHtml(
+        getHighlighter().codeToHtml(text, {
+          lang: this.lang(),
+          theme: this.theme(),
+        }).toString(),
+      );
+
+    if (this.code()) return parse(this.code() ?? &quot;&quot;);
+
+    if (this.src()) {
+      return parse(this.res.hasValue() ? this.res.value() : &quot;&quot;);
+    }
+
+    return parse(&quot;&quot;);
   })</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="76" class="link-to-prism">xprng/code/src/code.ts:76</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="133" class="link-to-prism">xprng/code/src/code.ts:133</a></div>
                         </td>
                     </tr>
 
@@ -478,14 +388,13 @@ If this is set, the <code>src</code> attribute will be ignored.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="72" class="link-to-prism">xprng/code/src/code.ts:72</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="129" class="link-to-prism">xprng/code/src/code.ts:129</a></div>
                         </td>
                     </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Options for the code content.
-This can include a custom highlighter function and marked options.</p>
+                    <div class="io-description"><p>A custom highlighter function (Should be an instance of Shiki&#39;s <code>HighlighterCore</code>).</p>
 </div>
                 </td>
             </tr>
@@ -511,7 +420,7 @@ This can include a custom highlighter function and marked options.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">xprng/code/src/code.ts:57</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="115" class="link-to-prism">xprng/code/src/code.ts:115</a></div>
                         </td>
                     </tr>
 
@@ -546,7 +455,7 @@ See <a href="https://shiki.style/languages">https://shiki.style/languages</a></p
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="95" class="link-to-prism">xprng/code/src/code.ts:95</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="158" class="link-to-prism">xprng/code/src/code.ts:158</a></div>
                         </td>
                     </tr>
 
@@ -573,7 +482,7 @@ See <a href="https://shiki.style/languages">https://shiki.style/languages</a></p
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="96" class="link-to-prism">xprng/code/src/code.ts:96</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="159" class="link-to-prism">xprng/code/src/code.ts:159</a></div>
                         </td>
                     </tr>
 
@@ -599,7 +508,7 @@ See <a href="https://shiki.style/languages">https://shiki.style/languages</a></p
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">xprng/code/src/code.ts:49</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="107" class="link-to-prism">xprng/code/src/code.ts:107</a></div>
                         </td>
                     </tr>
 
@@ -632,7 +541,7 @@ This is optional and can be used to fetch source code content from a URL.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">xprng/code/src/code.ts:65</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="123" class="link-to-prism">xprng/code/src/code.ts:123</a></div>
                         </td>
                     </tr>
 
@@ -653,12 +562,70 @@ See <a href="https://shiki.style/themes">https://shiki.style/themes</a></p>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, computed, inject, input, OnInit } from &quot;@angular/core&quot;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, computed, inject, input } from &quot;@angular/core&quot;;
 import { httpResource } from &quot;@angular/common/http&quot;;
 import { DomSanitizer } from &quot;@angular/platform-browser&quot;;
 import type { HighlighterCore } from &quot;shiki&quot;;
 import { getHighlighter } from &quot;@xprng/vendor/shiki&quot;;
 
+const ERROR_NONE &#x3D;
+  &quot;Either &#x27;code&#x27; or &#x27;src&#x27; input must be provided. Neither is set.&quot;;
+const ERROR_BOTH &#x3D; &quot;Either &#x27;code&#x27; or &#x27;src&#x27; input should be provided, not both.&quot;;
+
+/**
+ * # Code
+ *
+ * This component is used to display source code with syntax highlighting.
+ * It can either take a string of code directly or fetch it from a remote source.
+ *
+ * ## Inputs
+ *
+ * - &#x60;code&#x60;: A string containing the source code to be displayed. Unable to be used with &#x60;src&#x60;.
+ * - &#x60;src&#x60;: A URL from which to fetch the source code. Unable to be used with &#x60;code&#x60;.
+ * - &#x60;lang&#x60;: The programming language of the source code. This should be a valid language identifier supported by Shiki.
+ * - &#x60;theme&#x60;: The theme to use for syntax highlighting. This can be any theme supported by Shiki.
+ * - &#x60;highlighter&#x60;: A custom highlighter function (Should be an instance of Shiki&#x27;s &#x60;HighlighterCore&#x60;).
+ *
+ * ## Nested Content
+ *
+ * The component supports nested content for different states, loading, error, and empty states.
+ * See the example below for how to use these states.
+ *
+ * ## Examples
+ *
+ * ### Importing the component
+ *
+ * &#x60;&#x60;&#x60;typescript
+ * import { Code } from &quot;@xprng/code&quot;;
+ * &#x60;&#x60;&#x60;
+ *
+ * ### Importing states directives
+ *
+ * &#x60;&#x60;&#x60;typescript
+ * import { LoadingState, ErrorState, EmptyState } from &quot;@xprng/common&quot;;
+ * &#x60;&#x60;&#x60;
+ *
+ * ### Directly providing code content
+ *
+ * &#x60;&#x60;&#x60;html
+ * &lt;xpr-code [code]&#x3D;&quot;myCode&quot; lang&#x3D;&quot;javascript&quot; theme&#x3D;&quot;nord&quot;&gt;&lt;/xpr-code&gt;
+ * &#x60;&#x60;&#x60;
+ *
+ * ### Fetching code from a remote source
+ *
+ * &#x60;&#x60;&#x60;html
+ * &lt;xpr-code src&#x3D;&quot;https://example.com/my-code.js&quot; lang&#x3D;&quot;javascript&quot; theme&#x3D;&quot;nord&quot;&gt;&lt;/xpr-code&gt;
+ * &#x60;&#x60;&#x60;
+ *
+ * ### Using nested content for different states
+ * &#x60;&#x60;&#x60;html
+ * &lt;xpr-code src&#x3D;&quot;https://example.com/my-code.js&quot; lang&#x3D;&quot;javascript&quot; theme&#x3D;&quot;nord&quot;&gt;
+ *   &lt;xpr-loading-state&gt;Loading...&lt;/xpr-loading-state&gt;
+ *   &lt;xpr-error-state&gt;Error loading code.&lt;/xpr-error-state&gt;
+ *   &lt;xpr-empty-state&gt;No code available.&lt;/xpr-empty-state&gt;
+ * &lt;/xpr-code&gt;
+ * &#x60;&#x60;&#x60;
+ */
 @Component({
   selector: &quot;xpr-code&quot;,
   host: {
@@ -687,7 +654,7 @@ import { getHighlighter } from &quot;@xprng/vendor/shiki&quot;;
     }
   &#x60;,
 })
-export class Code implements OnInit {
+export class Code {
   /**
    * Source code content as a string
    * This can be used to directly provide source code content.
@@ -720,8 +687,7 @@ export class Code implements OnInit {
   readonly theme &#x3D; input&lt;string&gt;(&quot;nord&quot;);
 
   /**
-   * Options for the code content.
-   * This can include a custom highlighter function and marked options.
+   * A custom highlighter function (Should be an instance of Shiki&#x27;s &#x60;HighlighterCore&#x60;).
    * @input
    */
   readonly highlighter &#x3D; input&lt;HighlighterCore | undefined&gt;();
@@ -729,37 +695,32 @@ export class Code implements OnInit {
   //
 
   protected content &#x3D; computed(() &#x3D;&gt; {
-    if (this.code()) return this.parse(this.code() ?? &quot;&quot;);
-
-    if (this.src()) {
-      return this.parse(this.res.hasValue() ? this.res.value() : &quot;&quot;);
+    if (!this.code() &amp;&amp; !this.src()) {
+      throw new Error(ERROR_NONE);
+    }
+    if (this.code() &amp;&amp; this.src()) {
+      throw new Error(ERROR_BOTH);
     }
 
-    return this.parse(&quot;&quot;);
-  });
+    const parse &#x3D; (text: string) &#x3D;&gt;
+      this.sanitize.bypassSecurityTrustHtml(
+        getHighlighter().codeToHtml(text, {
+          lang: this.lang(),
+          theme: this.theme(),
+        }).toString(),
+      );
 
-  private parse(text: string) {
-    return this.sanitize.bypassSecurityTrustHtml(
-      getHighlighter().codeToHtml(text, {
-        lang: this.lang(),
-        theme: this.theme(),
-      }).toString(),
-    );
-  }
+    if (this.code()) return parse(this.code() ?? &quot;&quot;);
+
+    if (this.src()) {
+      return parse(this.res.hasValue() ? this.res.value() : &quot;&quot;);
+    }
+
+    return parse(&quot;&quot;);
+  });
 
   protected readonly res &#x3D; httpResource.text(() &#x3D;&gt; this.src());
   private readonly sanitize &#x3D; inject(DomSanitizer);
-
-  ngOnInit() {
-    if (!this.code() &amp;&amp; !this.src()) {
-      throw new Error(&quot;Either &#x27;code&#x27; or &#x27;src&#x27; input must be provided.&quot;);
-    }
-    if (this.code() &amp;&amp; this.src()) {
-      console.warn(
-        &quot;Either &#x27;code&#x27; or &#x27;src&#x27; input should be provided, not both.&quot;,
-      );
-    }
-  }
 }
 </code></pre>
     </div>
