@@ -68,8 +68,11 @@
   },
   "compodoc": {
     "name": "XPRNG",
-    "hideGenerator": true,
     "output": "docs",
-    "theme": "postmark"
+    "theme": "postmark",
+    "hideGenerator": true,
+    "disableSourceCode": true,
+    "disableDomTree": true,
+    "disableTemplateTab": true
   }
 }
