@@ -299,8 +299,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="97"
-                                    class="link-to-prism">xprng/code/src/code.ts:97</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="94"
+                                    class="link-to-prism">xprng/code/src/code.ts:94</a></div>
                         </td>
                     </tr>
 
@@ -338,8 +338,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="86"
-                                    class="link-to-prism">xprng/code/src/code.ts:86</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="84"
+                                    class="link-to-prism">xprng/code/src/code.ts:84</a></div>
                         </td>
                     </tr>
 
@@ -445,13 +445,12 @@ If this is set, the <code>src</code> attribute will be ignored.</p>
     if (this.src()) return this.parse(this.res.hasValue() ? this.res.value() : &quot;&quot;);
 
     return this.parse(&quot;&quot;);
-    // throw new Error(&quot;Either &#x27;code&#x27; or &#x27;src&#x27; must be provided.&quot;);
   })</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="77" class="link-to-prism">xprng/code/src/code.ts:77</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="76" class="link-to-prism">xprng/code/src/code.ts:76</a></div>
                         </td>
                     </tr>
 
@@ -472,12 +471,12 @@ If this is set, the <code>src</code> attribute will be ignored.</p>
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>input&lt;any | undefined&gt;()</code>
+                        <i>Default value : </i><code>input&lt;HighlighterCore | undefined&gt;()</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="73" class="link-to-prism">xprng/code/src/code.ts:73</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="72" class="link-to-prism">xprng/code/src/code.ts:72</a></div>
                         </td>
                     </tr>
 
@@ -545,7 +544,7 @@ See <a href="https://shiki.style/languages">https://shiki.style/languages</a></p
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="93" class="link-to-prism">xprng/code/src/code.ts:93</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="90" class="link-to-prism">xprng/code/src/code.ts:90</a></div>
                         </td>
                     </tr>
 
@@ -572,7 +571,7 @@ See <a href="https://shiki.style/languages">https://shiki.style/languages</a></p
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="94" class="link-to-prism">xprng/code/src/code.ts:94</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="91" class="link-to-prism">xprng/code/src/code.ts:91</a></div>
                         </td>
                     </tr>
 
@@ -655,8 +654,8 @@ See <a href="https://shiki.style/themes">https://shiki.style/themes</a></p>
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {Component, computed, inject, input, OnInit} from &quot;@angular/core&quot;;
 import {httpResource} from &quot;@angular/common/http&quot;;
 import {DomSanitizer} from &quot;@angular/platform-browser&quot;;
-// import type {HighlighterCore} from &quot;shiki&quot;;
-// import {getHighlighter} from &#x27;@xprng/vendor/shiki&#x27;
+import type {HighlighterCore} from &quot;shiki&quot;;
+import {getHighlighter} from &#x27;@xprng/vendor/shiki&#x27;
 
 @Component({
   selector: &quot;xpr-code&quot;,
@@ -723,8 +722,7 @@ export class Code implements OnInit {
    * This can include a custom highlighter function and marked options.
    * @input
    */
-  // readonly highlighter &#x3D; input&lt;HighlighterCore | undefined&gt;();
-  readonly highlighter &#x3D; input&lt;any | undefined&gt;();
+  readonly highlighter &#x3D; input&lt;HighlighterCore | undefined&gt;();
 
   //
 
@@ -734,13 +732,11 @@ export class Code implements OnInit {
     if (this.src()) return this.parse(this.res.hasValue() ? this.res.value() : &quot;&quot;);
 
     return this.parse(&quot;&quot;);
-    // throw new Error(&quot;Either &#x27;code&#x27; or &#x27;src&#x27; must be provided.&quot;);
   });
 
   private parse(text: string) {
     return this.sanitize.bypassSecurityTrustHtml(
-      &#x27;aaa&#x27;
-      // getHighlighter().codeToHtml(text, {lang: this.lang(), theme: this.theme()}).toString()
+      getHighlighter().codeToHtml(text, {lang: this.lang(), theme: this.theme()}).toString()
     );
   }
 
