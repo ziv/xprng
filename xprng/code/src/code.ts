@@ -1,12 +1,13 @@
-import { Component, computed, inject, input } from "@angular/core";
-import { httpResource } from "@angular/common/http";
-import { DomSanitizer } from "@angular/platform-browser";
-import type { HighlighterCore } from "shiki";
-import { getHighlighter } from "@xprng/vendor/shiki";
+import {Component, computed, inject, input} from "@angular/core";
+import {httpResource} from "@angular/common/http";
+import {DomSanitizer} from "@angular/platform-browser";
+import type {HighlighterCore} from "shiki";
+import {getHighlighter} from "@xprng/vendor/shiki";
 
 const ERROR_NONE =
   "Either 'code' or 'src' input must be provided. Neither is set.";
-const ERROR_BOTH = "Either 'code' or 'src' input should be provided, not both.";
+const ERROR_BOTH =
+  "Either 'code' or 'src' input should be provided, not both.";
 
 /**
  * # Code
@@ -69,23 +70,23 @@ const ERROR_BOTH = "Either 'code' or 'src' input should be provided, not both.";
     class: "xpr-code",
   },
   template: `
-    @if (code()) {
-      <div class="xpr-value xpr-local" [innerHTML]="content()"></div>
-    }
-    @if (src()) {
-      @switch (res.status()) {
-        @case ("error") {
-          <ng-content select="xpr-error-state"></ng-content>
-        }
-        @case ("loading") {
-          <ng-content select="xpr-loading-state"></ng-content>
-        }
-        @case ("resolved") {
-          <div class="xpr-value xpr-loaded" [innerHTML]="content()"></div>
-        }
-        @default {
-          <ng-content select="xpr-empty-state"></ng-content>
-        }
+    @switch (state()) {
+      @case ("local") {
+        <div [innerHTML]="content()"
+             class="xpr-value xpr-local"></div>
+      }
+      @case ("error") {
+        <ng-content select="xpr-error-state"/>
+      }
+      @case ("loading") {
+        <ng-content select="xpr-loading-state"/>
+      }
+      @case ("resolved") {
+        <div [innerHTML]="content()"
+             class="xpr-value xpr-loaded"></div>
+      }
+      @default {
+        <ng-content select="xpr-empty-state"/>
       }
     }
   `,
@@ -130,11 +131,20 @@ export class Code {
 
   //
 
+  protected state = computed(() => {
+    if (this.code()) return "local";
+    if (this.src()) return this.res.status();
+    return "empty";
+  });
+
   protected content = computed(() => {
-    if (!this.code() && !this.src()) {
+    const code = this.code() as string;
+    const src = this.src() as string;
+
+    if (!code && !src) {
       throw new Error(ERROR_NONE);
     }
-    if (this.code() && this.src()) {
+    if (code && src) {
       throw new Error(ERROR_BOTH);
     }
 
@@ -146,15 +156,15 @@ export class Code {
         }).toString(),
       );
 
-    if (this.code()) return parse(this.code() ?? "");
+    if (code) return parse(code as string);
 
-    if (this.src()) {
-      return parse(this.res.hasValue() ? this.res.value() : "");
+    if (this.res.hasValue()) {
+      return parse(this.res.value());
     }
 
     return parse("");
   });
 
-  protected readonly res = httpResource.text(() => this.src());
+  private readonly res = httpResource.text(() => this.src());
   private readonly sanitize = inject(DomSanitizer);
 }

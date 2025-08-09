@@ -1,3 +1,9 @@
+/**
+ * This file contains state directives for image like components (with `src` attribute).
+ * different states that can be used in Angular component that support.
+ * Each directive represents a specific state and applies a corresponding CSS class.
+ * These states can be used to indicate loading, error, ok, or empty conditions in the UI.
+ */
 import { Directive } from "@angular/core";
 
 @Directive({

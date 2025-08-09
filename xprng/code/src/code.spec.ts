@@ -1,121 +1,86 @@
-// wired, but this test cause vitest to hang and fallback to karma :(
+import {TestBed} from "@angular/core/testing";
+import {Component, provideZonelessChangeDetection} from '@angular/core';
+import {provideHttpClient} from '@angular/common/http';
+import {HttpTestingController, provideHttpClientTesting} from '@angular/common/http/testing';
+import {ErrorState} from '@xprng/common';
+import {Code} from './code';
+import {TestbedHarnessEnvironment} from '@angular/cdk/testing/testbed';
+import {CodeHarness} from '../testing/code-harness';
+import {ErrorStateHarness} from '@xprng/common/testing';
 
-// import { TestBed } from "@angular/core/testing";
-// import { Component, provideZonelessChangeDetection } from "@angular/core";
-// import {
-//   HttpTestingController,
-//   provideHttpClientTesting,
-// } from "@angular/common/http/testing";
-// import { provideHttpClient } from "@angular/common/http";
-// import { beforeEach, expect } from "vitest";
-// import { Code } from "./code";
-//
-// let http: HttpTestingController;
-//
-// // setup environment
-// beforeEach(() => {
-//   TestBed.configureTestingModule({
-//     imports: [Code],
-//     providers: [
-//       provideZonelessChangeDetection(),
-//       provideHttpClient(),
-//       provideHttpClientTesting(),
-//     ],
-//   });
-//   http = TestBed.inject(HttpTestingController);
-// });
-//
-// afterEach(() => {
-//   // verify that there are no outstanding requests
-//   http.verify();
-// });
-//
-// describe("Code harness", () => {
-//   it("should throw error for missing attributes", () => {
-//     // expect(11).toBeTruthy()
-//     // try {
-//     //   // const fixture = TestBed.createComponent(TestEmptyComponent);
-//     //   // fixture.detectChanges();
-//     //   // fail('Expected an error to be thrown due to missing "code" input');
-//     // } catch (e) {
-//     //   // expect(e).toBeInstanceOf(Error);
-//     // }
-//     expect(1).toBeTruthy();
-//   });
-//   //
-//   // it("should create the main with md content", async () => {
-//   //   const fixture = TestBed.createComponent(TestMdComponent);
-//   //   fixture.detectChanges();
-//   //
-//   //   const loader = TestbedHarnessEnvironment.loader(fixture);
-//   //   const harness = await loader.getHarness(MarkdownHarness);
-//   //
-//   //   expect(await harness.getLocal()).toBeTruthy();
-//   // });
-//   //
-//   // it("should create the main with src from remote", async () => {
-//   //   const fixture = TestBed.createComponent(TestSrcComponent);
-//   //   fixture.detectChanges();
-//   //
-//   //   http.expectOne("test.md").flush("# Test Markdown\n\n# Another Heading", {
-//   //     status: 200,
-//   //     statusText: "OK",
-//   //   });
-//   //   await fixture.whenStable();
-//   //
-//   //   const loader = TestbedHarnessEnvironment.loader(fixture);
-//   //   const harness = await loader.getHarness(MarkdownHarness);
-//   //
-//   //   expect(await harness.getLoaded()).toBeTruthy();
-//   // });
-//   //
-//   // it("should create the error content", async () => {
-//   //   const fixture = TestBed.createComponent(TestSrcComponent);
-//   //   fixture.detectChanges();
-//   //
-//   //   http.expectOne("test.md").flush("error", {
-//   //     status: 404,
-//   //     statusText: "Not Found",
-//   //   });
-//   //   await fixture.whenStable();
-//   //
-//   //   const loader = TestbedHarnessEnvironment.loader(fixture);
-//   //   const harness = await loader.getHarness(MarkdownHarness);
-//   //   const errorStateHarness = await harness.getHarnessOrNull(ErrorStateHarness);
-//   //   expect(errorStateHarness).toBeTruthy();
-//   // });
-// });
-//
-// // @Component({
-// //   selector: "test-component",
-// //   imports: [Markdown],
-// //   template: '<xpr-markdown [md]="md"/>',
-// // })
-// // class TestMdComponent {
-// //   md = "# Test Markdown\n\n# Another Heading";
-// // }
-// //
-// // @Component({
-// //   selector: "test-src-component",
-// //   imports: [
-// //     Markdown,
-// //     ErrorState,
-// //   ],
-// //   template: `
-// //     <xpr-markdown src="test.md">
-// //       <xpr-error-state>error</xpr-error-state>
-// //     </xpr-markdown>
-// //   `,
-// // })
-// // class TestSrcComponent {
-// // }
-//
-// // @Component({
-// //   selector: "test-component",
-// //   imports: [Code],
-// //   template: `
-// //     <xpr-code/>
-// //   `,
-// // })
-// // class TestEmptyComponent {
-// // }
+describe("Code", () => {
+  // setup environment
+  let http: HttpTestingController;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [Code],
+      providers: [
+        provideZonelessChangeDetection(),
+        provideHttpClient(),
+        provideHttpClientTesting(),
+      ],
+    });
+    http = TestBed.inject(HttpTestingController);
+  });
+
+  afterEach(() => {
+    // verify that there are no outstanding requests
+    http.verify();
+  });
+
+  it('should create an empty component', () => {
+    const fixture = TestBed.createComponent(Code);
+    expect(fixture.debugElement.nativeElement.innerHTML).toEqual("<!--container--><!--container--><!--container--><!--container--><!--container-->");
+  });
+
+  it('should highlight code with provided code', () => {
+    const fixture = TestBed.createComponent(Code);
+    fixture.componentRef.setInput('code', 'console.log("Hello, World!");');
+    fixture.componentRef.setInput('lang', 'javascript');
+    fixture.detectChanges();
+
+    const codeElement = fixture.debugElement.nativeElement.querySelector('code');
+    expect(codeElement).toBeTruthy();
+    expect(codeElement.textContent).toContain('Hello, World!');
+  });
+
+  it('should highlight code with provided url', async () => {
+    const fixture = TestBed.createComponent(Code);
+    fixture.componentRef.setInput('lang', 'javascript');
+    fixture.componentRef.setInput('src', 'code.js');
+    fixture.detectChanges();
+
+    http.expectOne("code.js").flush("console.log('Hello, World!');");
+    await fixture.whenStable();
+
+    const codeElement = fixture.debugElement.nativeElement.querySelector('code');
+    expect(codeElement).toBeTruthy();
+    expect(codeElement.textContent).toContain('Hello, World!');
+  });
+
+  it('should display error when error loading', async () => {
+    const fixture = TestBed.createComponent(TestErrorComponent);
+    fixture.detectChanges();
+    http.expectOne("error.js").flush("error", {
+      status: 404,
+      statusText: "Not Found",
+    });
+    await fixture.whenStable();
+    const harness = await TestbedHarnessEnvironment.loader(fixture).getHarness(CodeHarness);
+    const errorState = await harness.getHarnessOrNull(ErrorStateHarness);
+    expect(errorState).toBeTruthy();
+  });
+});
+
+@Component({
+  selector: 'test-error',
+  imports: [Code, ErrorState],
+  template: `
+    <xpr-code src="error.js" lang="javascript">
+      <xpr-error-state>Error loading code.</xpr-error-state>
+    </xpr-code>`,
+})
+class TestErrorComponent {
+  // This component is used to test error state
+}
