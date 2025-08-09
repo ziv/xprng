@@ -8,4 +8,5 @@
 }
 
 /* outlets states */
-.xpr-loading-state, .xpr-error-state, .xpr-empty-state
+.xpr-loading-state, .xpr-error-state, .xpr-empty-state, .xpr-ok-state {
+}
