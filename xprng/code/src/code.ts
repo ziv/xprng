@@ -1,8 +1,8 @@
 import {Component, computed, inject, input, OnInit} from "@angular/core";
 import {httpResource} from "@angular/common/http";
 import {DomSanitizer} from "@angular/platform-browser";
-// import type {HighlighterCore} from "shiki";
-// import {getHighlighter} from '@xprng/vendor/shiki'
+import type {HighlighterCore} from "shiki";
+import {getHighlighter} from '@xprng/vendor/shiki'
 
 @Component({
   selector: "xpr-code",
@@ -69,8 +69,7 @@ export class Code implements OnInit {
    * This can include a custom highlighter function and marked options.
    * @input
    */
-  // readonly highlighter = input<HighlighterCore | undefined>();
-  readonly highlighter = input<any | undefined>();
+  readonly highlighter = input<HighlighterCore | undefined>();
 
   //
 
@@ -80,13 +79,11 @@ export class Code implements OnInit {
     if (this.src()) return this.parse(this.res.hasValue() ? this.res.value() : "");
 
     return this.parse("");
-    // throw new Error("Either 'code' or 'src' must be provided.");
   });
 
   private parse(text: string) {
     return this.sanitize.bypassSecurityTrustHtml(
-      'aaa'
-      // getHighlighter().codeToHtml(text, {lang: this.lang(), theme: this.theme()}).toString()
+      getHighlighter().codeToHtml(text, {lang: this.lang(), theme: this.theme()}).toString()
     );
   }
 

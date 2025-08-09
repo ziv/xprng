@@ -1,6 +1,5 @@
 import { Component, computed, Directive, input } from "@angular/core";
 import { Code } from "@xprng/code";
-import shiki from "../app/shiki";
 
 @Directive({
   selector: "example-title",
@@ -47,13 +46,13 @@ export class ExampleDescription {
   `,
 })
 export default class ExampleTemplate {
-  readonly code = input.required<string>();
-
-  protected readonly opts = computed(() => {
-    return {
-      highlighter: shiki,
-      theme: "github-light",
-      lang: "html",
-    };
-  });
+  // readonly code = input.required<string>();
+  //
+  // protected readonly opts = computed(() => {
+  //   return {
+  //     highlighter: shiki,
+  //     theme: "github-light",
+  //     lang: "html",
+  //   };
+  // });
 }

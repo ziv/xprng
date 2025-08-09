@@ -55,10 +55,19 @@ h3 {
 }
 
 pre {
-  @apply px-4 py-0 text-xs;
+  font-size: .8em;
+  padding: 1em;
+}
+
+pre {
+  /*@apply px-4 py-0 text-xs;*/
 }
 
 article {
-  @apply block rounded-md dark:bg-amber-100 p-4 font-mono border-gray-500
-    border-1;
+  /*@apply block rounded-md dark:bg-amber-100 p-4 font-mono border-gray-500*/
+  /*  border-1;*/
+}
+
+.active {
+  font-weight: bold;
 }

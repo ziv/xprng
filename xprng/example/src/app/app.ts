@@ -1,21 +1,19 @@
-import { Component, OnInit, signal } from "@angular/core";
-import { RouterLink, RouterOutlet } from "@angular/router";
+import {Component} from "@angular/core";
+import {RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
 
 @Component({
   selector: "app-root",
-  imports: [RouterOutlet, RouterLink],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive],
   template: `
     <aside>
-      <ul>
-        <li>
-          <a routerLink="/">Home</a>
-        </li>
-        <li>
-          <a routerLink="/markdown">Markdown</a>
-        </li>
-        <li>
-          <a routerLink="/highlighter">Highlighter</a>
-        </li>
+      <ul class="m-4">
+        @for (item of menu; track item.route) {
+          <li>
+            <a routerLinkActive
+               [routerLink]="item.route"
+               [routerLinkActiveOptions]="{ exact: true }">{{ item.label }}</a>
+          </li>
+        }
       </ul>
     </aside>
     <main>
@@ -23,9 +21,19 @@ import { RouterLink, RouterOutlet } from "@angular/router";
     </main>
   `,
 })
-export class App implements OnInit {
-  protected readonly title = signal("example");
-
-  async ngOnInit() {
-  }
+export class App {
+  menu = [
+    {
+      label: "Home",
+      route: "/"
+    },
+    {
+      label: "Markdown",
+      route: "/markdown"
+    },
+    {
+      label: "Highlighter",
+      route: "/highlighter"
+    }
+  ]
 }
