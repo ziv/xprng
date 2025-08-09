@@ -6,17 +6,21 @@ on:
     branches:
       - main
 
-permissions:
-  #  contents: read # for checkout
-  contents: write # to be able to publish a GitHub release
-  issues: write # to be able to comment on released issues
-  pull-requests: write # to be able to comment on released pull requests
-  id-token: write # to enable use of OIDC for npm provenance (npm and jsr)
+#permissions:
+#  #  contents: read # for checkout
+#  contents: write # to be able to publish a GitHub release
+#  issues: write # to be able to comment on released issues
+#  pull-requests: write # to be able to comment on released pull requests
+#  id-token: write # to enable use of OIDC for npm provenance (npm and jsr)
+#  pages: write # to be able to publish docs
 
 jobs:
   release:
     name: release
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     env:
       GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -64,3 +68,36 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: cd dist/xprng/code && npx semantic-release
+
+  docs:
+    name: docs
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+    environment:
+      name: github-pages # artifact name
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: ⛵️ checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: ☂️ setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: 🔑 dependencies
+        run: npm ci --no-fund
+
+      - name: 🌈 build docs
+        run: npm run docs
+
+      - name: 📦 publish docs
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          publish_dir: ./docs
+          publish_branch: gh-pages
