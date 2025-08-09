@@ -1,15 +1,8 @@
-import {
-  Component,
-  computed,
-  effect,
-  inject,
-  input,
-  OnInit,
-} from "@angular/core";
-import { httpResource } from "@angular/common/http";
-import { DomSanitizer } from "@angular/platform-browser";
-import { Marked, type MarkedOptions } from "marked";
-import { highlight } from "@xprng/vendor/shiki";
+import {Component, computed, inject, input, OnInit,} from "@angular/core";
+import {httpResource} from "@angular/common/http";
+import {DomSanitizer} from "@angular/platform-browser";
+import {Marked, type MarkedOptions} from "marked";
+import {highlight} from "@xprng/vendor/shiki"
 
 /**
  * Marked options for parsing markdown.
@@ -28,14 +21,14 @@ export type MarkdownOptions = MarkedOptions;
       <!--
       Markdown content is provided directly mode.
       -->
-      <div class="xpr-value xpr-local" [innerHTML]="mdContent()"></div>
+      <div class="xpr-value xpr-local" [innerHTML]="content()"></div>
 
     } @else if (src()) {
       <!--
       Source URL is provided mode.
       -->
       @if (res.hasValue() && res.value()) {
-        <div class="xpr-value xpr-loaded" [innerHTML]="srcContent()"></div>
+        <div class="xpr-value xpr-loaded" [innerHTML]="content()"></div>
       } @else if (res.isLoading()) {
         <ng-content select="xpr-loading-state"/>
       } @else if (res.error()) {
@@ -74,12 +67,14 @@ export class Markdown implements OnInit {
 
   //
 
-  protected mdContent = computed(() => this.content(this.md() ?? ""));
-  protected srcContent = computed(() =>
-    this.content(this.res.hasValue() ? this.res.value() : "")
-  );
+  // protected mdContent = computed(() => this.content(this.md() ?? ""));
+  protected content = computed(() => {
+    return this.md()
+      ? this.parse(this.md()!)
+      : this.parse(this.res.hasValue() ? this.res.value() : "");
+  });
 
-  private content(text: string) {
+  private parse(text: string) {
     const marked = new Marked(highlight(this.theme()));
     return this.sanitize.bypassSecurityTrustHtml(
       marked.parse(text, this.options()) as string,
@@ -89,23 +84,12 @@ export class Markdown implements OnInit {
   protected readonly res = httpResource.text(() => this.src());
   private readonly sanitize = inject(DomSanitizer);
 
-  ngOnInit() {
+  async ngOnInit() {
     if (!this.md() && !this.src()) {
-      throw new Error("Either 'md' or 'src' input must be provided.");
+      throw new Error("Either 'md' or 'src' input must be provided. Neither provided.");
     }
-  }
-
-  constructor() {
-    effect(() => {
-      console.log({
-        md: this.md(),
-        src: this.src(),
-        theme: this.theme(),
-        options: this.options(),
-        resStatus: this.res.status(),
-        resHasValue: this.res.hasValue(),
-        resError: this.res.error(),
-      });
-    });
+    if (this.md() && this.src()) {
+      throw new Error("Either 'md' or 'src' input must be provided. Both provided.");
+    }
   }
 }

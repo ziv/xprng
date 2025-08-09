@@ -1,16 +1,11 @@
-.xpr-loading {}
+/* states */
+.xpr-loading, .xpr-loaded, .xpr-resolved, .xpr-error, .xpr-ok {
+}
 
-.xpr-loaded {}
 
-.xpr-error {}
+/* values */
+.xpr-value, .xpr-local, .xpr-remote {
+}
 
-.xpr-ok {}
-
-.xpr-value {}
-
-.xpr-error-state {}
-
-.xpr-loading-state {}
-
-.xpr-ok-state {}
-.xpr-empty-state {}
+/* outlets states */
+.xpr-loading-state, .xpr-error-state, .xpr-empty-state

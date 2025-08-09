@@ -17,6 +17,9 @@ jobs:
   release:
     name: release
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - name: ⛵️ checkout
         uses: actions/checkout@v4
@@ -43,6 +46,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: cd dist/xprng/common && npx semantic-release
+
+      - name: 🦋release vendor
+        if: contains(github.event.head_commit.message, '(vendor)')
+        run: cd dist/xprng/vendor && npx semantic-release
 
       - name: 🦋release markdown
         if: contains(github.event.head_commit.message, '(markdown)')

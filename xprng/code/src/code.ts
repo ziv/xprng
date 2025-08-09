@@ -1,9 +1,8 @@
 import {Component, computed, inject, input, OnInit} from "@angular/core";
 import {httpResource} from "@angular/common/http";
 import {DomSanitizer} from "@angular/platform-browser";
-import shiki from "./shiki";
-import type {HighlighterCore} from "shiki";
-import {Highlighter} from '@xprng/vendor/shiki'
+// import type {HighlighterCore} from "shiki";
+// import {getHighlighter} from '@xprng/vendor/shiki'
 
 @Component({
   selector: "xpr-code",
@@ -70,26 +69,24 @@ export class Code implements OnInit {
    * This can include a custom highlighter function and marked options.
    * @input
    */
-  readonly highlighter = input<HighlighterCore>(Highlighter);
+  // readonly highlighter = input<HighlighterCore | undefined>();
+  readonly highlighter = input<any | undefined>();
 
   //
 
   protected content = computed(() => {
-    if (this.code()) {
-      return this.parse(this.code() ?? "");
-    }
-    if (this.src()) {
-      return this.parse(this.res.hasValue() ? this.res.value() : "");
-    }
-    throw new Error("Either 'code' or 'src' must be provided.");
+    if (this.code()) return this.parse(this.code() ?? "");
+
+    if (this.src()) return this.parse(this.res.hasValue() ? this.res.value() : "");
+
+    return this.parse("");
+    // throw new Error("Either 'code' or 'src' must be provided.");
   });
 
   private parse(text: string) {
     return this.sanitize.bypassSecurityTrustHtml(
-      this.highlighter().codeToHtml(text, {
-        lang: this.lang(),
-        theme: this.theme(),
-      }).toString()
+      'aaa'
+      // getHighlighter().codeToHtml(text, {lang: this.lang(), theme: this.theme()}).toString()
     );
   }
 
@@ -100,6 +97,9 @@ export class Code implements OnInit {
   ngOnInit() {
     if (!this.code() && !this.src()) {
       throw new Error("Either 'code' or 'src' input must be provided.");
+    }
+    if (this.code() && this.src()) {
+      console.warn("Either 'code' or 'src' input should be provided, not both.");
     }
   }
 }
