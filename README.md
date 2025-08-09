@@ -19,7 +19,7 @@ Compatible with **Zoneless** Angular 20+.
   * State directives
 * Vendor
   * Shiki syntax highlighter factory
-  * Marked parser factory
+  * ~~Marked parser factory~~
 * Markdown
   * Markdown component
 * Code
