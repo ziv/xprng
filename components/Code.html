@@ -182,23 +182,23 @@ See the example below for how to use these states.</p>
 
             <tr>
                 <td class="col-md-3">template</td>
-                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">@if (code()) {
-  &lt;div class&#x3D;&quot;xpr-value xpr-local&quot; [innerHTML]&#x3D;&quot;content()&quot;&gt;&lt;/div&gt;
-}
-@if (src()) {
-  @switch (res.status()) {
-    @case (&quot;error&quot;) {
-      &lt;ng-content select&#x3D;&quot;xpr-error-state&quot;&gt;&lt;/ng-content&gt;
-    }
-    @case (&quot;loading&quot;) {
-      &lt;ng-content select&#x3D;&quot;xpr-loading-state&quot;&gt;&lt;/ng-content&gt;
-    }
-    @case (&quot;resolved&quot;) {
-      &lt;div class&#x3D;&quot;xpr-value xpr-loaded&quot; [innerHTML]&#x3D;&quot;content()&quot;&gt;&lt;/div&gt;
-    }
-    @default {
-      &lt;ng-content select&#x3D;&quot;xpr-empty-state&quot;&gt;&lt;/ng-content&gt;
-    }
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">@switch (state()) {
+  @case (&quot;local&quot;) {
+    &lt;div [innerHTML]&#x3D;&quot;content()&quot;
+         class&#x3D;&quot;xpr-value xpr-local&quot;&gt;&lt;/div&gt;
+  }
+  @case (&quot;error&quot;) {
+    &lt;ng-content select&#x3D;&quot;xpr-error-state&quot;/&gt;
+  }
+  @case (&quot;loading&quot;) {
+    &lt;ng-content select&#x3D;&quot;xpr-loading-state&quot;/&gt;
+  }
+  @case (&quot;resolved&quot;) {
+    &lt;div [innerHTML]&#x3D;&quot;content()&quot;
+         class&#x3D;&quot;xpr-value xpr-loaded&quot;&gt;&lt;/div&gt;
+  }
+  @default {
+    &lt;ng-content select&#x3D;&quot;xpr-empty-state&quot;/&gt;
   }
 }
 </code></pre></td>
@@ -245,7 +245,7 @@ See the example below for how to use these states.</p>
                                 <a href="#lang" >lang</a>
                             </li>
                             <li>
-                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Private</span>
                                     <span class="modifier">Readonly</span>
                                 <a href="#res" >res</a>
                             </li>
@@ -257,6 +257,10 @@ See the example below for how to use these states.</p>
                             <li>
                                     <span class="modifier">Readonly</span>
                                 <a href="#src" >src</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#state" >state</a>
                             </li>
                             <li>
                                     <span class="modifier">Readonly</span>
@@ -305,7 +309,7 @@ See the example below for how to use these states.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="100" class="link-to-prism">xprng/code/src/code.ts:100</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="101" class="link-to-prism">xprng/code/src/code.ts:101</a></div>
                         </td>
                     </tr>
 
@@ -335,10 +339,13 @@ If this is set, the <code>src</code> attribute will be ignored.</p>
                 <tr>
                     <td class="col-md-4">
                         <i>Default value : </i><code>computed(() &#x3D;&gt; {
-    if (!this.code() &amp;&amp; !this.src()) {
+    const code &#x3D; this.code() as string;
+    const src &#x3D; this.src() as string;
+
+    if (!code &amp;&amp; !src) {
       throw new Error(ERROR_NONE);
     }
-    if (this.code() &amp;&amp; this.src()) {
+    if (code &amp;&amp; src) {
       throw new Error(ERROR_BOTH);
     }
 
@@ -350,10 +357,10 @@ If this is set, the <code>src</code> attribute will be ignored.</p>
         }).toString(),
       );
 
-    if (this.code()) return parse(this.code() ?? &quot;&quot;);
+    if (code) return parse(code as string);
 
-    if (this.src()) {
-      return parse(this.res.hasValue() ? this.res.value() : &quot;&quot;);
+    if (this.res.hasValue()) {
+      return parse(this.res.value());
     }
 
     return parse(&quot;&quot;);
@@ -362,7 +369,7 @@ If this is set, the <code>src</code> attribute will be ignored.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="133" class="link-to-prism">xprng/code/src/code.ts:133</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="140" class="link-to-prism">xprng/code/src/code.ts:140</a></div>
                         </td>
                     </tr>
 
@@ -388,7 +395,7 @@ If this is set, the <code>src</code> attribute will be ignored.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="129" class="link-to-prism">xprng/code/src/code.ts:129</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="130" class="link-to-prism">xprng/code/src/code.ts:130</a></div>
                         </td>
                     </tr>
 
@@ -420,7 +427,7 @@ If this is set, the <code>src</code> attribute will be ignored.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="115" class="link-to-prism">xprng/code/src/code.ts:115</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="116" class="link-to-prism">xprng/code/src/code.ts:116</a></div>
                         </td>
                     </tr>
 
@@ -441,7 +448,7 @@ See <a href="https://shiki.style/languages">https://shiki.style/languages</a></p
                 <td class="col-md-4">
                     <a name="res"></a>
                     <span class="name">
-                            <span class="modifier">Protected</span>
+                            <span class="modifier">Private</span>
                             <span class="modifier">Readonly</span>
                         <span ><b>res</b></span>
                         <a href="#res"><span class="icon ion-ios-link"></span></a>
@@ -455,7 +462,7 @@ See <a href="https://shiki.style/languages">https://shiki.style/languages</a></p
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="158" class="link-to-prism">xprng/code/src/code.ts:158</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="168" class="link-to-prism">xprng/code/src/code.ts:168</a></div>
                         </td>
                     </tr>
 
@@ -482,7 +489,7 @@ See <a href="https://shiki.style/languages">https://shiki.style/languages</a></p
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="159" class="link-to-prism">xprng/code/src/code.ts:159</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="169" class="link-to-prism">xprng/code/src/code.ts:169</a></div>
                         </td>
                     </tr>
 
@@ -508,7 +515,7 @@ See <a href="https://shiki.style/languages">https://shiki.style/languages</a></p
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="107" class="link-to-prism">xprng/code/src/code.ts:107</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="108" class="link-to-prism">xprng/code/src/code.ts:108</a></div>
                         </td>
                     </tr>
 
@@ -519,6 +526,36 @@ This is optional and can be used to fetch source code content from a URL.</p>
 </div>
                 </td>
             </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="state"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>state</b></span>
+                        <a href="#state"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    if (this.code()) return &quot;local&quot;;
+    if (this.src()) return this.res.status();
+    return &quot;empty&quot;;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="134" class="link-to-prism">xprng/code/src/code.ts:134</a></div>
+                        </td>
+                    </tr>
+
 
         </tbody>
     </table>
@@ -541,7 +578,7 @@ This is optional and can be used to fetch source code content from a URL.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="123" class="link-to-prism">xprng/code/src/code.ts:123</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="124" class="link-to-prism">xprng/code/src/code.ts:124</a></div>
                         </td>
                     </tr>
 
@@ -562,15 +599,16 @@ See <a href="https://shiki.style/themes">https://shiki.style/themes</a></p>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, computed, inject, input } from &quot;@angular/core&quot;;
-import { httpResource } from &quot;@angular/common/http&quot;;
-import { DomSanitizer } from &quot;@angular/platform-browser&quot;;
-import type { HighlighterCore } from &quot;shiki&quot;;
-import { getHighlighter } from &quot;@xprng/vendor/shiki&quot;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {Component, computed, inject, input} from &quot;@angular/core&quot;;
+import {httpResource} from &quot;@angular/common/http&quot;;
+import {DomSanitizer} from &quot;@angular/platform-browser&quot;;
+import type {HighlighterCore} from &quot;shiki&quot;;
+import {getHighlighter} from &quot;@xprng/vendor/shiki&quot;;
 
 const ERROR_NONE &#x3D;
   &quot;Either &#x27;code&#x27; or &#x27;src&#x27; input must be provided. Neither is set.&quot;;
-const ERROR_BOTH &#x3D; &quot;Either &#x27;code&#x27; or &#x27;src&#x27; input should be provided, not both.&quot;;
+const ERROR_BOTH &#x3D;
+  &quot;Either &#x27;code&#x27; or &#x27;src&#x27; input should be provided, not both.&quot;;
 
 /**
  * # Code
@@ -633,23 +671,23 @@ const ERROR_BOTH &#x3D; &quot;Either &#x27;code&#x27; or &#x27;src&#x27; input s
     class: &quot;xpr-code&quot;,
   },
   template: &#x60;
-    @if (code()) {
-      &lt;div class&#x3D;&quot;xpr-value xpr-local&quot; [innerHTML]&#x3D;&quot;content()&quot;&gt;&lt;/div&gt;
-    }
-    @if (src()) {
-      @switch (res.status()) {
-        @case (&quot;error&quot;) {
-          &lt;ng-content select&#x3D;&quot;xpr-error-state&quot;&gt;&lt;/ng-content&gt;
-        }
-        @case (&quot;loading&quot;) {
-          &lt;ng-content select&#x3D;&quot;xpr-loading-state&quot;&gt;&lt;/ng-content&gt;
-        }
-        @case (&quot;resolved&quot;) {
-          &lt;div class&#x3D;&quot;xpr-value xpr-loaded&quot; [innerHTML]&#x3D;&quot;content()&quot;&gt;&lt;/div&gt;
-        }
-        @default {
-          &lt;ng-content select&#x3D;&quot;xpr-empty-state&quot;&gt;&lt;/ng-content&gt;
-        }
+    @switch (state()) {
+      @case (&quot;local&quot;) {
+        &lt;div [innerHTML]&#x3D;&quot;content()&quot;
+             class&#x3D;&quot;xpr-value xpr-local&quot;&gt;&lt;/div&gt;
+      }
+      @case (&quot;error&quot;) {
+        &lt;ng-content select&#x3D;&quot;xpr-error-state&quot;/&gt;
+      }
+      @case (&quot;loading&quot;) {
+        &lt;ng-content select&#x3D;&quot;xpr-loading-state&quot;/&gt;
+      }
+      @case (&quot;resolved&quot;) {
+        &lt;div [innerHTML]&#x3D;&quot;content()&quot;
+             class&#x3D;&quot;xpr-value xpr-loaded&quot;&gt;&lt;/div&gt;
+      }
+      @default {
+        &lt;ng-content select&#x3D;&quot;xpr-empty-state&quot;/&gt;
       }
     }
   &#x60;,
@@ -694,11 +732,20 @@ export class Code {
 
   //
 
+  protected state &#x3D; computed(() &#x3D;&gt; {
+    if (this.code()) return &quot;local&quot;;
+    if (this.src()) return this.res.status();
+    return &quot;empty&quot;;
+  });
+
   protected content &#x3D; computed(() &#x3D;&gt; {
-    if (!this.code() &amp;&amp; !this.src()) {
+    const code &#x3D; this.code() as string;
+    const src &#x3D; this.src() as string;
+
+    if (!code &amp;&amp; !src) {
       throw new Error(ERROR_NONE);
     }
-    if (this.code() &amp;&amp; this.src()) {
+    if (code &amp;&amp; src) {
       throw new Error(ERROR_BOTH);
     }
 
@@ -710,16 +757,16 @@ export class Code {
         }).toString(),
       );
 
-    if (this.code()) return parse(this.code() ?? &quot;&quot;);
+    if (code) return parse(code as string);
 
-    if (this.src()) {
-      return parse(this.res.hasValue() ? this.res.value() : &quot;&quot;);
+    if (this.res.hasValue()) {
+      return parse(this.res.value());
     }
 
     return parse(&quot;&quot;);
   });
 
-  protected readonly res &#x3D; httpResource.text(() &#x3D;&gt; this.src());
+  private readonly res &#x3D; httpResource.text(() &#x3D;&gt; this.src());
   private readonly sanitize &#x3D; inject(DomSanitizer);
 }
 </code></pre>
@@ -752,7 +799,7 @@ export class Code {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div>@if (code()) {  <div class="xpr-value xpr-local" [innerHTML]="content()"></div>}@if (src()) {  @switch (res.status()) {    @case ("error") {      <ng-content select="xpr-error-state"></ng-content>    }    @case ("loading") {      <ng-content select="xpr-loading-state"></ng-content>    }    @case ("resolved") {      <div class="xpr-value xpr-loaded" [innerHTML]="content()"></div>    }    @default {      <ng-content select="xpr-empty-state"></ng-content>    }  }}</div>'
+        var COMPONENT_TEMPLATE = '<div>@switch (state()) {  @case ("local") {    <div [innerHTML]="content()"         class="xpr-value xpr-local"></div>  }  @case ("error") {    <ng-content select="xpr-error-state"/>  }  @case ("loading") {    <ng-content select="xpr-loading-state"/>  }  @case ("resolved") {    <div [innerHTML]="content()"         class="xpr-value xpr-loaded"></div>  }  @default {    <ng-content select="xpr-empty-state"/>  }}</div>'
     var COMPONENTS = [{'name': 'Code', 'selector': 'xpr-code'},{'name': 'Markdown', 'selector': 'xpr-markdown'}];
     var DIRECTIVES = [{'name': 'EmptyState', 'selector': 'xpr-empty-state,[xpr-empty-state]'},{'name': 'ErrorState', 'selector': 'xpr-error-state,[xpr-error-state]'},{'name': 'LoadingState', 'selector': 'xpr-loading-state,[xpr-loading-state]'},{'name': 'OkState', 'selector': 'xpr-ok-state,[xpr-ok-state]'}];
     var ACTUAL_COMPONENT = {'name': 'Code'};
