@@ -1,4 +1,4 @@
-import {Directive} from "@angular/core";
+import { Directive } from "@angular/core";
 
 @Directive({
   selector: "xpr-loading-state,[xpr-loading-state]",

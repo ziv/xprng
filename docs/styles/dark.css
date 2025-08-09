@@ -1,53 +1,53 @@
 body.dark {
-    background: #212121;
-    color: #fafafa;
+  background: #212121;
+  color: #fafafa;
 }
 
 .dark code {
-    color: #e09393;
+  color: #e09393;
 }
 
 .dark a,
 .dark .menu ul.list li a.active {
-    color: #7fc9ff;
+  color: #7fc9ff;
 }
 
 .dark .menu {
-    background: #212121;
-    border-right: 1px solid #444;
+  background: #212121;
+  border-right: 1px solid #444;
 }
 
 .dark .menu ul.list li a {
-    color: #fafafa;
+  color: #fafafa;
 }
 
 .dark .menu ul.list li.divider {
-    background: #444;
+  background: #444;
 }
 
 .dark .xs-menu ul.list li:nth-child(2) {
-    margin: 0;
-    background: none;
+  margin: 0;
+  background: none;
 }
 
 .dark .menu ul.list li:nth-child(2) {
-    margin: 0;
-    background: none;
+  margin: 0;
+  background: none;
 }
 
 .dark #book-search-input {
-    background: #212121;
-    border-top: 1px solid #444;
-    border-bottom: 1px solid #444;
-    color: #fafafa;
+  background: #212121;
+  border-top: 1px solid #444;
+  border-bottom: 1px solid #444;
+  color: #fafafa;
 }
 
 .dark .table.metadata > tbody > tr:hover {
-    color: #555;
+  color: #555;
 }
 
 .dark .table-bordered {
-    border: 1px solid #444;
+  border: 1px solid #444;
 }
 
 .dark .table-bordered > tbody > tr > td,
@@ -56,66 +56,66 @@ body.dark {
 .dark .table-bordered > tfoot > tr > th,
 .dark .table-bordered > thead > tr > td,
 .dark .table-bordered > thead > tr > th {
-    border: 1px solid #444;
+  border: 1px solid #444;
 }
 
 .dark .coverage a,
 .dark .coverage-count {
-    color: #fafafa;
+  color: #fafafa;
 }
 
 .dark .coverage-header {
-    color: black;
+  color: black;
 }
 
 .dark .routes svg text,
 .dark .routes svg a {
-    fill: white;
+  fill: white;
 }
 .dark .routes svg rect {
-    fill: #212121 !important;
+  fill: #212121 !important;
 }
 
 .dark .navbar-default,
 .dark .btn-default {
-    background-color: black;
-    border-color: #444;
-    color: #fafafa;
+  background-color: black;
+  border-color: #444;
+  color: #fafafa;
 }
 
 .dark .navbar-default .navbar-brand {
-    color: #fafafa;
+  color: #fafafa;
 }
 
 .dark .overview .card,
 .dark .modules .card {
-    background: #171717;
-    color: #fafafa;
-    border: 1px solid #444;
+  background: #171717;
+  color: #fafafa;
+  border: 1px solid #444;
 }
 .dark .overview .card a {
-    color: #fafafa;
+  color: #fafafa;
 }
 
 .dark .modules .card-header {
-    background: none;
-    border-bottom: 1px solid #444;
+  background: none;
+  border-bottom: 1px solid #444;
 }
 
 .dark .module .list-group-item {
-    background: none;
-    border: 1px solid #444;
+  background: none;
+  border: 1px solid #444;
 }
 
 .dark .container-fluid.module h3 a {
-    color: #337ab7;
+  color: #337ab7;
 }
 
 .dark table.params thead {
-    background: #484848;
-    color: #fafafa;
+  background: #484848;
+  color: #fafafa;
 }
 
 .dark .content table {
-    --bs-table-color: #fafafa;
+  --bs-table-color: #fafafa;
 }

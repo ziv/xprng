@@ -1,15 +1,14 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'lib-vendor',
+  selector: "lib-vendor",
   imports: [],
   template: `
     <p>
       vendor works!
     </p>
   `,
-  styles: ``
+  styles: ``,
 })
 export class Vendor {
-
 }

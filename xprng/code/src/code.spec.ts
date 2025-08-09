@@ -1,9 +1,12 @@
-import {TestBed} from "@angular/core/testing";
-import {Component, provideZonelessChangeDetection} from "@angular/core";
-import {HttpTestingController, provideHttpClientTesting,} from "@angular/common/http/testing";
-import {provideHttpClient} from "@angular/common/http";
-import {beforeEach, expect} from "vitest";
-import {Code} from "./code";
+import { TestBed } from "@angular/core/testing";
+import { Component, provideZonelessChangeDetection } from "@angular/core";
+import {
+  HttpTestingController,
+  provideHttpClientTesting,
+} from "@angular/common/http/testing";
+import { provideHttpClient } from "@angular/common/http";
+import { beforeEach, expect } from "vitest";
+import { Code } from "./code";
 
 let http: HttpTestingController;
 

@@ -1,12 +1,8 @@
 /* states */
-.xpr-loading, .xpr-loaded, .xpr-resolved, .xpr-error, .xpr-ok {
-}
-
+.xpr-loading, .xpr-loaded, .xpr-resolved, .xpr-error, .xpr-ok {}
 
 /* values */
-.xpr-value, .xpr-local, .xpr-remote {
-}
+.xpr-value, .xpr-local, .xpr-remote {}
 
 /* outlets states */
-.xpr-loading-state, .xpr-error-state, .xpr-empty-state, .xpr-ok-state {
-}
+.xpr-loading-state, .xpr-error-state, .xpr-empty-state, .xpr-ok-state {}

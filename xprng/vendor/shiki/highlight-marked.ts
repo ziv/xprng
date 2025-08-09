@@ -1,5 +1,5 @@
-import type {MarkedExtension} from "marked";
-import {getHighlighter} from "./get-highlighter";
+import type { MarkedExtension } from "marked";
+import { getHighlighter } from "./get-highlighter";
 
 export function highlight(theme: string): MarkedExtension {
   return {
@@ -11,7 +11,7 @@ export function highlight(theme: string): MarkedExtension {
       const lang = (token.lang || "").match(/\S*/)?.[0] ?? "plaintext";
       const text = token.text || "";
 
-      const html = getHighlighter().codeToHtml(text, {lang, theme});
+      const html = getHighlighter().codeToHtml(text, { lang, theme });
 
       // change the token type to 'html' and set the html content
       Object.assign(token, {

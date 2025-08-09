@@ -9,4 +9,3 @@ ng g c --project example -s -t -p ex <name>
 ```html
 <h1>Example Component</h1>
 ```
-

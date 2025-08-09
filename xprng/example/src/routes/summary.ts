@@ -1,8 +1,8 @@
-import {Component} from "@angular/core";
-import {Code} from "@xprng/code";
+import { Component } from "@angular/core";
+import { Code } from "@xprng/code";
 
-const DIRECT_USAGE = `<xpr-code md="..." />`
-const REMOTE_USAGE = `<xpr-code src="..." />`
+const DIRECT_USAGE = `<xpr-code md="..." />`;
+const REMOTE_USAGE = `<xpr-code src="..." />`;
 
 @Component({
   selector: "ex-code-example",

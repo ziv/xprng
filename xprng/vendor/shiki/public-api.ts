@@ -1,2 +1,2 @@
-export * from './get-highlighter';
-export * from './highlight-marked';
+export * from "./get-highlighter";
+export * from "./highlight-marked";

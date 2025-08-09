@@ -1,8 +1,8 @@
-import {Component, computed, inject, input, OnInit,} from "@angular/core";
-import {httpResource} from "@angular/common/http";
-import {DomSanitizer} from "@angular/platform-browser";
-import {Marked, type MarkedOptions} from "marked";
-import {highlight} from "@xprng/vendor/shiki"
+import { Component, computed, inject, input, OnInit } from "@angular/core";
+import { httpResource } from "@angular/common/http";
+import { DomSanitizer } from "@angular/platform-browser";
+import { Marked, type MarkedOptions } from "marked";
+import { highlight } from "@xprng/vendor/shiki";
 
 /**
  * Marked options for parsing markdown.
@@ -86,10 +86,14 @@ export class Markdown implements OnInit {
 
   async ngOnInit() {
     if (!this.md() && !this.src()) {
-      throw new Error("Either 'md' or 'src' input must be provided. Neither provided.");
+      throw new Error(
+        "Either 'md' or 'src' input must be provided. Neither provided.",
+      );
     }
     if (this.md() && this.src()) {
-      throw new Error("Either 'md' or 'src' input must be provided. Both provided.");
+      throw new Error(
+        "Either 'md' or 'src' input must be provided. Both provided.",
+      );
     }
   }
 }

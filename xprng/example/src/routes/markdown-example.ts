@@ -1,11 +1,9 @@
-import {Component} from "@angular/core";
-import {Code} from '@xprng/code';
-import {httpResource} from '@angular/common/http';
+import { Component } from "@angular/core";
+import { Code } from "@xprng/code";
+import { httpResource } from "@angular/common/http";
 
-
-const DIRECT_USAGE = `<xpr-markdown md="..." />`
-const REMOTE_USAGE = `<xpr-markdown src="..." />`
-
+const DIRECT_USAGE = `<xpr-markdown md="..." />`;
+const REMOTE_USAGE = `<xpr-markdown src="..." />`;
 
 @Component({
   selector: "ex-markdown-example",

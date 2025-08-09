@@ -1,8 +1,8 @@
-import {Component} from "@angular/core";
-import {Code} from "@xprng/code";
+import { Component } from "@angular/core";
+import { Code } from "@xprng/code";
 
-const DIRECT_USAGE = `<xpr-code md="..." />`
-const REMOTE_USAGE = `<xpr-code src="..." />`
+const DIRECT_USAGE = `<xpr-code md="..." />`;
+const REMOTE_USAGE = `<xpr-code src="..." />`;
 const EXAMPLE_CODE = `
 class Foo {
   bar(i: number): string {
@@ -10,6 +10,7 @@ class Foo {
   }
 }
 `;
+
 @Component({
   selector: "ex-code-example",
   imports: [Code],

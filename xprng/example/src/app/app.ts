@@ -1,5 +1,5 @@
-import {Component} from "@angular/core";
-import {RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
+import { Component } from "@angular/core";
+import { RouterLink, RouterLinkActive, RouterOutlet } from "@angular/router";
 
 @Component({
   selector: "app-root",
@@ -25,15 +25,15 @@ export class App {
   menu = [
     {
       label: "Home",
-      route: "/"
+      route: "/",
     },
     {
       label: "Markdown",
-      route: "/markdown"
+      route: "/markdown",
     },
     {
       label: "Highlighter",
-      route: "/highlighter"
-    }
-  ]
+      route: "/highlighter",
+    },
+  ];
 }
