@@ -11,7 +11,8 @@
   },
   "include": [
     "src/**/*.ts",
-    "shiki/**/*.ts"
+    "shiki/**/*.ts",
+    "marked-shiki/**/*.ts",
   ],
   "exclude": [
     "**/*.spec.ts"
