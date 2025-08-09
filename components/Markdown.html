@@ -98,14 +98,6 @@
             <a href="#info" class="nav-link active"
                 role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
         </li>
-        <li class="nav-item">
-            <a href="#source" class="nav-link"
-                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
-        </li>
-        <li class="nav-item">
-            <a href="#tree" class="nav-link"
-                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
-        </li>
 </ul>
 
 <div class="tab-content">
@@ -297,12 +289,6 @@
             </tr>
 
 
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="87"
-                                    class="link-to-prism">xprng/markdown/src/markdown.ts:87</a></div>
-                        </td>
-                    </tr>
 
 
             <tr>
@@ -336,12 +322,6 @@
             </tr>
 
 
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="77"
-                                    class="link-to-prism">xprng/markdown/src/markdown.ts:77</a></div>
-                        </td>
-                    </tr>
 
 
             <tr>
@@ -412,11 +392,6 @@
   })</code>
                     </td>
                 </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">xprng/markdown/src/markdown.ts:71</a></div>
-                        </td>
-                    </tr>
 
 
         </tbody>
@@ -438,11 +413,6 @@
                         <i>Default value : </i><code>input&lt;string | undefined&gt;()</code>
                     </td>
                 </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">xprng/markdown/src/markdown.ts:47</a></div>
-                        </td>
-                    </tr>
 
             <tr>
                 <td class="col-md-4">
@@ -470,11 +440,6 @@
                         <i>Default value : </i><code>input&lt;Partial&lt;MarkdownOptions&gt;&gt;({})</code>
                     </td>
                 </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="66" class="link-to-prism">xprng/markdown/src/markdown.ts:66</a></div>
-                        </td>
-                    </tr>
 
             <tr>
                 <td class="col-md-4">
@@ -503,11 +468,6 @@
                         <i>Default value : </i><code>httpResource.text(() &#x3D;&gt; this.src())</code>
                     </td>
                 </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="84" class="link-to-prism">xprng/markdown/src/markdown.ts:84</a></div>
-                        </td>
-                    </tr>
 
 
         </tbody>
@@ -530,11 +490,6 @@
                         <i>Default value : </i><code>inject(DomSanitizer)</code>
                     </td>
                 </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="85" class="link-to-prism">xprng/markdown/src/markdown.ts:85</a></div>
-                        </td>
-                    </tr>
 
 
         </tbody>
@@ -556,11 +511,6 @@
                         <i>Default value : </i><code>input&lt;string | undefined&gt;()</code>
                     </td>
                 </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">xprng/markdown/src/markdown.ts:54</a></div>
-                        </td>
-                    </tr>
 
             <tr>
                 <td class="col-md-4">
@@ -589,11 +539,6 @@ If <code>md</code> is provided, this will be ignored.</p>
                         <i>Default value : </i><code>input&lt;string&gt;(&quot;github-light&quot;)</code>
                     </td>
                 </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">xprng/markdown/src/markdown.ts:60</a></div>
-                        </td>
-                    </tr>
 
             <tr>
                 <td class="col-md-4">
@@ -609,128 +554,9 @@ If <code>md</code> is provided, this will be ignored.</p>
 </div>
 
 
-    <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, computed, inject, input, OnInit } from &quot;@angular/core&quot;;
-import { httpResource } from &quot;@angular/common/http&quot;;
-import { DomSanitizer } from &quot;@angular/platform-browser&quot;;
-import { Marked, type MarkedOptions } from &quot;marked&quot;;
-import { highlight } from &quot;@xprng/vendor/shiki&quot;;
-
-/**
- * Marked options for parsing markdown.
- * @see https://marked.js.org/using_advanced#options
- */
-export type MarkdownOptions &#x3D; MarkedOptions;
-
-@Component({
-  selector: &quot;xpr-markdown&quot;,
-  host: {
-    &quot;[style.display]&quot;: &#x27;&quot;block&quot;&#x27;,
-    class: &quot;xpr-markdown&quot;,
-  },
-  template: &#x60;
-    @if (md()) {
-      &lt;!--
-      Markdown content is provided directly mode.
-      --&gt;
-      &lt;div class&#x3D;&quot;xpr-value xpr-local&quot; [innerHTML]&#x3D;&quot;content()&quot;&gt;&lt;/div&gt;
-
-    } @else if (src()) {
-      &lt;!--
-      Source URL is provided mode.
-      --&gt;
-      @if (res.hasValue() &amp;&amp; res.value()) {
-        &lt;div class&#x3D;&quot;xpr-value xpr-loaded&quot; [innerHTML]&#x3D;&quot;content()&quot;&gt;&lt;/div&gt;
-      } @else if (res.isLoading()) {
-        &lt;ng-content select&#x3D;&quot;xpr-loading-state&quot;/&gt;
-      } @else if (res.error()) {
-        &lt;ng-content select&#x3D;&quot;xpr-error-state&quot;/&gt;
-      } @else {
-        &lt;ng-content select&#x3D;&quot;xpr-empty-state&quot;/&gt;
-      }
-    }
-  &#x60;,
-})
-export class Markdown implements OnInit {
-  /**
-   * The markdown content to be rendered.
-   * @input
-   */
-  readonly md &#x3D; input&lt;string | undefined&gt;();
-
-  /**
-   * The source URL of the markdown content.
-   * If &#x60;md&#x60; is provided, this will be ignored.
-   * @input
-   */
-  readonly src &#x3D; input&lt;string | undefined&gt;();
-
-  /**
-   * The theme to use for syntax highlighting.
-   * @input
-   */
-  readonly theme &#x3D; input&lt;string&gt;(&quot;github-light&quot;);
-
-  /**
-   * Options for the Maerked parser
-   * @input
-   */
-  readonly options &#x3D; input&lt;Partial&lt;MarkdownOptions&gt;&gt;({});
-
-  //
-
-  // protected mdContent &#x3D; computed(() &#x3D;&gt; this.content(this.md() ?? &quot;&quot;));
-  protected content &#x3D; computed(() &#x3D;&gt; {
-    return this.md()
-      ? this.parse(this.md()!)
-      : this.parse(this.res.hasValue() ? this.res.value() : &quot;&quot;);
-  });
-
-  private parse(text: string) {
-    const marked &#x3D; new Marked(highlight(this.theme()));
-    return this.sanitize.bypassSecurityTrustHtml(
-      marked.parse(text, this.options()) as string,
-    );
-  }
-
-  protected readonly res &#x3D; httpResource.text(() &#x3D;&gt; this.src());
-  private readonly sanitize &#x3D; inject(DomSanitizer);
-
-  async ngOnInit() {
-    if (!this.md() &amp;&amp; !this.src()) {
-      throw new Error(
-        &quot;Either &#x27;md&#x27; or &#x27;src&#x27; input must be provided. Neither provided.&quot;,
-      );
-    }
-    if (this.md() &amp;&amp; this.src()) {
-      throw new Error(
-        &quot;Either &#x27;md&#x27; or &#x27;src&#x27; input must be provided. Both provided.&quot;,
-      );
-    }
-  }
-}
-</code></pre>
-    </div>
 
 
 
-    <div class="tab-pane fade " id="tree">
-        <div id="tree-container"></div>
-        <div class="tree-legend">
-            <div class="title">
-                <b>Legend</b>
-            </div>
-            <div>
-                <div class="color htmlelement"></div><span>Html element</span>
-            </div>
-            <div>
-                <div class="color component"></div><span>Component</span>
-            </div>
-            <div>
-                <div class="color directive"></div><span>Html element with directive</span>
-            </div>
-        </div>
-    </div>
 
     
 </div>

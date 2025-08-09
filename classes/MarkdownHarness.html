@@ -106,12 +106,6 @@
                 class="nav-link active"
                 role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
         </li>
-        <li class="nav-item">
-            <a href="#source" 
-                class="nav-link"
-                
-                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
-        </li>
 </ul>
 
 <div class="tab-content">
@@ -191,11 +185,6 @@
                         <i>Default value : </i><code>this.locatorForOptional(&quot;.xpr-loaded&quot;)</code>
                     </td>
                 </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">xprng/markdown/testing/markdown-harness.ts:14</a></div>
-                        </td>
-                    </tr>
 
             <tr>
                 <td class="col-md-4">
@@ -222,11 +211,6 @@
                         <i>Default value : </i><code>this.locatorForOptional(&quot;.xpr-local&quot;)</code>
                     </td>
                 </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">xprng/markdown/testing/markdown-harness.ts:9</a></div>
-                        </td>
-                    </tr>
 
             <tr>
                 <td class="col-md-4">
@@ -260,11 +244,6 @@
                         <i>Default value : </i><code>&quot;xpr-markdown&quot;</code>
                     </td>
                 </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="4" class="link-to-prism">xprng/markdown/testing/markdown-harness.ts:4</a></div>
-                        </td>
-                    </tr>
 
 
         </tbody>
@@ -280,24 +259,6 @@
     </div>
 
 
-    <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ContentContainerComponentHarness } from &quot;@angular/cdk/testing&quot;;
-
-export class MarkdownHarness extends ContentContainerComponentHarness {
-  static hostSelector &#x3D; &quot;xpr-markdown&quot;;
-
-  /**
-   * The content projected in case of &quot;md&quot; provided mode.
-   */
-  getLocal &#x3D; this.locatorForOptional(&quot;.xpr-local&quot;);
-
-  /**
-   * The content projected in case of &quot;src&quot; provided mode.
-   */
-  getLoaded &#x3D; this.locatorForOptional(&quot;.xpr-loaded&quot;);
-}
-</code></pre>
-    </div>
 </div>
 
 

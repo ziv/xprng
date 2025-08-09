@@ -101,12 +101,6 @@
                 class="nav-link active"
                 role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
         </li>
-        <li class="nav-item">
-            <a href="#source" 
-                class="nav-link"
-                
-                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
-        </li>
 </ul>
 
 <div class="tab-content">
@@ -156,50 +150,6 @@
     </div>
 
 
-    <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Directive } from &quot;@angular/core&quot;;
-
-@Directive({
-  selector: &quot;xpr-loading-state,[xpr-loading-state]&quot;,
-  exportAs: &quot;xprLoadingState&quot;,
-  host: {
-    class: &quot;xpr-loading-state&quot;,
-  },
-})
-export class LoadingState {
-}
-
-@Directive({
-  selector: &quot;xpr-error-state,[xpr-error-state]&quot;,
-  exportAs: &quot;xprErrorState&quot;,
-  host: {
-    class: &quot;xpr-error-state&quot;,
-  },
-})
-export class ErrorState {
-}
-
-@Directive({
-  selector: &quot;xpr-ok-state,[xpr-ok-state]&quot;,
-  exportAs: &quot;xprOkState&quot;,
-  host: {
-    class: &quot;xpr-ok-state&quot;,
-  },
-})
-export class OkState {
-}
-
-@Directive({
-  selector: &quot;xpr-empty-state,[xpr-empty-state]&quot;,
-  exportAs: &quot;xprEmptyState&quot;,
-  host: {
-    class: &quot;xpr-empty-state&quot;,
-  },
-})
-export class EmptyState {
-}
-</code></pre>
-    </div>
 
 </div>
 
