@@ -19,7 +19,8 @@ jobs:
     name: release
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
+      issues: write
       id-token: write
     env:
       GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
