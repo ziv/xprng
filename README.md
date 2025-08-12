@@ -6,13 +6,13 @@ Micro packages of very simple, yet, smart components.
 
 Compatible with **Zoneless** Angular 20+.
 
-| Component | Package           | Documentation                             | Version                                                          |
-|-----------|-------------------|-------------------------------------------|------------------------------------------------------------------|
-| Common    | `@xprng/common`   | [Documentation](xprng/common/README.md)   | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fcommon)   |
-| Vendor    | `@xprng/vendor`   | [Documentation](xprng/vendor/README.md)   | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fvendor)   |
-| Markdown  | `@xprng/markdown` | [Documentation](xprng/markdown/README.md) | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fmarkdown) |
-| Code      | `@xprng/code`     | [Documentation](xprng/code/README.md)     | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fcode)     |
-| Slides    | `@xprng/slides`   | [Documentation](xprng/slides/README.md)   | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fslides)   |
+| Package           | Component                            | Version                                                          |
+|-------------------|--------------------------------------|------------------------------------------------------------------|
+| `@xprng/common`   | [Common](xprng/common/README.md)     | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fcommon)   |
+| `@xprng/vendor`   | [Vendor](xprng/vendor/README.md)     | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fvendor)   |
+| `@xprng/markdown` | [Markdown](xprng/markdown/README.md) | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fmarkdown) |
+| `@xprng/code`     | [Code](xprng/code/README.md)         | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fcode)     |
+| `@xprng/slides`   | [Slides](xprng/slides/README.md)     | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fslides)   |
 
 ## Content
 
