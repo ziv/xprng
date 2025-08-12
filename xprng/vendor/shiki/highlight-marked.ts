@@ -1,6 +1,10 @@
 import type { MarkedExtension } from "marked";
 import { getHighlighter } from "./get-highlighter";
 
+/**
+ * Highlight code blocks in marked using Shiki.
+ * @param theme
+ */
 export function highlight(theme: string): MarkedExtension {
   return {
     async: false,
