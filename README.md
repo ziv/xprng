@@ -1,4 +1,4 @@
-# (XP)Experimental (NG)Angular Components
+# (XPR)Experimental (NG)Angular Components
 
 Micro packages of very simple, yet, smart components.
 
