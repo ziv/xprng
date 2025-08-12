@@ -1,5 +1,5 @@
-import {Component} from "@angular/core";
-import {Slide, Slides} from '@xprng/slides';
+import { Component } from "@angular/core";
+import { Slide, Slides } from "@xprng/slides";
 
 const DIRECT_USAGE = `<xpr-code md="..." />`;
 const REMOTE_USAGE = `<xpr-code src="..." />`;
@@ -11,7 +11,7 @@ const REMOTE_USAGE = `<xpr-code src="..." />`;
   },
   imports: [
     Slides,
-    Slide
+    Slide,
   ],
   template: `
     <h1>XPRNG</h1>
@@ -29,6 +29,5 @@ const REMOTE_USAGE = `<xpr-code src="..." />`;
 })
 export default class Summary {
   action() {
-
   }
 }

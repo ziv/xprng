@@ -1,15 +1,15 @@
-import {ContentContainerComponentHarness} from '@angular/cdk/testing';
+import { ContentContainerComponentHarness } from "@angular/cdk/testing";
 
 export class SlideHarness extends ContentContainerComponentHarness {
-  static readonly hostSelector = 'xpr-slide';
+  static readonly hostSelector = "xpr-slide";
 
-  content = this.locatorForOptional('*');
+  content = this.locatorForOptional("*");
 }
 
 export class SlidesHarness extends ContentContainerComponentHarness {
-  static readonly hostSelector = 'xpr-slides';
+  static readonly hostSelector = "xpr-slides";
 
-  content = this.locatorForOptional('*');
+  content = this.locatorForOptional("*");
 
   readonly slides = this.locatorForAll(SlideHarness);
 

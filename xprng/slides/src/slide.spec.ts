@@ -1,9 +1,8 @@
-import {TestBed} from '@angular/core/testing';
-import {Slide} from './slide';
-import {Component, provideZonelessChangeDetection} from '@angular/core';
-import {TestbedHarnessEnvironment} from '@angular/cdk/testing/testbed';
-import {SlideHarness} from '@xprng/slides/testing';
-
+import { TestBed } from "@angular/core/testing";
+import { Slide } from "./slide";
+import { Component, provideZonelessChangeDetection } from "@angular/core";
+import { TestbedHarnessEnvironment } from "@angular/cdk/testing/testbed";
+import { SlideHarness } from "@xprng/slides/testing";
 
 beforeEach(() => {
   TestBed.configureTestingModule({
@@ -14,19 +13,18 @@ beforeEach(() => {
   });
 });
 
-describe('Slide', () => {
-
-  it('should create a component', () => {
+describe("Slide", () => {
+  it("should create a component", () => {
     const fixture = TestBed.createComponent(Slide);
     const component = fixture.componentInstance;
     expect(component).toBeTruthy();
   });
 
-  it('should hide content', async () => {
+  it("should hide content", async () => {
     @Component({
-      selector: 'test-component',
+      selector: "test-component",
       imports: [Slide],
-      template: '<xpr-slide><p>Test Content</p></xpr-slide>',
+      template: "<xpr-slide><p>Test Content</p></xpr-slide>",
     })
     class TestComponent {
     }
@@ -39,9 +37,9 @@ describe('Slide', () => {
     expect(content).toBeFalsy();
   });
 
-  it('should show content on show()', async () => {
+  it("should show content on show()", async () => {
     @Component({
-      selector: 'test-component',
+      selector: "test-component",
       imports: [Slide],
       template: '<xpr-slide [display]="true"><p>Test Content</p></xpr-slide>',
     })
@@ -56,4 +54,3 @@ describe('Slide', () => {
     expect(content).toBeTruthy();
   });
 });
-

@@ -1,4 +1,4 @@
-import {Component, model} from "@angular/core";
+import { Component, model } from "@angular/core";
 
 @Component({
   selector: "xpr-slide",

@@ -9,9 +9,9 @@ import {
   linkedSignal,
   numberAttribute,
   signal,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from "@angular/core";
-import {Slide} from './slide';
+import { Slide } from "./slide";
 
 type Attr<T> = T | string | null | undefined;
 
@@ -19,19 +19,19 @@ type Attr<T> = T | string | null | undefined;
   selector: "xpr-slides",
   encapsulation: ViewEncapsulation.None,
   host: {
-    '(document:keydown.ArrowLeft)': 'previous()',
-    '(document:keydown.ArrowUp)': 'previous()',
-    '(document:keydown.Backspace)': 'previous()',
-    '(document:keydown.ArrowRight)': 'next()',
-    '(document:keydown.ArrowDown)': 'next()',
-    '(document:keydown.Space)': 'next()',
-    '(document:keydown.Enter)': 'toggleFullScreen()',
-    '(document:keydown.Home)': 'first()',
-    '(document:keydown.End)': 'last()',
-    '(document:keydown.a)': 'toggleAutoPlay()',
-    '(document:keydown.+)': 'inc()',
-    '(document:keydown.-)': 'dec()',
-    '(click)': 'next()',
+    "(document:keydown.ArrowLeft)": "previous()",
+    "(document:keydown.ArrowUp)": "previous()",
+    "(document:keydown.Backspace)": "previous()",
+    "(document:keydown.ArrowRight)": "next()",
+    "(document:keydown.ArrowDown)": "next()",
+    "(document:keydown.Space)": "next()",
+    "(document:keydown.Enter)": "toggleFullScreen()",
+    "(document:keydown.Home)": "first()",
+    "(document:keydown.End)": "last()",
+    "(document:keydown.a)": "toggleAutoPlay()",
+    "(document:keydown.+)": "inc()",
+    "(document:keydown.-)": "dec()",
+    "(click)": "next()",
   },
   styles: `
     xpr-slides {
@@ -50,7 +50,7 @@ type Attr<T> = T | string | null | undefined;
       }
     }
   `,
-  template: '<ng-content/>'
+  template: "<ng-content/>",
 })
 export class Slides {
   private prev = -1;
@@ -63,16 +63,24 @@ export class Slides {
   private readonly shouldPlay = linkedSignal<boolean>(() => this.autoplay());
   private readonly delay = linkedSignal<number>(() => this.interval());
 
-  protected readonly notification = signal<string>('');
-  protected readonly notificationClass = signal<string>('xpr-slides-notification');
+  protected readonly notification = signal<string>("");
+  protected readonly notificationClass = signal<string>(
+    "xpr-slides-notification",
+  );
 
-  readonly idx = input<number, Attr<number>>(0, {transform: numberAttribute});
+  readonly idx = input<number, Attr<number>>(0, { transform: numberAttribute });
 
-  readonly cyclic = input<boolean, Attr<boolean>>(false, {transform: booleanAttribute});
+  readonly cyclic = input<boolean, Attr<boolean>>(false, {
+    transform: booleanAttribute,
+  });
 
-  readonly autoplay = input<boolean, Attr<boolean>>(false, {transform: booleanAttribute});
+  readonly autoplay = input<boolean, Attr<boolean>>(false, {
+    transform: booleanAttribute,
+  });
 
-  readonly interval = input<number, Attr<number>>(5000, {transform: numberAttribute});
+  readonly interval = input<number, Attr<number>>(5000, {
+    transform: numberAttribute,
+  });
 
   constructor() {
     // input range validation
@@ -80,14 +88,21 @@ export class Slides {
       const idx = this.idx();
 
       if (idx > this.slides().length) {
-        throw new RangeError(`Invalid show index: ${idx}. It must be between 0 and ${this.slides().length - 1}.`);
+        throw new RangeError(
+          `Invalid show index: ${idx}. It must be between 0 and ${
+            this.slides().length - 1
+          }.`,
+        );
       }
 
       if (idx < 0) {
-        throw new RangeError(`Invalid show index: ${idx}. It must be between 0 and ${this.slides().length - 1}.`);
+        throw new RangeError(
+          `Invalid show index: ${idx}. It must be between 0 and ${
+            this.slides().length - 1
+          }.`,
+        );
       }
     });
-
 
     // change the slides visibility when the current slide changes
     effect(() => {
@@ -115,11 +130,13 @@ export class Slides {
         return;
       }
       if (this.delay() <= 0) {
-        throw new RangeError(`Invalid interval: ${this.delay()}. It must be greater than 0.`);
+        throw new RangeError(
+          `Invalid interval: ${this.delay()}. It must be greater than 0.`,
+        );
       }
       this.timer = setInterval(() => {
         this.next();
-      }, this.delay())
+      }, this.delay());
     });
   }
 
@@ -129,11 +146,12 @@ export class Slides {
 
   protected toggleFullScreen() {
     if (!document.fullscreenElement) {
-      (this.el.nativeElement as HTMLElement)?.requestFullscreen().catch(console.error);
+      (this.el.nativeElement as HTMLElement)?.requestFullscreen().catch(
+        console.error,
+      );
     } else {
       document.exitFullscreen?.().catch(console.error);
     }
-
   }
 
   protected next() {
