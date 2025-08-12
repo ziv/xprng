@@ -2,7 +2,8 @@
   "include": [
     "xprng/common/**/*.ts",
     "xprng/markdown/**/*.ts",
-    "xprng/code/**/*.ts"
+    "xprng/code/**/*.ts",
+    "xprng/slides/**/*.ts"
   ],
   "exclude": [
     "xprng/**/*.spec.ts"
