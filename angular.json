@@ -188,6 +188,34 @@
           }
         }
       }
+    },
+    "@xprng/slides": {
+      "projectType": "library",
+      "root": "xprng/slides",
+      "sourceRoot": "xprng/slides/src",
+      "prefix": "xpr",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "xprng/slides/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "xprng/slides/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "runner": "vitest",
+            "tsConfig": "xprng/slides/tsconfig.spec.json",
+            "buildTarget": "::development"
+          }
+        }
+      }
     }
   }
 }

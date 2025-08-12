@@ -26,6 +26,12 @@
       "@xprng/markdown/*": [
         "./dist/xprng/markdown/*"
       ],
+      "@xprng/slides": [
+        "./dist/xprng/slides"
+      ],
+      "@xprng/slides/*": [
+        "./dist/xprng/slides/*"
+      ],
       "@xprng/vendor": [
         "./dist/xprng/vendor"
       ],
@@ -80,6 +86,12 @@
     },
     {
       "path": "./xprng/vendor/tsconfig.spec.json"
+    },
+    {
+      "path": "./xprng/slides/tsconfig.lib.json"
+    },
+    {
+      "path": "./xprng/slides/tsconfig.spec.json"
     }
   ]
 }
