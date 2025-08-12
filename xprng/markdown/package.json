@@ -48,7 +48,7 @@
     "**/*.js",
     "*.js",
     "*.d.ts",
-    "../../packages/xprng/components/md/README.md",
+    "EADME.md",
     "license"
   ],
   "release": {
