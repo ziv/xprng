@@ -1,12 +1,59 @@
 {
   "name": "@xprng/slides",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "peerDependencies": {
     "@angular/common": "^20.1.0",
     "@angular/core": "^20.1.0"
   },
+  "devDependencies": {
+    "semantic-release": "^24.2.7"
+  },
   "dependencies": {
     "tslib": "^2.3.0"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "author": "Ziv Perry",
+  "license": "MIT",
+  "keywords": [
+    "angular",
+    "component",
+    "slides",
+    "xpr-slides",
+    "xprng",
+    "ng",
+    "xpr"
+  ],
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ziv/xprng.git",
+    "directory": "xprng/slides"
+  },
+  "bugs": {
+    "url": "https://github.com/ziv/xprng/issues"
+  },
+  "homepage": "https://github.com/ziv/xprng#readme",
+  "files": [
+    "**/*.js",
+    "*.js",
+    "*.d.ts",
+    "README.md",
+    "license"
+  ],
+  "release": {
+    "tagFormat": "slides-v${version}",
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/npm",
+      "@semantic-release/github"
+    ]
+  }
 }
