@@ -557,7 +557,7 @@ See <a href="https://shiki.style/themes">https://shiki.style/themes</a></p>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div>@switch (state()) {  @case ("local") {    <div [innerHTML]="content()"         class="xpr-value xpr-local"></div>  }  @case ("error") {    <ng-content select="xpr-error-state"/>  }  @case ("loading") {    <ng-content select="xpr-loading-state"/>  }  @case ("resolved") {    <div [innerHTML]="content()"         class="xpr-value xpr-loaded"></div>  }  @default {    <ng-content select="xpr-empty-state"/>  }}</div>'
-    var COMPONENTS = [{'name': 'Code', 'selector': 'xpr-code'},{'name': 'Markdown', 'selector': 'xpr-markdown'}];
+    var COMPONENTS = [{'name': 'Code', 'selector': 'xpr-code'},{'name': 'Markdown', 'selector': 'xpr-markdown'},{'name': 'Slide', 'selector': 'xpr-slide'},{'name': 'Slides', 'selector': 'xpr-slides'}];
     var DIRECTIVES = [{'name': 'EmptyState', 'selector': 'xpr-empty-state,[xpr-empty-state]'},{'name': 'ErrorState', 'selector': 'xpr-error-state,[xpr-error-state]'},{'name': 'LoadingState', 'selector': 'xpr-loading-state,[xpr-loading-state]'},{'name': 'OkState', 'selector': 'xpr-ok-state,[xpr-ok-state]'}];
     var ACTUAL_COMPONENT = {'name': 'Code'};
 </script>

@@ -59,6 +59,12 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             <li class="link">
                                 <a href="components/Markdown.html" data-type="entity-link" >Markdown</a>
                             </li>
+                            <li class="link">
+                                <a href="components/Slide.html" data-type="entity-link" >Slide</a>
+                            </li>
+                            <li class="link">
+                                <a href="components/Slides.html" data-type="entity-link" >Slides</a>
+                            </li>
                         </ul>
                     </li>
                         <li class="chapter">
@@ -105,6 +111,12 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="classes/MarkdownHarness.html" data-type="entity-link" >MarkdownHarness</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/SlideHarness.html" data-type="entity-link" >SlideHarness</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/SlidesHarness.html" data-type="entity-link" >SlidesHarness</a>
                             </li>
                         </ul>
                     </li>
