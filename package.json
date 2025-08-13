@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "ng-build.sh",
-    "test": "ng-test.sh",
+    "build": "./ng-build.sh",
+    "test": "./ng-test.sh",
     "docs": "compodoc -p tsconfig.doc.json",
     "ng": "ng",
     "start": "ng serve",
