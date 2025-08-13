@@ -3,12 +3,16 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "./build.sh",
+    "build": "ng-build.sh",
+    "test": "ng-test.sh",
     "docs": "compodoc -p tsconfig.doc.json",
     "ng": "ng",
     "start": "ng serve",
-    "test": "ng test",
-    "watch": "ng build --watch --configuration development"
+    "watch": "ng build --watch --configuration development",
+    "serve:ssr:@xpr/docs": "node dist/@xpr/docs/server/server.mjs",
+    "serve:ssr:@xprng/docs": "node dist/@xprng/docs/server/server.mjs",
+    "serve:ssr:@apps/docs": "node dist/@apps/docs/server/server.mjs",
+    "serve:ssr:@apps/demo": "node dist/@apps/demo/server/server.mjs"
   },
   "config": {
     "commitizen": {
@@ -26,6 +30,9 @@
     ]
   },
   "dependencies": {
+    "@angular/platform-server": "^20.1.0",
+    "@angular/ssr": "^20.1.5",
+    "express": "^5.1.0",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
@@ -41,8 +48,10 @@
     "@angular/router": "^20.1.0",
     "@compodoc/compodoc": "^1.1.26",
     "@tailwindcss/postcss": "^4.1.11",
+    "@types/express": "^5.0.1",
     "@types/jasmine": "~5.1.0",
     "@types/markdown-it": "^14.1.2",
+    "@types/node": "^20.17.19",
     "@types/prismjs": "^1.26.5",
     "commitizen": "^4.3.1",
     "cz-conventional-changelog": "^3.0.1",
