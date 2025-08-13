@@ -6,13 +6,13 @@ Micro packages of very simple, yet, smart components.
 
 Compatible with **Zoneless** Angular 20+.
 
-| Package           | Component                            | Version                                                          |
-|-------------------|--------------------------------------|------------------------------------------------------------------|
-| `@xprng/common`   | [Common](xprng/common/README.md)     | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fcommon)   |
-| `@xprng/vendor`   | [Vendor](xprng/vendor/README.md)     | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fvendor)   |
-| `@xprng/markdown` | [Markdown](xprng/markdown/README.md) | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fmarkdown) |
-| `@xprng/code`     | [Code](xprng/code/README.md)         | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fcode)     |
-| `@xprng/slides`   | [Slides](xprng/slides/README.md)     | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fslides)   |
+| Package           | Component                            | Version                                                          | Content                      |
+|-------------------|--------------------------------------|------------------------------------------------------------------|------------------------------|
+| `@xprng/common`   | [Common](xprng/common/README.md)     | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fcommon)   | State directives             |
+| `@xprng/vendor`   | [Vendor](xprng/vendor/README.md)     | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fvendor)   | 3rd party libraries bindings |
+| `@xprng/markdown` | [Markdown](xprng/markdown/README.md) | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fmarkdown) | Markdown component           |
+| `@xprng/code`     | [Code](xprng/code/README.md)         | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fcode)     | Code highlighter component   |
+| `@xprng/slides`   | [Slides](xprng/slides/README.md)     | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fslides)   | Slides viewer component      |
 
 ## Content
 
