@@ -150,18 +150,18 @@
 
             <tr>
                 <td class="col-md-3">template</td>
-                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">@if (md()) {
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">@if (content()) {
   &lt;!--
   Markdown content is provided directly mode.
   --&gt;
-  &lt;div class&#x3D;&quot;xpr-value xpr-local&quot; [innerHTML]&#x3D;&quot;content()&quot;&gt;&lt;/div&gt;
+  &lt;div class&#x3D;&quot;xpr-value xpr-local&quot; [innerHTML]&#x3D;&quot;markdown()&quot;&gt;&lt;/div&gt;
 
 } @else if (src()) {
   &lt;!--
   Source URL is provided mode.
   --&gt;
   @if (res.hasValue() &amp;&amp; res.value()) {
-    &lt;div class&#x3D;&quot;xpr-value xpr-loaded&quot; [innerHTML]&#x3D;&quot;content()&quot;&gt;&lt;/div&gt;
+    &lt;div class&#x3D;&quot;xpr-value xpr-loaded&quot; [innerHTML]&#x3D;&quot;markdown()&quot;&gt;&lt;/div&gt;
   } @else if (res.isLoading()) {
     &lt;ng-content select&#x3D;&quot;xpr-loading-state&quot;/&gt;
   } @else if (res.error()) {
@@ -198,12 +198,12 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
                                 <a href="#content" >content</a>
                             </li>
                             <li>
-                                    <span class="modifier">Readonly</span>
-                                <a href="#md" >md</a>
+                                    <span class="modifier">Protected</span>
+                                <a href="#markdown" >markdown</a>
                             </li>
                             <li>
                                     <span class="modifier">Readonly</span>
@@ -377,34 +377,9 @@
                 <td class="col-md-4">
                     <a name="content"></a>
                     <span class="name">
-                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
                         <span ><b>content</b></span>
                         <a href="#content"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
-    return this.md()
-      ? this.parse(this.md()!)
-      : this.parse(this.res.hasValue() ? this.res.value() : &quot;&quot;);
-  })</code>
-                    </td>
-                </tr>
-
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="md"></a>
-                    <span class="name">
-                            <span class="modifier">Readonly</span>
-                        <span ><b>md</b></span>
-                        <a href="#md"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
@@ -420,6 +395,31 @@
 </div>
                 </td>
             </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="markdown"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>markdown</b></span>
+                        <a href="#markdown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    return this.content()
+      ? this.parse(this.content()!)
+      : this.parse(this.res.hasValue() ? this.res.value() : &quot;&quot;);
+  })</code>
+                    </td>
+                </tr>
+
 
         </tbody>
     </table>
@@ -515,7 +515,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-description"><p>The source URL of the markdown content.
-If <code>md</code> is provided, this will be ignored.</p>
+If <code>content</code> is provided, this will be ignored.</p>
 </div>
                 </td>
             </tr>
@@ -565,7 +565,7 @@ If <code>md</code> is provided, this will be ignored.</p>
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div>@if (md()) {  <!--  Markdown content is provided directly mode.  -->  <div class="xpr-value xpr-local" [innerHTML]="content()"></div>} @else if (src()) {  <!--  Source URL is provided mode.  -->  @if (res.hasValue() && res.value()) {    <div class="xpr-value xpr-loaded" [innerHTML]="content()"></div>  } @else if (res.isLoading()) {    <ng-content select="xpr-loading-state"/>  } @else if (res.error()) {    <ng-content select="xpr-error-state"/>  } @else {    <ng-content select="xpr-empty-state"/>  }}</div>'
+        var COMPONENT_TEMPLATE = '<div>@if (content()) {  <!--  Markdown content is provided directly mode.  -->  <div class="xpr-value xpr-local" [innerHTML]="markdown()"></div>} @else if (src()) {  <!--  Source URL is provided mode.  -->  @if (res.hasValue() && res.value()) {    <div class="xpr-value xpr-loaded" [innerHTML]="markdown()"></div>  } @else if (res.isLoading()) {    <ng-content select="xpr-loading-state"/>  } @else if (res.error()) {    <ng-content select="xpr-error-state"/>  } @else {    <ng-content select="xpr-empty-state"/>  }}</div>'
     var COMPONENTS = [{'name': 'Code', 'selector': 'xpr-code'},{'name': 'Markdown', 'selector': 'xpr-markdown'},{'name': 'Slide', 'selector': 'xpr-slide'},{'name': 'Slides', 'selector': 'xpr-slides'}];
     var DIRECTIVES = [{'name': 'EmptyState', 'selector': 'xpr-empty-state,[xpr-empty-state]'},{'name': 'ErrorState', 'selector': 'xpr-error-state,[xpr-error-state]'},{'name': 'LoadingState', 'selector': 'xpr-loading-state,[xpr-loading-state]'},{'name': 'OkState', 'selector': 'xpr-ok-state,[xpr-ok-state]'}];
     var ACTUAL_COMPONENT = {'name': 'Markdown'};
