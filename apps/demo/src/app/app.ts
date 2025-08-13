@@ -1,9 +1,10 @@
-import {Component, signal} from '@angular/core';
-import {RouterLink, RouterOutlet} from '@angular/router';
+import {Component} from '@angular/core';
+import {RouterOutlet} from '@angular/router';
+import DemoItems from '../shared/demo-items';
 
 @Component({
   selector: 'xpd-root',
-  imports: [RouterOutlet, RouterLink],
+  imports: [RouterOutlet, DemoItems],
   styles: `
     :host {
       display: flex;
@@ -25,34 +26,13 @@ import {RouterLink, RouterOutlet} from '@angular/router';
   template: `
     <aside>
       <nav>
-        @for (item of items; track item.route) {
-          <button [routerLink]="item.route">{{ item.label }}</button>
-        }
+        <xpd-demo-items></xpd-demo-items>
       </nav>
     </aside>
     <main>
       <router-outlet/>
     </main>
-
   `,
 })
 export class App {
-  items = [
-    {
-      label: 'Home',
-      route: '/home'
-    },
-    {
-      label: 'Code',
-      route: '/code'
-    },
-    {
-      label: 'Markdown',
-      route: '/markdown'
-    },
-    {
-      label: 'Slides',
-      route: '/slides'
-    }
-  ];
 }

@@ -11,7 +11,7 @@ body {
 }
 
 
-nav {
+nav xpd-demo-items {
   display: flex;
   flex-direction: column;
 
@@ -31,7 +31,29 @@ nav {
 
   button:active {
     color: white;
-    background-color:#33a62d;
+    background-color: #33a62d;
+  }
+}
+
+xpd-home xpd-demo-items {
+  display: flex;
+  gap: 1em;
+
+  button {
+    height: 10em;
+    width: 10em;
+    border: none;
+    cursor: pointer;
+    color: white;
+    background-color: #3c64c5;
+  }
+
+  button:hover {
+    background-color: #646464;
+  }
+
+  button:active {
+    background-color: #33a62d;
   }
 }
 

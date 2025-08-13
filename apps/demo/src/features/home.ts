@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
+import DemoItems from '../shared/demo-items';
 
 @Component({
   selector: 'xpd-home',
-  imports: [],
+  imports: [
+    DemoItems
+  ],
   template: `
-    <p>
-      home works!
-    </p>
+    <h1>XPRNG Demos</h1>
+    <xpd-demo-items/>
   `,
-  styles: ``
 })
 export default class Home {
 
