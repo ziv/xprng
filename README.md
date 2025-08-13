@@ -14,17 +14,6 @@ Compatible with **Zoneless** Angular 20+.
 | `@xprng/code`     | [Code](xprng/code/README.md)         | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fcode)     | Code highlighter component   |
 | `@xprng/slides`   | [Slides](xprng/slides/README.md)     | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fslides)   | Slides viewer component      |
 
-## Content
-
-- Common
-  - State directives
-- Vendor
-  - Shiki syntax highlighter registry
-- Markdown
-  - Markdown component
-- Code
-  - Code highlighter component
-
 ---
 
 Made with ❤️ for the Angular community.
