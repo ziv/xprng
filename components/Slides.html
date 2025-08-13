@@ -231,16 +231,6 @@
                                 <a href="#interval" >interval</a>
                             </li>
                             <li>
-                                    <span class="modifier">Protected</span>
-                                    <span class="modifier">Readonly</span>
-                                <a href="#notification" >notification</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Protected</span>
-                                    <span class="modifier">Readonly</span>
-                                <a href="#notificationClass" >notificationClass</a>
-                            </li>
-                            <li>
                                     <span class="modifier">Private</span>
                                 <a href="#prev" >prev</a>
                             </li>
@@ -627,6 +617,12 @@
                     </td>
                 </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Whether the slideshow should autoplay.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -649,6 +645,12 @@
                     </td>
                 </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Current slide index reference.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -672,6 +674,12 @@
                     </td>
                 </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Whether the slideshow should loop back to the first slide after reaching the last one.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -694,6 +702,12 @@
                     </td>
                 </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Interval reference.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -716,6 +730,12 @@
                     </td>
                 </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Reference to the host element for fullscreen requests.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -733,10 +753,16 @@
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>input&lt;number, Attr&lt;number&gt;&gt;(0, { transform: numberAttribute })</code>
+                        <i>Default value : </i><code>input&lt;number, Attr&lt;number&gt;&gt;(0, {transform: numberAttribute})</code>
                     </td>
                 </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The index of the slide to show.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -760,52 +786,12 @@
                     </td>
                 </tr>
 
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="notification"></a>
-                    <span class="name">
-                            <span class="modifier">Protected</span>
-                            <span class="modifier">Readonly</span>
-                        <span ><b>notification</b></span>
-                        <a href="#notification"><span class="icon ion-ios-link"></span></a>
-                    </span>
+                    <div class="io-description"><p>The interval in milliseconds between slides when autoplay is enabled.</p>
+</div>
                 </td>
             </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>signal&lt;string&gt;(&quot;&quot;)</code>
-                    </td>
-                </tr>
-
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="notificationClass"></a>
-                    <span class="name">
-                            <span class="modifier">Protected</span>
-                            <span class="modifier">Readonly</span>
-                        <span ><b>notificationClass</b></span>
-                        <a href="#notificationClass"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>signal&lt;string&gt;(
-    &quot;xpr-slides-notification&quot;,
-  )</code>
-                    </td>
-                </tr>
-
 
         </tbody>
     </table>
@@ -827,6 +813,13 @@
                     </td>
                 </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>holds the previous slide index to increase performance
+and avoid unnecessary DOM manipulations</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -849,6 +842,12 @@
                     </td>
                 </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Autoplay reference.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -871,6 +870,12 @@
                     </td>
                 </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Slides list</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -898,6 +903,12 @@
                     </td>
                 </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>autoplay timer</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
