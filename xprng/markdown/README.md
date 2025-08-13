@@ -17,17 +17,15 @@ markdown, [Shiki](https://shiki.style/) for syntax highlighting, and Angular.
 ### Binding markdown content
 
 ```html
-
-<xpr-markdown md="# Markdown"/>
-<xpr-markdown [md]="markdownContent"/>
+<xpr-markdown content="# Markdown" />
+<xpr-markdown [content]="markdownContent" />
 ```
 
 ### Loading markdown from a URL
 
 ```html
-
-<xpr-markdown src="https://example.com/README.md"/>
-<xpr-markdown [src]="markdownUrl"/>
+<xpr-markdown src="https://example.com/README.content" />
+<xpr-markdown [src]="markdownUrl" />
 ```
 
 ### Nested state components
@@ -35,8 +33,7 @@ markdown, [Shiki](https://shiki.style/) for syntax highlighting, and Angular.
 You can use nested components to display loading and error states.
 
 ```html
-
-<xpr-markdown src="https://example.com/README.md">
+<xpr-markdown src="https://example.com/README.content">
   <xpr-loading-state>loading...</xpr-loading-state>
   <xpr-error-state>error loading markdown</xpr-error-state>
 </xpr-markdown>
@@ -47,11 +44,11 @@ package.
 
 ### Highlighted code blocks
 
-See [@xprng/code](../code/README.md) for more details about languages and themes supported.
+See [@xprng/code](../code/README.md) for more details about languages and themes
+supported.
 
 Set a theme on a component:
 
 ```html
-
-<xpr-markdown src="https://example.com/README.md" theme="github-dark"/>
+<xpr-markdown src="https://example.com/README.content" theme="github-dark" />
 ```

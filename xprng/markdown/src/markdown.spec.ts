@@ -1,16 +1,16 @@
-import {TestBed} from "@angular/core/testing";
-import {Markdown} from "./markdown";
-import {Component, provideZonelessChangeDetection} from "@angular/core";
+import { TestBed } from "@angular/core/testing";
+import { Markdown } from "./markdown";
+import { Component, provideZonelessChangeDetection } from "@angular/core";
 import {
   HttpTestingController,
   provideHttpClientTesting,
 } from "@angular/common/http/testing";
-import {provideHttpClient} from "@angular/common/http";
-import {beforeEach, expect} from "vitest";
-import {TestbedHarnessEnvironment} from "@angular/cdk/testing/testbed";
-import {EmptyState, ErrorState, LoadingState} from "@xprng/common";
-import {MarkdownHarness} from "@xprng/markdown/testing";
-import {EmptyStateHarness, ErrorStateHarness} from "@xprng/common/testing";
+import { provideHttpClient } from "@angular/common/http";
+import { beforeEach, expect } from "vitest";
+import { TestbedHarnessEnvironment } from "@angular/cdk/testing/testbed";
+import { EmptyState, ErrorState, LoadingState } from "@xprng/common";
+import { MarkdownHarness } from "@xprng/markdown/testing";
+import { EmptyStateHarness, ErrorStateHarness } from "@xprng/common/testing";
 
 let http: HttpTestingController;
 
@@ -36,13 +36,13 @@ describe("Markdown harness", () => {
   it("should throw error for missing attributes", async () => {
     try {
       TestBed.createComponent(TestEmptyComponent);
-      fail('Expected an error to be thrown due to missing "md" input');
+      fail('Expected an error to be thrown due to missing "content" input');
     } catch (e) {
       expect(e).toBeInstanceOf(Error);
     }
   });
 
-  it("should create the main with md content", async () => {
+  it("should create the main with content content", async () => {
     const fixture = TestBed.createComponent(TestMdComponent);
     fixture.detectChanges();
 
@@ -88,7 +88,7 @@ describe("Markdown harness", () => {
 @Component({
   selector: "test-component",
   imports: [Markdown],
-  template: '<xpr-markdown [md]="md"/>',
+  template: '<xpr-markdown [content]="content"/>',
 })
 class TestMdComponent {
   md = "# Test Markdown\n\n# Another Heading";

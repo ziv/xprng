@@ -4,7 +4,7 @@ export class MarkdownHarness extends ContentContainerComponentHarness {
   static hostSelector = "xpr-markdown";
 
   /**
-   * The content projected in case of "md" provided mode.
+   * The content projected in case of "content" provided mode.
    */
   getLocal = this.locatorForOptional(".xpr-local");
 

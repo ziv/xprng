@@ -1,8 +1,8 @@
-import {Component, computed, inject, input, OnInit} from "@angular/core";
-import {httpResource} from "@angular/common/http";
-import {DomSanitizer} from "@angular/platform-browser";
-import type {MarkedOptions} from "marked";
-import {marked} from "@xprng/vendor/marked";
+import { Component, computed, inject, input, OnInit } from "@angular/core";
+import { httpResource } from "@angular/common/http";
+import { DomSanitizer } from "@angular/platform-browser";
+import type { MarkedOptions } from "marked";
+import { marked } from "@xprng/vendor/marked";
 
 /**
  * Marked options for parsing markdown.
@@ -17,18 +17,18 @@ export type MarkdownOptions = MarkedOptions;
     class: "xpr-markdown",
   },
   template: `
-    @if (md()) {
+    @if (content()) {
       <!--
       Markdown content is provided directly mode.
       -->
-      <div class="xpr-value xpr-local" [innerHTML]="content()"></div>
+      <div class="xpr-value xpr-local" [innerHTML]="markdown()"></div>
 
     } @else if (src()) {
       <!--
       Source URL is provided mode.
       -->
       @if (res.hasValue() && res.value()) {
-        <div class="xpr-value xpr-loaded" [innerHTML]="content()"></div>
+        <div class="xpr-value xpr-loaded" [innerHTML]="markdown()"></div>
       } @else if (res.isLoading()) {
         <ng-content select="xpr-loading-state"/>
       } @else if (res.error()) {
@@ -44,11 +44,11 @@ export class Markdown implements OnInit {
    * The markdown content to be rendered.
    * @input
    */
-  readonly md = input<string | undefined>();
+  readonly content = input<string | undefined>();
 
   /**
    * The source URL of the markdown content.
-   * If `md` is provided, this will be ignored.
+   * If `content` is provided, this will be ignored.
    * @input
    */
   readonly src = input<string | undefined>();
@@ -67,10 +67,10 @@ export class Markdown implements OnInit {
 
   //
 
-  // protected mdContent = computed(() => this.content(this.md() ?? ""));
-  protected content = computed(() => {
-    return this.md()
-      ? this.parse(this.md()!)
+  // protected mdContent = computed(() => this.content(this.content() ?? ""));
+  protected markdown = computed(() => {
+    return this.content()
+      ? this.parse(this.content()!)
       : this.parse(this.res.hasValue() ? this.res.value() : "");
   });
 
@@ -85,14 +85,14 @@ export class Markdown implements OnInit {
   private readonly sanitize = inject(DomSanitizer);
 
   async ngOnInit() {
-    if (!this.md() && !this.src()) {
+    if (!this.content() && !this.src()) {
       throw new Error(
-        "Either 'md' or 'src' input must be provided. Neither provided.",
+        "Either 'content' or 'src' input must be provided. Neither provided.",
       );
     }
-    if (this.md() && this.src()) {
+    if (this.content() && this.src()) {
       throw new Error(
-        "Either 'md' or 'src' input must be provided. Both provided.",
+        "Either 'content' or 'src' input must be provided. Both provided.",
       );
     }
   }
