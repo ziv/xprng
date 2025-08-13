@@ -1,8 +1,8 @@
-import { Component, computed, inject, input, OnInit } from "@angular/core";
-import { httpResource } from "@angular/common/http";
-import { DomSanitizer } from "@angular/platform-browser";
-import { Marked, type MarkedOptions } from "marked";
-import { highlight } from "@xprng/vendor/shiki";
+import {Component, computed, inject, input, OnInit} from "@angular/core";
+import {httpResource} from "@angular/common/http";
+import {DomSanitizer} from "@angular/platform-browser";
+import type {MarkedOptions} from "marked";
+import {marked} from "@xprng/vendor/marked";
 
 /**
  * Marked options for parsing markdown.
@@ -75,9 +75,9 @@ export class Markdown implements OnInit {
   });
 
   private parse(text: string) {
-    const marked = new Marked(highlight(this.theme()));
+    const parser = marked(this.theme());
     return this.sanitize.bypassSecurityTrustHtml(
-      marked.parse(text, this.options()) as string,
+      parser.parse(text, this.options()) as string,
     );
   }
 
