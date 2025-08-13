@@ -1,5 +1,5 @@
-import type { MarkedExtension } from "marked";
-import { getHighlighter } from "./get-highlighter";
+import type {MarkedExtension} from "marked";
+import {getHighlighter} from "./get-highlighter";
 
 /**
  * Highlight code blocks in marked using Shiki.
@@ -12,10 +12,10 @@ export function highlight(theme: string): MarkedExtension {
       if (token.type !== "code") {
         return;
       }
-      const lang = (token.lang || "").match(/\S*/)?.[0] ?? "plaintext";
-      const text = token.text || "";
+      const lang = (token.lang ?? "plaintext").toLowerCase().trim();
+      const text = token.text ?? "";
 
-      const html = getHighlighter().codeToHtml(text, { lang, theme });
+      const html = getHighlighter().codeToHtml(text, {lang, theme});
 
       // change the token type to 'html' and set the html content
       Object.assign(token, {

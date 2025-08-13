@@ -2,17 +2,18 @@
   "name": "@xprng/markdown",
   "version": "0.0.0",
   "peerDependencies": {
-    "@angular/cdk": "^20.1.5",
+    "@angular/cdk": "^20.1.0",
     "@angular/common": "^20.1.0",
     "@angular/core": "^20.1.0",
-    "@angular/platform-browser": "^20.1.0",
-    "marked": "^16.1.2",
-    "shiki": "^3.9.2"
+    "@angular/platform-browser": "^20.1.0"
   },
   "devDependencies": {
     "semantic-release": "^24.2.7"
   },
   "dependencies": {
+    "@xprng/vendor": "*",
+    "marked": ">=16.0.0",
+    "shiki": ">=3.9.0",
     "tslib": "^2.3.0"
   },
   "sideEffects": false,

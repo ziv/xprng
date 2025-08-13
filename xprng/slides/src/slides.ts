@@ -11,7 +11,7 @@ import {
   signal,
   ViewEncapsulation,
 } from "@angular/core";
-import { Slide } from "./slide";
+import {Slide} from "./slide";
 
 type Attr<T> = T | string | null | undefined;
 
@@ -50,40 +50,88 @@ type Attr<T> = T | string | null | undefined;
       }
     }
   `,
-  template: "<ng-content/>",
+  template: '<ng-content/>',
 })
 export class Slides {
+  /**
+   * holds the previous slide index to increase performance
+   * and avoid unnecessary DOM manipulations
+   * @private
+   */
   private prev = -1;
+
+  /**
+   * autoplay timer
+   * @private
+   */
   private timer = 0;
+
+  /**
+   * Reference to the host element for fullscreen requests.
+   * @private
+   */
   private readonly el = inject(ElementRef);
+
+  /**
+   * Slides list
+   * @private
+   */
   private readonly slides = contentChildren(Slide);
 
   // using linkedSignals to cancel the readonly input signal limitations
+
+  /**
+   * Current slide index reference.
+   * @private
+   */
   private readonly current = linkedSignal<number>(() => this.idx());
+
+  /**
+   * Autoplay reference.
+   * @private
+   */
   private readonly shouldPlay = linkedSignal<boolean>(() => this.autoplay());
+
+  /**
+   * Interval reference.
+   * @private
+   */
   private readonly delay = linkedSignal<number>(() => this.interval());
 
-  protected readonly notification = signal<string>("");
-  protected readonly notificationClass = signal<string>(
-    "xpr-slides-notification",
-  );
+  // inputs
 
-  readonly idx = input<number, Attr<number>>(0, { transform: numberAttribute });
+  /**
+   * The index of the slide to show.
+   * @default 0
+   */
+  readonly idx = input<number, Attr<number>>(0, {transform: numberAttribute});
 
+  /**
+   * Whether the slideshow should loop back to the first slide after reaching the last one.
+   * @default false
+   */
   readonly cyclic = input<boolean, Attr<boolean>>(false, {
     transform: booleanAttribute,
   });
 
+  /**
+   * Whether the slideshow should autoplay.
+   * @default false
+   */
   readonly autoplay = input<boolean, Attr<boolean>>(false, {
     transform: booleanAttribute,
   });
 
+  /**
+   * The interval in milliseconds between slides when autoplay is enabled.
+   * @default 5000
+   */
   readonly interval = input<number, Attr<number>>(5000, {
     transform: numberAttribute,
   });
 
   constructor() {
-    // input range validation
+    // inputs validation
     effect(() => {
       const idx = this.idx();
 
@@ -145,13 +193,7 @@ export class Slides {
   }
 
   protected toggleFullScreen() {
-    if (!document.fullscreenElement) {
-      (this.el.nativeElement as HTMLElement)?.requestFullscreen().catch(
-        console.error,
-      );
-    } else {
-      document.exitFullscreen?.().catch(console.error);
-    }
+    (document.fullscreenElement ? document.exitFullscreen : (this.el.nativeElement as HTMLElement)?.requestFullscreen)?.();
   }
 
   protected next() {

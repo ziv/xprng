@@ -64,12 +64,6 @@
       "path": "./xprng/markdown/tsconfig.spec.json"
     },
     {
-      "path": "./xprng/example/tsconfig.app.json"
-    },
-    {
-      "path": "./xprng/example/tsconfig.spec.json"
-    },
-    {
       "path": "./xprng/common/tsconfig.lib.json"
     },
     {
@@ -92,6 +86,18 @@
     },
     {
       "path": "./xprng/slides/tsconfig.spec.json"
+    },
+    {
+      "path": "./apps/docs/tsconfig.app.json"
+    },
+    {
+      "path": "./apps/docs/tsconfig.spec.json"
+    },
+    {
+      "path": "./apps/demo/tsconfig.app.json"
+    },
+    {
+      "path": "./apps/demo/tsconfig.spec.json"
     }
   ]
 }

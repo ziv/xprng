@@ -31,84 +31,6 @@
         }
       }
     },
-    "example": {
-      "projectType": "application",
-      "schematics": {},
-      "root": "xprng/example",
-      "sourceRoot": "xprng/example/src",
-      "prefix": "app",
-      "architect": {
-        "build": {
-          "builder": "@angular/build:application",
-          "options": {
-            "browser": "xprng/example/src/main.ts",
-            "tsConfig": "xprng/example/tsconfig.app.json",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "xprng/example/public"
-              }
-            ],
-            "styles": [
-              "xprng/example/src/styles.css"
-            ]
-          },
-          "configurations": {
-            "production": {
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
-                }
-              ],
-              "outputHashing": "all"
-            },
-            "development": {
-              "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "serve": {
-          "builder": "@angular/build:dev-server",
-          "configurations": {
-            "production": {
-              "buildTarget": "example:build:production"
-            },
-            "development": {
-              "buildTarget": "example:build:development"
-            }
-          },
-          "defaultConfiguration": "development"
-        },
-        "extract-i18n": {
-          "builder": "@angular/build:extract-i18n"
-        },
-        "test": {
-          "builder": "@angular/build:karma",
-          "options": {
-            "tsConfig": "xprng/example/tsconfig.spec.json",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "xprng/example/public"
-              }
-            ],
-            "styles": [
-              "xprng/example/src/styles.css"
-            ]
-          }
-        }
-      }
-    },
     "@xprng/common": {
       "projectType": "library",
       "root": "xprng/common",
@@ -128,9 +50,11 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "tsConfig": "xprng/common/tsconfig.spec.json"
+            "runner": "vitest",
+            "tsConfig": "xprng/common/tsconfig.spec.json",
+            "buildTarget": "::development"
           }
         }
       }
@@ -182,9 +106,11 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "tsConfig": "xprng/vendor/tsconfig.spec.json"
+            "runner": "vitest",
+            "tsConfig": "xprng/vendor/tsconfig.spec.json",
+            "buildTarget": "::development"
           }
         }
       }
@@ -213,6 +139,182 @@
             "runner": "vitest",
             "tsConfig": "xprng/slides/tsconfig.spec.json",
             "buildTarget": "::development"
+          }
+        }
+      }
+    },
+    "@apps/docs": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "inlineTemplate": true,
+          "inlineStyle": true
+        }
+      },
+      "root": "apps/docs",
+      "sourceRoot": "apps/docs/src",
+      "prefix": "xpd",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "apps/docs/src/main.ts",
+            "tsConfig": "apps/docs/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "apps/docs/public"
+              }
+            ],
+            "styles": [
+              "apps/docs/src/styles.css"
+            ],
+            "server": "apps/docs/src/main.server.ts",
+            "outputMode": "server",
+            "ssr": {
+              "entry": "apps/docs/src/server.ts"
+            }
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "@apps/docs:build:production"
+            },
+            "development": {
+              "buildTarget": "@apps/docs:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular/build:extract-i18n"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "apps/docs/tsconfig.spec.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "apps/docs/public"
+              }
+            ],
+            "styles": [
+              "apps/docs/src/styles.css"
+            ]
+          }
+        }
+      }
+    },
+    "@apps/demo": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "inlineTemplate": true,
+          "inlineStyle": true
+        }
+      },
+      "root": "apps/demo",
+      "sourceRoot": "apps/demo/src",
+      "prefix": "xpd",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "apps/demo/src/main.ts",
+            "tsConfig": "apps/demo/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "apps/demo/public"
+              }
+            ],
+            "styles": [
+              "apps/demo/src/styles.css"
+            ],
+            "server": "apps/demo/src/main.server.ts",
+            "outputMode": "static",
+            "ssr": {
+              "entry": "apps/demo/src/server.ts"
+            }
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "@apps/demo:build:production"
+            },
+            "development": {
+              "buildTarget": "@apps/demo:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular/build:extract-i18n"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "apps/demo/tsconfig.spec.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "apps/demo/public"
+              }
+            ],
+            "styles": [
+              "apps/demo/src/styles.css"
+            ]
           }
         }
       }
