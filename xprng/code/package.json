@@ -5,6 +5,7 @@
     "@angular/common": "^20.1.0",
     "@angular/core": "^20.1.0",
     "@angular/platform-browser": "^20.1.0",
+    "@xprng/vendor": "*",
     "shiki": "^3.9.2"
   },
   "devDependencies": {
