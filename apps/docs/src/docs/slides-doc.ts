@@ -1,26 +1,9 @@
 import {Component} from '@angular/core';
-import {DocDescriptor} from '../app/shared/descriptor';
 import {Slide, Slides} from '@xprng/slides';
-import DocumentationComponent from '../app/shared/documentation-component';
-
-const slidesDescriptor: DocDescriptor = {
-  id: 'slides',
-  name: 'Slides Documentation',
-  description: 'Documentation for the Markdown component.',
-  overview: "/docs.overview.md",
-  props: [
-    {
-      id: 'cyclic',
-      name: 'cyclic',
-      type: 'boolean',
-      description: 'Enable cyclic navigation through slides.',
-      value: false,
-    }
-  ]
-};
+import {DocumentationComponent} from '../app/documentation-component';
 
 @Component({
-  selector: 'xpd-docs',
+  selector: 'xpd-docs-slides',
   imports: [Slides, Slide],
   styles: `
     xpr-slides {

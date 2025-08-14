@@ -1,39 +1,41 @@
 /* You can add global styles to this file, and also import other style files */
 
+
+
 html, body {
   height: 100vh;
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  font-family: monospace;
+  /*margin: 0;*/
+  /*padding: 0;*/
+  /*font-family: monospace;*/
 }
 
 
-nav {
-  display: flex;
-  flex-direction: column;
+/*nav {*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
 
-  button {
-    height: 3em;
-    width: 100%;
-    border: none;
-    cursor: pointer;
-    color: #646464;
-    background-color: white;
-  }
+/*  button {*/
+/*    height: 3em;*/
+/*    width: 100%;*/
+/*    border: none;*/
+/*    cursor: pointer;*/
+/*    color: #646464;*/
+/*    background-color: white;*/
+/*  }*/
 
-  button:hover {
-    color: white;
-    background-color: #646464;
-  }
+/*  button:hover {*/
+/*    color: white;*/
+/*    background-color: #646464;*/
+/*  }*/
 
-  button:active {
-    color: white;
-    background-color: #33a62d;
-  }
-}
+/*  button:active {*/
+/*    color: white;*/
+/*    background-color: #33a62d;*/
+/*  }*/
+/*}*/
 
 /* documentation blocks */
 
@@ -79,4 +81,3 @@ xpr-code pre {
     background: #1859f6;
   }
 }
-

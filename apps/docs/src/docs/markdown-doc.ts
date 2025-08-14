@@ -1,9 +1,10 @@
 import {Component} from '@angular/core';
 import {Markdown} from '@xprng/markdown';
-import DocumentationComponent from '../app/shared/documentation-component';
+import {DocumentationComponent} from '../app/documentation-component';
+// import {DocumentationComponent} from '@xprng/docs';
 
 @Component({
-  selector: 'xpd-docs',
+  selector: 'xpd-docs-markdown',
   imports: [Markdown],
   template: `
     @if (prop('content').value) {

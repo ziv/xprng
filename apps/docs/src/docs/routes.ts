@@ -1,11 +1,10 @@
 import {Routes} from '@angular/router';
-import {DocDescriptor} from '../app/shared/descriptor';
 
 export default [
   {
     path: 'markdown',
     title: 'Markdown',
-    loadComponent: () => import('./markdown-doc'),
+    loadComponent: () => import('./markdown-doc') as Promise<any>,
     data: {
       component: {
         id: 'markdown',
@@ -14,21 +13,21 @@ export default [
         overview: "/docs.overview.md",
         props: [
           {
-            id: 'content',
-            name: 'content',
-            type: 'text',
-            description: 'Markdown content to render. Do not use with `src`.',
-            value: '',
-          },
-          {
             id: 'src',
             name: 'src',
             type: 'string',
             description: 'Path to a markdown file to load. Do not use with `content`.',
             value: '/example.md',
-          }
+          },
+          {
+            id: 'content',
+            name: 'content',
+            type: 'text',
+            description: 'Markdown content to render. Do not use with `src`',
+            value: '',
+          },
         ],
-      } as DocDescriptor
+      }
     }
   },
   {
@@ -39,18 +38,25 @@ export default [
       component: {
         id: 'slides',
         name: 'Slides Documentation',
-        description: 'Documentation for the Markdown component.',
+        description: 'Documentation for the Markdown component',
         overview: "/docs.overview.md",
         props: [
           {
             id: 'cyclic',
             name: 'cyclic',
             type: 'boolean',
-            description: 'Enable cyclic navigation through slides.',
+            description: 'Enable cyclic navigation through slides',
             value: false,
+          },
+          {
+            id: 'interval',
+            name: 'interval',
+            type: 'number',
+            description: 'Interval in milliseconds for automatic slide transitions',
+            value: 5000,
           }
         ]
-      } as DocDescriptor
+      }
     }
   },
   {
@@ -61,7 +67,7 @@ export default [
       component: {
         id: 'button',
         name: 'Button Documentation',
-        description: 'Documentation for the simple button.',
+        description: 'Documentation for the simple button',
         overview: "/docs.overview.md",
         props: [
           {
@@ -79,7 +85,7 @@ export default [
             value: 'click me',
           }
         ],
-      } as DocDescriptor
-    } as any
+      }
+    }
   }
 ] as Routes;
