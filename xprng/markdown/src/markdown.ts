@@ -1,8 +1,8 @@
-import { Component, computed, inject, input, OnInit } from "@angular/core";
-import { httpResource } from "@angular/common/http";
-import { DomSanitizer } from "@angular/platform-browser";
-import type { MarkedOptions } from "marked";
-import { marked } from "@xprng/vendor/marked";
+import {Component, computed, inject, input} from "@angular/core";
+import {httpResource} from "@angular/common/http";
+import {DomSanitizer} from "@angular/platform-browser";
+import type {MarkedOptions} from "marked";
+import {marked} from "@xprng/vendor/marked";
 
 /**
  * Marked options for parsing markdown.
@@ -39,7 +39,7 @@ export type MarkdownOptions = MarkedOptions;
     }
   `,
 })
-export class Markdown implements OnInit {
+export class Markdown {
   /**
    * The markdown content to be rendered.
    * @input
@@ -83,17 +83,4 @@ export class Markdown implements OnInit {
 
   protected readonly res = httpResource.text(() => this.src());
   private readonly sanitize = inject(DomSanitizer);
-
-  async ngOnInit() {
-    if (!this.content() && !this.src()) {
-      throw new Error(
-        "Either 'content' or 'src' input must be provided. Neither provided.",
-      );
-    }
-    if (this.content() && this.src()) {
-      throw new Error(
-        "Either 'content' or 'src' input must be provided. Both provided.",
-      );
-    }
-  }
 }
