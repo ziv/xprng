@@ -1,8 +1,8 @@
-import {Component, computed, inject, input} from "@angular/core";
-import {httpResource} from "@angular/common/http";
-import {DomSanitizer} from "@angular/platform-browser";
-import type {MarkedOptions} from "marked";
-import {marked} from "@xprng/vendor/marked";
+import { Component, computed, inject, input } from "@angular/core";
+import { DomSanitizer } from "@angular/platform-browser";
+import type { MarkedOptions } from "marked";
+import { marked } from "@xprng/vendor/marked";
+import { ContentSrc } from "@xprng/common";
 
 /**
  * Marked options for parsing markdown.
@@ -19,7 +19,7 @@ export type MarkdownOptions = MarkedOptions;
   template: `
     @if (content()) {
       <!--
-      Markdown content is provided directly mode.
+      Markdown code is provided directly mode.
       -->
       <div class="xpr-value xpr-local" [innerHTML]="markdown()"></div>
 
@@ -39,19 +39,19 @@ export type MarkdownOptions = MarkedOptions;
     }
   `,
 })
-export class Markdown {
+export class Markdown extends ContentSrc {
   /**
-   * The markdown content to be rendered.
+   * The markdown code to be rendered.
    * @input
    */
-  readonly content = input<string | undefined>();
+  // readonly code = input<string | undefined>();
 
   /**
-   * The source URL of the markdown content.
-   * If `content` is provided, this will be ignored.
+   * The source URL of the markdown code.
+   * If `code` is provided, this will be ignored.
    * @input
    */
-  readonly src = input<string | undefined>();
+  // readonly src = input<string | undefined>();
 
   /**
    * The theme to use for syntax highlighting.
@@ -67,7 +67,7 @@ export class Markdown {
 
   //
 
-  // protected mdContent = computed(() => this.content(this.content() ?? ""));
+  // protected mdContent = computed(() => this.code(this.code() ?? ""));
   protected markdown = computed(() => {
     return this.content()
       ? this.parse(this.content()!)
@@ -81,6 +81,6 @@ export class Markdown {
     );
   }
 
-  protected readonly res = httpResource.text(() => this.src());
+  // protected readonly res = httpResource.text(() => this.src());
   private readonly sanitize = inject(DomSanitizer);
 }

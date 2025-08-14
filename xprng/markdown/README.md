@@ -1,7 +1,6 @@
 # @xprng/markdown
 
-An image like (with `src` attribute) component to load and render markdown
-content.
+An image like (with `src` attribute) component to load and render markdown code.
 
 ## Installation
 
@@ -14,17 +13,17 @@ markdown, [Shiki](https://shiki.style/) for syntax highlighting, and Angular.
 
 ## Usage
 
-### Binding markdown content
+### Binding markdown code
 
 ```html
-<xpr-markdown content="# Markdown" />
-<xpr-markdown [content]="markdownContent" />
+<xpr-markdown code="# Markdown" />
+<xpr-markdown [code]="markdownContent" />
 ```
 
 ### Loading markdown from a URL
 
 ```html
-<xpr-markdown src="https://example.com/README.content" />
+<xpr-markdown src="https://example.com/README.code" />
 <xpr-markdown [src]="markdownUrl" />
 ```
 
@@ -33,7 +32,7 @@ markdown, [Shiki](https://shiki.style/) for syntax highlighting, and Angular.
 You can use nested components to display loading and error states.
 
 ```html
-<xpr-markdown src="https://example.com/README.content">
+<xpr-markdown src="https://example.com/README.code">
   <xpr-loading-state>loading...</xpr-loading-state>
   <xpr-error-state>error loading markdown</xpr-error-state>
 </xpr-markdown>
@@ -42,13 +41,13 @@ You can use nested components to display loading and error states.
 The state components are imported from the [@xprng/common](../common/README.md)
 package.
 
-### Highlighted code blocks
+### Highlighted content blocks
 
-See [@xprng/code](../code/README.md) for more details about languages and themes
-supported.
+See [@xprng/content](../code/README.md) for more details about languages and
+themes supported.
 
 Set a theme on a component:
 
 ```html
-<xpr-markdown src="https://example.com/README.content" theme="github-dark" />
+<xpr-markdown src="https://example.com/README.code" theme="github-dark" />
 ```
