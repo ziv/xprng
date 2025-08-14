@@ -11,7 +11,7 @@ import {
   signal,
   ViewEncapsulation,
 } from "@angular/core";
-import {Slide} from "./slide";
+import { Slide } from "./slide";
 
 type Attr<T> = T | string | null | undefined;
 
@@ -50,7 +50,7 @@ type Attr<T> = T | string | null | undefined;
       }
     }
   `,
-  template: '<ng-content/>',
+  template: "<ng-content/>",
 })
 export class Slides {
   /**
@@ -104,7 +104,7 @@ export class Slides {
    * The index of the slide to show.
    * @default 0
    */
-  readonly idx = input<number, Attr<number>>(0, {transform: numberAttribute});
+  readonly idx = input<number, Attr<number>>(0, { transform: numberAttribute });
 
   /**
    * Whether the slideshow should loop back to the first slide after reaching the last one.
@@ -193,7 +193,9 @@ export class Slides {
   }
 
   protected toggleFullScreen() {
-    (document.fullscreenElement ? document.exitFullscreen : (this.el.nativeElement as HTMLElement)?.requestFullscreen)?.();
+    (document.fullscreenElement
+      ? document.exitFullscreen
+      : (this.el.nativeElement as HTMLElement)?.requestFullscreen)?.();
   }
 
   protected next() {

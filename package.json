@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "build-docs": "ng build  @apps/docs",
     "build": "./ng-build.sh",
     "test": "./ng-test.sh",
     "docs": "compodoc -p tsconfig.doc.json",

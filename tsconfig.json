@@ -20,6 +20,9 @@
       "@xprng/common/*": [
         "./dist/xprng/common/*"
       ],
+      "@xprng/docs": [
+        "./dist/xprng/docs"
+      ],
       "@xprng/markdown": [
         "./dist/xprng/markdown"
       ],
@@ -98,6 +101,12 @@
     },
     {
       "path": "./apps/demo/tsconfig.spec.json"
+    },
+    {
+      "path": "./xprng/docs/tsconfig.lib.json"
+    },
+    {
+      "path": "./xprng/docs/tsconfig.spec.json"
     }
   ]
 }
