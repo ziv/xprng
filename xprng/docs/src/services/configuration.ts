@@ -1,4 +1,10 @@
-import {effect, inject, Injectable, InjectionToken, signal} from '@angular/core';
+import {
+  effect,
+  inject,
+  Injectable,
+  InjectionToken,
+  signal,
+} from "@angular/core";
 
 export type ConfigurationOptions = {
   // Colors
@@ -8,28 +14,27 @@ export type ConfigurationOptions = {
   // URLs
   homeHeader: string;
   homeFooter: string;
-}
+};
 
 function isClient() {
   return "localStorage" in globalThis;
 }
 
-export const CONFIGURATION_TOKEN = new InjectionToken('configuration');
+export const CONFIGURATION_TOKEN = new InjectionToken("configuration");
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: "root" })
 export class Configuration {
-  private readonly defaults = inject(CONFIGURATION_TOKEN, {optional: true});
+  private readonly defaults = inject(CONFIGURATION_TOKEN, { optional: true });
   readonly conf = signal<Partial<ConfigurationOptions>>(this.defaults ?? {});
 
   constructor() {
     effect(() => {
       if (isClient()) {
-        localStorage.setItem('configuration', JSON.stringify(this.conf()));
+        localStorage.setItem("configuration", JSON.stringify(this.conf()));
       }
     });
   }
 }
-
 
 //
 // const DefaultConfiguration: ConfigurationOptions = {

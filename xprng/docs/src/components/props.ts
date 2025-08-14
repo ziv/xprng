@@ -1,12 +1,11 @@
-import {Component, input} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {Prop} from '../descriptor';
-
+import { Component, input } from "@angular/core";
+import { FormsModule } from "@angular/forms";
+import { Prop } from "../descriptor";
 
 @Component({
-  selector: 'xpd-props',
+  selector: "xpd-props",
   imports: [
-    FormsModule
+    FormsModule,
   ],
   styles: `
     :host {
@@ -87,5 +86,4 @@ import {Prop} from '../descriptor';
 })
 export class Props {
   readonly props = input.required<Prop[]>();
-
 }

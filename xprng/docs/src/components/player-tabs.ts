@@ -1,7 +1,7 @@
-import {Component, Directive} from '@angular/core';
+import { Component, Directive } from "@angular/core";
 
 @Directive({
-  selector: 'xpd-tab',
+  selector: "xpd-tab",
 })
 export class PlayerTab {
 }
@@ -17,9 +17,8 @@ export class PlayerTab {
  * </xpd-tabs>
  */
 @Component({
-  selector: 'xpd-tabs',
+  selector: "xpd-tabs",
   template: ``,
 })
 export class PlayerTabs {
-
 }

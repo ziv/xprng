@@ -1,22 +1,35 @@
-import {Directive, effect, inject, InjectionToken, WritableSignal} from '@angular/core';
-import {DocDescriptor, Prop} from '../descriptor';
-import {ActivatedRoute} from '@angular/router';
-import {toSignal} from '@angular/core/rxjs-interop';
-import {map} from 'rxjs';
+import {
+  Directive,
+  effect,
+  inject,
+  InjectionToken,
+  WritableSignal,
+} from "@angular/core";
+import { DocDescriptor, Prop } from "../descriptor";
+import { ActivatedRoute } from "@angular/router";
+import { toSignal } from "@angular/core/rxjs-interop";
+import { map } from "rxjs";
 
-export const DocsHost = new InjectionToken('DocsHost');
+export const DocsHost = new InjectionToken("DocsHost");
 
 @Directive({})
 export abstract class DocumentationComponent {
-  private readonly routeDescriptor = toSignal(inject(ActivatedRoute).data.pipe(map(data => data['component'] as DocDescriptor)));
-  private readonly parent = inject<{ component: WritableSignal<any> }>(DocsHost, {optional: true});
+  private readonly routeDescriptor = toSignal(
+    inject(ActivatedRoute).data.pipe(
+      map((data) => data["component"] as DocDescriptor),
+    ),
+  );
+  private readonly parent = inject<{ component: WritableSignal<any> }>(
+    DocsHost,
+    { optional: true },
+  );
 
   get props() {
     return this.routeDescriptor()?.props ?? [];
   }
 
   prop(id: string): Prop {
-    const p = this.props.find(d => d.id === id);
+    const p = this.props.find((d) => d.id === id);
     if (!p) {
       throw new Error(`Property with id "${id}" not found in descriptor.`);
     }

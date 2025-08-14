@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
-import {Code} from '@xprng/code';
+import {Code} from '@xprng/content';
 
 @Component({
-  selector: 'xpd-code',
+  selector: 'xpd-content',
   imports: [Code],
   template: `
     <h1>Markdown</h1>

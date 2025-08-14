@@ -1,8 +1,8 @@
-import {Component, input} from '@angular/core';
-import {Code} from '@xprng/code';
+import { Component, input } from "@angular/core";
+import { Code } from "@xprng/code";
 
 @Component({
-  selector: 'xpd-sample',
+  selector: "xpd-sample",
   imports: [Code],
   styles: `
     xpr-code {
@@ -10,7 +10,7 @@ import {Code} from '@xprng/code';
       margin: 1em;
     }
   `,
-  template: '<xpr-code [code]="sample()"/>',
+  template: '<xpr-content [content]="sample()"/>',
 })
 export class Sample {
   readonly sample = input.required<string>();

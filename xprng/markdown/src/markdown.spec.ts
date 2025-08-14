@@ -1,9 +1,12 @@
-import {TestBed} from "@angular/core/testing";
-import {Markdown} from "./markdown";
-import {provideZonelessChangeDetection} from "@angular/core";
-import {HttpTestingController, provideHttpClientTesting,} from "@angular/common/http/testing";
-import {provideHttpClient} from "@angular/common/http";
-import {beforeEach, expect} from "vitest";
+import { TestBed } from "@angular/core/testing";
+import { Markdown } from "./markdown";
+import { provideZonelessChangeDetection } from "@angular/core";
+import {
+  HttpTestingController,
+  provideHttpClientTesting,
+} from "@angular/common/http/testing";
+import { provideHttpClient } from "@angular/common/http";
+import { beforeEach, expect } from "vitest";
 
 let http: HttpTestingController;
 
@@ -33,7 +36,7 @@ it("should create an empty component", () => {
 
 it("should display provided content (markdown)", async () => {
   const fixture = TestBed.createComponent(Markdown);
-  fixture.componentRef.setInput("content", '# Header\n\n## Subheader');
+  fixture.componentRef.setInput("content", "# Header\n\n## Subheader");
   fixture.detectChanges();
 
   const h1 = fixture.debugElement.nativeElement.querySelector("h1");

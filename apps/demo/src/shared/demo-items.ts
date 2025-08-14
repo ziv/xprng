@@ -18,7 +18,7 @@ export default class DemoItems {
     },
     {
       label: 'Code',
-      route: '/code'
+      route: '/content'
     },
     {
       label: 'Markdown',

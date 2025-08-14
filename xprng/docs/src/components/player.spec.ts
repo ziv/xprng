@@ -1,13 +1,13 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import Player from './player';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import Player from "./player";
 
-describe('Player', () => {
+describe("Player", () => {
   let component: Player;
   let fixture: ComponentFixture<Player>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Player]
+      imports: [Player],
     })
       .compileComponents();
 
@@ -16,7 +16,7 @@ describe('Player', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

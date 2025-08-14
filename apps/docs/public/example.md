@@ -15,7 +15,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor i
 ### Code Example
 
 ```javascript
-console.log("This is an example code snippet.");
+console.log("This is an example content snippet.");
 
 
 class Foo {

@@ -1,7 +1,7 @@
-import {Pipe, PipeTransform} from '@angular/core';
+import { Pipe, PipeTransform } from "@angular/core";
 
 @Pipe({
-  name: 'camelCase',
+  name: "camelCase",
   pure: true,
 })
 export class CamelCasePipe implements PipeTransform {

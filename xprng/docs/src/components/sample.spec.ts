@@ -1,23 +1,23 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { Sample } from './sample';
+import { Sample } from "./sample";
 
-describe('Sample', () => {
+describe("Sample", () => {
   let component: Sample;
   let fixture: ComponentFixture<Sample>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Sample]
+      imports: [Sample],
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(Sample);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

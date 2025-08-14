@@ -1,11 +1,11 @@
-import {Component, computed, signal} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import { Component, computed, signal } from "@angular/core";
+import { FormsModule } from "@angular/forms";
 
 @Component({
-  selector: 'xpd-player',
+  selector: "xpd-player",
   imports: [FormsModule],
   host: {
-    '[style]': 'contentStyles()'
+    "[style]": "contentStyles()",
   },
   styles: `
     :host {
@@ -42,25 +42,26 @@ import {FormsModule} from '@angular/forms';
     <div class="content">
       <ng-content/>
     </div>
-  `
+  `,
 })
 export class Player {
   showGrid = signal(false);
-  gridSize = signal('10px');
+  gridSize = signal("10px");
 
   grid() {
     this.showGrid.set(!this.showGrid());
   }
 
   contentCssList = computed(() => {
-    return (this.showGrid() ? 'grid content' : 'content');
+    return (this.showGrid() ? "grid code" : "content");
   });
 
   contentStyles = computed(() => {
     const styles: Record<string, string> = {};
     if (this.showGrid()) {
-      styles['backgroundSize'] = `${this.gridSize()} ${this.gridSize()}`;
-      styles['backgroundImage'] = 'linear-gradient(to right, #e1dede 1px, transparent 1px), linear-gradient(to bottom, #e1dede 1px, transparent 1px)';
+      styles["backgroundSize"] = `${this.gridSize()} ${this.gridSize()}`;
+      styles["backgroundImage"] =
+        "linear-gradient(to right, #e1dede 1px, transparent 1px), linear-gradient(to bottom, #e1dede 1px, transparent 1px)";
     }
     return styles;
   });

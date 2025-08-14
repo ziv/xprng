@@ -1,12 +1,17 @@
-import {Component, effect, inject} from '@angular/core';
-import { Configuration } from '../services/configuration';
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {KeyValuePipe} from '@angular/common';
-import {toSignal} from '@angular/core/rxjs-interop';
-import { CamelCasePipe } from '../services/camel-case-pipe';
+import { Component, effect, inject } from "@angular/core";
+import { Configuration } from "../services/configuration";
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from "@angular/forms";
+import { KeyValuePipe } from "@angular/common";
+import { toSignal } from "@angular/core/rxjs-interop";
+import { CamelCasePipe } from "../services/camel-case-pipe";
 
 @Component({
-  selector: 'xpd-settings',
+  selector: "xpd-settings",
   imports: [
     FormsModule,
     ReactiveFormsModule,
@@ -23,11 +28,10 @@ import { CamelCasePipe } from '../services/camel-case-pipe';
     </fieldset>
   `,
 })
-export  class Settings {
+export class Settings {
   conf = inject(Configuration).conf;
   form = new FormGroup({});
   changed = toSignal(this.form.valueChanges);
-
 
   constructor() {
     // initializing the form with configuration data on startup only once
