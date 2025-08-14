@@ -20,7 +20,7 @@ describe("Slide", () => {
     expect(component).toBeTruthy();
   });
 
-  it("should hide content", async () => {
+  it("should hide code", async () => {
     @Component({
       selector: "test-component",
       imports: [Slide],
@@ -37,7 +37,7 @@ describe("Slide", () => {
     expect(content).toBeFalsy();
   });
 
-  it("should show content on show()", async () => {
+  it("should show code on show()", async () => {
     @Component({
       selector: "test-component",
       imports: [Slide],
