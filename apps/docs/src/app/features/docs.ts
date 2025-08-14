@@ -1,5 +1,5 @@
-import {Component, inject, InjectionToken, signal} from '@angular/core';
-import {Router, RouterOutlet} from '@angular/router';
+import {Component, InjectionToken, signal} from '@angular/core';
+import {RouterOutlet} from '@angular/router';
 import Player from '../shared/player';
 import {DocDescriptor} from '../shared/descriptor';
 import {Markdown} from '@xprng/markdown';
@@ -7,6 +7,11 @@ import Props from '../shared/props';
 
 export const DocsHost = new InjectionToken('DocsHost');
 
+/**
+ * # Documentation component
+ * This component serves as a host for displaying documentation of various components.
+ * It provides itself to allow subcomponents to access their host and update the displayed component.
+ */
 @Component({
   selector: 'xpd-docs',
   imports: [
@@ -53,7 +58,5 @@ export const DocsHost = new InjectionToken('DocsHost');
   `,
 })
 export default class Docs {
-  readonly router = inject(Router);
-
-  readonly component = signal<DocDescriptor<any> | undefined>(undefined);
+  readonly component = signal<DocDescriptor | undefined>(undefined);
 }

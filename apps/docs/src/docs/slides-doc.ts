@@ -1,53 +1,51 @@
-import {Component, inject} from '@angular/core';
-import {Markdown} from '@xprng/markdown';
-import Docs, {DocsHost} from '../app/features/docs';
+import {Component} from '@angular/core';
 import {DocDescriptor} from '../app/shared/descriptor';
 import {Slide, Slides} from '@xprng/slides';
+import DocumentationComponent from '../app/shared/documentation-component';
+
+const slidesDescriptor: DocDescriptor = {
+  id: 'slides',
+  name: 'Slides Documentation',
+  description: 'Documentation for the Markdown component.',
+  overview: "/docs.overview.md",
+  props: [
+    {
+      id: 'cyclic',
+      name: 'cyclic',
+      type: 'boolean',
+      description: 'Enable cyclic navigation through slides.',
+      value: false,
+    }
+  ]
+};
 
 @Component({
   selector: 'xpd-docs',
   imports: [Slides, Slide],
+  styles: `
+    xpr-slides {
+      width: 400px;
+      height: 300px;
+      background-color: #0d6efd;
+    }
+
+    xpr-slide {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 3em;
+    }
+  `,
   template: `
-    <xpr-slides>
-      <xpr-slide>A</xpr-slide>
-      <xpr-slide>B</xpr-slide>
-      <xpr-slide>C</xpr-slide>
+    <xpr-slides [cyclic]="prop('cyclic').value">
+      <xpr-slide>Slide A</xpr-slide>
+      <xpr-slide>Slide B</xpr-slide>
+      <xpr-slide>Slide C</xpr-slide>
+      <xpr-slide>Slide D</xpr-slide>
+      <xpr-slide>Slide E</xpr-slide>
     </xpr-slides>
   `,
 })
-export default class SlidesDoc {
-
-  readonly desc: DocDescriptor<'content' | 'src'> = {
-    id: 'slides',
-    name: 'Slides Documentation',
-    description: 'Documentation for the Markdown component.',
-    overview: "/docs.overview.md",
-    props: {
-      content: {
-        id: 'content',
-        name: 'content',
-        type: 'text',
-        description: 'Markdown content to render. Do not use with `src`.',
-        defaultValue: '',
-      },
-      src: {
-        id: 'src',
-        name: 'src',
-        type: 'string',
-        description: 'Path to a markdown file to load. Do not use with `content`.',
-        defaultValue: '/example.md',
-        value: '/example.md',
-      }
-    }
-  }
-
-
-  constructor() {
-    const parent = inject<Docs>(DocsHost, {optional: true});
-    console.log('MarkdownDoc', parent);
-    if (parent) {
-      parent.component.set(this.desc);
-    }
-  }
-
+export default class SlidesDoc extends DocumentationComponent {
 }

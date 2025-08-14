@@ -30,7 +30,7 @@ import {Prop} from './descriptor';
       properties
     </div>
     <table border="1" style="width: 100%">
-      @for (prop of items(); track prop.name) {
+      @for (prop of props(); track prop.name) {
         <tr>
           <th>
             <span class="label">{{ prop.name }}</span>
@@ -54,7 +54,10 @@ import {Prop} from './descriptor';
                 <span class="label">{{ prop.type }}</span>
               }
               @case ('boolean') {
-                <span class="label">{{ prop.type }}</span>
+
+                <span class="label">
+                  <input type="checkbox" [(ngModel)]="prop.value"/>
+                </span>
               }
               @default {
                 <span class="label">unknown</span>
@@ -71,7 +74,6 @@ import {Prop} from './descriptor';
   `,
 })
 export default class Props {
-  readonly props = input.required<Record<string, Prop>>();
+  readonly props = input.required<Prop[]>();
 
-  protected readonly items = computed(() => Object.values(this.props()));
 }

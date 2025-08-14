@@ -3,15 +3,13 @@ export type Prop = {
   name: string;
   type: 'string' | 'text' | 'number' | 'boolean';
   description: string;
-  value?: any;
-  defaultValue?: string;
-  required?: boolean;
+  value: any;
 }
 
-export type DocDescriptor<PropKeys extends string> = {
+export type DocDescriptor = {
   id: string;
   name: string;
   description: string;
-  overview: string; // URL
-  props: Record<PropKeys, Prop>;
+  overview?: string; // URL
+  props: Prop[];
 };
