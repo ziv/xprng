@@ -114,32 +114,38 @@
     </p>
     <p class="comment">
         <h1>Code</h1>
-<p>This component is used to display source code with syntax highlighting.
-It can either take a string of code directly or fetch it from a remote source.</p>
+<p>This component is used to display source content with syntax highlighting.
+It can either take a string of content directly or fetch it from a remote source.</p>
 <h2>Inputs</h2>
 <ul>
-<li><code>code</code>: A string containing the source code to be displayed. Unable to be used with <code>src</code>.</li>
-<li><code>src</code>: A URL from which to fetch the source code. Unable to be used with <code>code</code>.</li>
-<li><code>lang</code>: The programming language of the source code. This should be a valid language identifier supported by Shiki.</li>
+<li><code>content</code>: A string containing the source content to be displayed. Unable to be used with <code>src</code>.</li>
+<li><code>src</code>: A URL from which to fetch the source content. Unable to be used with <code>content</code>.</li>
+<li><code>lang</code>: The programming language of the source content. This should be a valid language identifier supported by Shiki.</li>
 <li><code>theme</code>: The theme to use for syntax highlighting. This can be any theme supported by Shiki.</li>
 <li><code>highlighter</code>: A custom highlighter function (Should be an instance of Shiki&#39;s <code>HighlighterCore</code>).</li>
 </ul>
 <h2>Nested Content</h2>
-<p>The component supports nested content for different states, loading, error, and empty states.
+<p>The component supports nested code for different states, loading, error, and empty states.
 See the example below for how to use these states.</p>
 <h2>Examples</h2>
 <h3>Importing the component</h3>
-<b>Example :</b><div><pre class="line-numbers"><code class="language-typescript">import { Code } from &quot;&#64;xprng/code&quot;;</code></pre></div><h3>Importing states directives</h3>
-<b>Example :</b><div><pre class="line-numbers"><code class="language-typescript">import { LoadingState, ErrorState, EmptyState } from &quot;&#64;xprng/common&quot;;</code></pre></div><h3>Directly providing code content</h3>
-<b>Example :</b><div><pre class="line-numbers"><code class="language-html">&lt;xpr-code [code]=&quot;myCode&quot; lang=&quot;javascript&quot; theme=&quot;nord&quot;&gt;&lt;/xpr-code&gt;</code></pre></div><h3>Fetching code from a remote source</h3>
-<b>Example :</b><div><pre class="line-numbers"><code class="language-html">&lt;xpr-code src=&quot;https://example.com/my-code.js&quot; lang=&quot;javascript&quot; theme=&quot;nord&quot;&gt;&lt;/xpr-code&gt;</code></pre></div><h3>Using nested content for different states</h3>
-<b>Example :</b><div><pre class="line-numbers"><code class="language-html">&lt;xpr-code src=&quot;https://example.com/my-code.js&quot; lang=&quot;javascript&quot; theme=&quot;nord&quot;&gt;
+<b>Example :</b><div><pre class="line-numbers"><code class="language-typescript">import { Code } from &quot;&#64;xprng/content&quot;;</code></pre></div><h3>Importing states directives</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-typescript">import { LoadingState, ErrorState, EmptyState } from &quot;&#64;xprng/common&quot;;</code></pre></div><h3>Directly providing content code</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">&lt;xpr-content [content]=&quot;myCode&quot; lang=&quot;javascript&quot; theme=&quot;nord&quot;&gt;&lt;/xpr-content&gt;</code></pre></div><h3>Fetching content from a remote source</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">&lt;xpr-content src=&quot;https://example.com/my-code.js&quot; lang=&quot;javascript&quot; theme=&quot;nord&quot;&gt;&lt;/xpr-content&gt;</code></pre></div><h3>Using nested code for different states</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">&lt;xpr-content src=&quot;https://example.com/my-code.js&quot; lang=&quot;javascript&quot; theme=&quot;nord&quot;&gt;
   &lt;xpr-loading-state&gt;Loading...&lt;/xpr-loading-state&gt;
-  &lt;xpr-error-state&gt;Error loading code.&lt;/xpr-error-state&gt;
-  &lt;xpr-empty-state&gt;No code available.&lt;/xpr-empty-state&gt;
-&lt;/xpr-code&gt;</code></pre></div>
+  &lt;xpr-error-state&gt;Error loading content.&lt;/xpr-error-state&gt;
+  &lt;xpr-empty-state&gt;No content available.&lt;/xpr-empty-state&gt;
+&lt;/xpr-content&gt;</code></pre></div>
     </p>
 
+    <p class="comment">
+        <h3>Extends</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="../directives/ContentSrc.html" target="_self" >ContentSrc</a></code>
+    </p>
 
 
 
@@ -165,7 +171,7 @@ See the example below for how to use these states.</p>
 
             <tr>
                 <td class="col-md-3">selector</td>
-                <td class="col-md-9"><code>xpr-code</code></td>
+                <td class="col-md-9"><code>xpr-content</code></td>
             </tr>
 
 
@@ -176,7 +182,7 @@ See the example below for how to use these states.</p>
                 <td class="col-md-3">template</td>
                 <td class="col-md-9"><pre class="line-numbers"><code class="language-html">@switch (state()) {
   @case (&quot;local&quot;) {
-    &lt;div [innerHTML]&#x3D;&quot;content()&quot;
+    &lt;div [innerHTML]&#x3D;&quot;code()&quot;
          class&#x3D;&quot;xpr-value xpr-local&quot;&gt;&lt;/div&gt;
   }
   @case (&quot;error&quot;) {
@@ -186,7 +192,7 @@ See the example below for how to use these states.</p>
     &lt;ng-content select&#x3D;&quot;xpr-loading-state&quot;/&gt;
   }
   @case (&quot;resolved&quot;) {
-    &lt;div [innerHTML]&#x3D;&quot;content()&quot;
+    &lt;div [innerHTML]&#x3D;&quot;code()&quot;
          class&#x3D;&quot;xpr-value xpr-loaded&quot;&gt;&lt;/div&gt;
   }
   @default {
@@ -221,12 +227,8 @@ See the example below for how to use these states.</p>
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                    <span class="modifier">Readonly</span>
-                                <a href="#code" >code</a>
-                            </li>
-                            <li>
                                     <span class="modifier">Protected</span>
-                                <a href="#content" >content</a>
+                                <a href="#code" >code</a>
                             </li>
                             <li>
                                     <span class="modifier">Readonly</span>
@@ -239,16 +241,7 @@ See the example below for how to use these states.</p>
                             <li>
                                     <span class="modifier">Private</span>
                                     <span class="modifier">Readonly</span>
-                                <a href="#res" >res</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Private</span>
-                                    <span class="modifier">Readonly</span>
                                 <a href="#sanitize" >sanitize</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Readonly</span>
-                                <a href="#src" >src</a>
                             </li>
                             <li>
                                     <span class="modifier">Protected</span>
@@ -257,6 +250,19 @@ See the example below for how to use these states.</p>
                             <li>
                                     <span class="modifier">Readonly</span>
                                 <a href="#theme" >theme</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#content" >content</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#res" >res</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#src" >src</a>
                             </li>
                         </ul>
                     </td>
@@ -288,7 +294,7 @@ See the example below for how to use these states.</p>
                 <td class="col-md-4">
                     <a name="code"></a>
                     <span class="name">
-                            <span class="modifier">Readonly</span>
+                            <span class="modifier">Protected</span>
                         <span ><b>code</b></span>
                         <a href="#code"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -296,37 +302,8 @@ See the example below for how to use these states.</p>
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>input&lt;string | undefined&gt;()</code>
-                    </td>
-                </tr>
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Source code content as a string
-This can be used to directly provide source code content.
-If this is set, the <code>src</code> attribute will be ignored.</p>
-</div>
-                </td>
-            </tr>
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="content"></a>
-                    <span class="name">
-                            <span class="modifier">Protected</span>
-                        <span ><b>content</b></span>
-                        <a href="#content"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
                         <i>Default value : </i><code>computed(() &#x3D;&gt; {
-    const code &#x3D; this.code() as string;
+    const code &#x3D; this.content() as string;
     const src &#x3D; this.src() as string;
 
     if (!code &amp;&amp; !src) {
@@ -405,34 +382,12 @@ If this is set, the <code>src</code> attribute will be ignored.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>The programming language of the source code.
+                    <div class="io-description"><p>The programming language of the source content.
 This should be a valid language identifier supported by Shiki.
 See <a href="https://shiki.style/languages">https://shiki.style/languages</a></p>
 </div>
                 </td>
             </tr>
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="res"></a>
-                    <span class="name">
-                            <span class="modifier">Private</span>
-                            <span class="modifier">Readonly</span>
-                        <span ><b>res</b></span>
-                        <a href="#res"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>httpResource.text(() &#x3D;&gt; this.src())</code>
-                    </td>
-                </tr>
-
 
         </tbody>
     </table>
@@ -462,34 +417,6 @@ See <a href="https://shiki.style/languages">https://shiki.style/languages</a></p
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="src"></a>
-                    <span class="name">
-                            <span class="modifier">Readonly</span>
-                        <span ><b>src</b></span>
-                        <a href="#src"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>input&lt;string | undefined&gt;()</code>
-                    </td>
-                </tr>
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>The source URL of the source code content.
-This is optional and can be used to fetch source code content from a URL.</p>
-</div>
-                </td>
-            </tr>
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="state"></a>
                     <span class="name">
                             <span class="modifier">Protected</span>
@@ -501,7 +428,7 @@ This is optional and can be used to fetch source code content from a URL.</p>
                 <tr>
                     <td class="col-md-4">
                         <i>Default value : </i><code>computed(() &#x3D;&gt; {
-    if (this.code()) return &quot;local&quot;;
+    if (this.content()) return &quot;local&quot;;
     if (this.src()) return this.res.status();
     return &quot;empty&quot;;
   })</code>
@@ -540,6 +467,89 @@ See <a href="https://shiki.style/themes">https://shiki.style/themes</a></p>
 
         </tbody>
     </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="content"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>content</b></span>
+                        <a href="#content"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>input&lt;string | undefined&gt;()</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Provides code to be displayed in the component.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="res"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>res</b></span>
+                        <a href="#res"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>httpResource.text(() &#x3D;&gt; this.src())</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Resource for fetching the code from the specified source URL.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="src"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>src</b></span>
+                        <a href="#src"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>input&lt;string | undefined&gt;()</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Specifies the source URL for the code.
+If <code>code</code> is provided, this will be ignored.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
 </section>
 
 </div>
@@ -556,8 +566,8 @@ See <a href="https://shiki.style/themes">https://shiki.style/themes</a></p>
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div>@switch (state()) {  @case ("local") {    <div [innerHTML]="content()"         class="xpr-value xpr-local"></div>  }  @case ("error") {    <ng-content select="xpr-error-state"/>  }  @case ("loading") {    <ng-content select="xpr-loading-state"/>  }  @case ("resolved") {    <div [innerHTML]="content()"         class="xpr-value xpr-loaded"></div>  }  @default {    <ng-content select="xpr-empty-state"/>  }}</div>'
-    var COMPONENTS = [{'name': 'Code', 'selector': 'xpr-code'},{'name': 'Markdown', 'selector': 'xpr-markdown'},{'name': 'Slide', 'selector': 'xpr-slide'},{'name': 'Slides', 'selector': 'xpr-slides'}];
+        var COMPONENT_TEMPLATE = '<div>@switch (state()) {  @case ("local") {    <div [innerHTML]="code()"         class="xpr-value xpr-local"></div>  }  @case ("error") {    <ng-content select="xpr-error-state"/>  }  @case ("loading") {    <ng-content select="xpr-loading-state"/>  }  @case ("resolved") {    <div [innerHTML]="code()"         class="xpr-value xpr-loaded"></div>  }  @default {    <ng-content select="xpr-empty-state"/>  }}</div>'
+    var COMPONENTS = [{'name': 'Code', 'selector': 'xpr-content'},{'name': 'Markdown', 'selector': 'xpr-markdown'},{'name': 'Slide', 'selector': 'xpr-slide'},{'name': 'Slides', 'selector': 'xpr-slides'}];
     var DIRECTIVES = [{'name': 'ContentSrc', 'selector': ''},{'name': 'EmptyState', 'selector': 'xpr-empty-state,[xpr-empty-state]'},{'name': 'ErrorState', 'selector': 'xpr-error-state,[xpr-error-state]'},{'name': 'LoadingState', 'selector': 'xpr-loading-state,[xpr-loading-state]'},{'name': 'OkState', 'selector': 'xpr-ok-state,[xpr-ok-state]'}];
     var ACTUAL_COMPONENT = {'name': 'Code'};
 </script>
