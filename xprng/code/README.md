@@ -1,28 +1,28 @@
-# @xprng/code
+# @xprng/content
 
 An image like (with `src` attribute) component to load and highlight source
-code.
+content.
 
 ## Installation
 
 ```shell
-npm install @xprng/code shiki
+npm install @xprng/content shiki
 ```
 
 ## Usage
 
-### Binding source content
+### Binding source code
 
 ```html
-<xpr-code code="foo()" />
-<xpr-code [code]="codeContent" />
+<xpr-content content="foo()" />
+<xpr-content [content]="codeContent" />
 ```
 
 ### Loading source from a URL
 
 ```html
-<xpr-code src="https://example.com/README.content" />
-<xpr-code [src]="codeUrl" />
+<xpr-content src="https://example.com/README.code" />
+<xpr-content [src]="codeUrl" />
 ```
 
 ### Nested state components
@@ -30,27 +30,31 @@ npm install @xprng/code shiki
 You can use nested components to display loading and error states.
 
 ```html
-<xpr-code src="https://example.com/README.content">
+<xpr-content src="https://example.com/README.code">
   <xpr-loading-state>loading...</xpr-loading-state>
   <xpr-error-state>error loading source</xpr-error-state>
-</xpr-code>
+</xpr-content>
 ```
 
 ### Language and Theme
 
-Set the `lang` attribute to specify the language of the code block, and `theme`
-to specify the theme for syntax highlighting.
+Set the `lang` attribute to specify the language of the content block, and
+`theme` to specify the theme for syntax highlighting.
 
 ```html
-<xpr-code lang="typescript" theme="github-light" code="const foo = 'bar';" />
-<xpr-code lang="javascript" theme="nord" [code]="jsCodeContent" />
+<xpr-content
+  lang="typescript"
+  theme="github-light"
+  content="const foo = 'bar';"
+/>
+<xpr-content lang="javascript" theme="nord" [content]="jsCodeContent" />
 ```
 
 ## Highlighting
 
-By default, code blocks are highlighted using [Shiki](https://shiki.style/). In
-order to keep the bundle size small, you need to import the languages you want
-to use. The bundle contains the following languages and themes by default:
+By default, content blocks are highlighted using [Shiki](https://shiki.style/).
+In order to keep the bundle size small, you need to import the languages you
+want to use. The bundle contains the following languages and themes by default:
 
 - Languages
   - `typescript`
