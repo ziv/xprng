@@ -110,6 +110,12 @@
 
 
 
+    <p class="comment">
+        <h3>Extends</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="../directives/ContentSrc.html" target="_self" >ContentSrc</a></code>
+    </p>
 
 
 
@@ -146,7 +152,7 @@
                 <td class="col-md-3">template</td>
                 <td class="col-md-9"><pre class="line-numbers"><code class="language-html">@if (content()) {
   &lt;!--
-  Markdown content is provided directly mode.
+  Markdown code is provided directly mode.
   --&gt;
   &lt;div class&#x3D;&quot;xpr-value xpr-local&quot; [innerHTML]&#x3D;&quot;markdown()&quot;&gt;&lt;/div&gt;
 
@@ -192,10 +198,6 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                    <span class="modifier">Readonly</span>
-                                <a href="#content" >content</a>
-                            </li>
-                            <li>
                                     <span class="modifier">Protected</span>
                                 <a href="#markdown" >markdown</a>
                             </li>
@@ -204,22 +206,26 @@
                                 <a href="#options" >options</a>
                             </li>
                             <li>
-                                    <span class="modifier">Protected</span>
-                                    <span class="modifier">Readonly</span>
-                                <a href="#res" >res</a>
-                            </li>
-                            <li>
                                     <span class="modifier">Private</span>
                                     <span class="modifier">Readonly</span>
                                 <a href="#sanitize" >sanitize</a>
                             </li>
                             <li>
                                     <span class="modifier">Readonly</span>
-                                <a href="#src" >src</a>
+                                <a href="#theme" >theme</a>
                             </li>
                             <li>
                                     <span class="modifier">Readonly</span>
-                                <a href="#theme" >theme</a>
+                                <a href="#content" >content</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#res" >res</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#src" >src</a>
                             </li>
                         </ul>
                     </td>
@@ -332,33 +338,6 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="content"></a>
-                    <span class="name">
-                            <span class="modifier">Readonly</span>
-                        <span ><b>content</b></span>
-                        <a href="#content"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>input&lt;string | undefined&gt;()</code>
-                    </td>
-                </tr>
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>The markdown content to be rendered.</p>
-</div>
-                </td>
-            </tr>
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="markdown"></a>
                     <span class="name">
                             <span class="modifier">Protected</span>
@@ -411,28 +390,6 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="res"></a>
-                    <span class="name">
-                            <span class="modifier">Protected</span>
-                            <span class="modifier">Readonly</span>
-                        <span ><b>res</b></span>
-                        <a href="#res"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>httpResource.text(() &#x3D;&gt; this.src())</code>
-                    </td>
-                </tr>
-
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="sanitize"></a>
                     <span class="name">
                             <span class="modifier">Private</span>
@@ -448,34 +405,6 @@
                     </td>
                 </tr>
 
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="src"></a>
-                    <span class="name">
-                            <span class="modifier">Readonly</span>
-                        <span ><b>src</b></span>
-                        <a href="#src"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>input&lt;string | undefined&gt;()</code>
-                    </td>
-                </tr>
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>The source URL of the markdown content.
-If <code>content</code> is provided, this will be ignored.</p>
-</div>
-                </td>
-            </tr>
 
         </tbody>
     </table>
@@ -506,6 +435,89 @@ If <code>content</code> is provided, this will be ignored.</p>
 
         </tbody>
     </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="content"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>content</b></span>
+                        <a href="#content"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>input&lt;string | undefined&gt;()</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Provides code to be displayed in the component.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="res"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>res</b></span>
+                        <a href="#res"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>httpResource.text(() &#x3D;&gt; this.src())</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Resource for fetching the code from the specified source URL.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="src"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>src</b></span>
+                        <a href="#src"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>input&lt;string | undefined&gt;()</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Specifies the source URL for the code.
+If <code>code</code> is provided, this will be ignored.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
 </section>
 
 </div>
@@ -522,7 +534,7 @@ If <code>content</code> is provided, this will be ignored.</p>
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div>@if (content()) {  <!--  Markdown content is provided directly mode.  -->  <div class="xpr-value xpr-local" [innerHTML]="markdown()"></div>} @else if (src()) {  <!--  Source URL is provided mode.  -->  @if (res.hasValue() && res.value()) {    <div class="xpr-value xpr-loaded" [innerHTML]="markdown()"></div>  } @else if (res.isLoading()) {    <ng-content select="xpr-loading-state"/>  } @else if (res.error()) {    <ng-content select="xpr-error-state"/>  } @else {    <ng-content select="xpr-empty-state"/>  }}</div>'
+        var COMPONENT_TEMPLATE = '<div>@if (content()) {  <!--  Markdown code is provided directly mode.  -->  <div class="xpr-value xpr-local" [innerHTML]="markdown()"></div>} @else if (src()) {  <!--  Source URL is provided mode.  -->  @if (res.hasValue() && res.value()) {    <div class="xpr-value xpr-loaded" [innerHTML]="markdown()"></div>  } @else if (res.isLoading()) {    <ng-content select="xpr-loading-state"/>  } @else if (res.error()) {    <ng-content select="xpr-error-state"/>  } @else {    <ng-content select="xpr-empty-state"/>  }}</div>'
     var COMPONENTS = [{'name': 'Code', 'selector': 'xpr-code'},{'name': 'Markdown', 'selector': 'xpr-markdown'},{'name': 'Slide', 'selector': 'xpr-slide'},{'name': 'Slides', 'selector': 'xpr-slides'}];
     var DIRECTIVES = [{'name': 'ContentSrc', 'selector': ''},{'name': 'EmptyState', 'selector': 'xpr-empty-state,[xpr-empty-state]'},{'name': 'ErrorState', 'selector': 'xpr-error-state,[xpr-error-state]'},{'name': 'LoadingState', 'selector': 'xpr-loading-state,[xpr-loading-state]'},{'name': 'OkState', 'selector': 'xpr-ok-state,[xpr-ok-state]'}];
     var ACTUAL_COMPONENT = {'name': 'Markdown'};
