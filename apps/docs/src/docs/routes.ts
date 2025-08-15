@@ -17,7 +17,7 @@ export default [
             name: 'src',
             type: 'string',
             description: 'Path to a markdown file to load. Do not use with `code`.',
-            value: '/example.md',
+            value: 'https://raw.githubusercontent.com/ziv/xprng/refs/heads/main/README.md',
           },
           {
             id: 'content',
