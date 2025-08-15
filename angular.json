@@ -191,7 +191,7 @@
               "outputHashing": "all"
             },
             "github": {
-              "baseHref": "/xprng",
+              "baseHref": "/xprng/",
               "outputMode": "static",
               "outputHashing": "all",
               "budgets": [
