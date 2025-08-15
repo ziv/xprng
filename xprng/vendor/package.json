@@ -43,13 +43,6 @@
     "url": "https://github.com/ziv/xprng/issues"
   },
   "homepage": "https://github.com/ziv/xprng#readme",
-  "files": [
-    "**/*.js",
-    "*.js",
-    "*.d.ts",
-    "README.md",
-    "license"
-  ],
   "release": {
     "tagFormat": "vendor-v${version}",
     "plugins": [
