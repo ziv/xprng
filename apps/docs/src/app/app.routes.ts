@@ -7,7 +7,7 @@ export const routes: Routes = [
   },
   {
     path: 'docs',
-    loadComponent: () => import('./docs'),
+    loadComponent: () => import('./documentation'),
     loadChildren: () => import('../docs/routes'),
   },
   {

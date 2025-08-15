@@ -11,8 +11,9 @@ Compatible with **Zoneless** Angular 20+.
 | `@xprng/common`   | [Common](xprng/common/README.md)     | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fcommon)   | State directives             |
 | `@xprng/vendor`   | [Vendor](xprng/vendor/README.md)     | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fvendor)   | 3rd party libraries bindings |
 | `@xprng/markdown` | [Markdown](xprng/markdown/README.md) | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fmarkdown) | Markdown component           |
-| `@xprng/content`     | [Code](xprng/code/README.md)         | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fcode)     | Code highlighter component   |
+| `@xprng/content`  | [Code](xprng/code/README.md)         | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fcode)     | Code highlighter component   |
 | `@xprng/slides`   | [Slides](xprng/slides/README.md)     | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fslides)   | Slides viewer component      |
+| `@xprng/docs`     | [Docs](xprng/docs/README.md)         | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fdocs)     | Documentation utilities      |
 
 ---
 

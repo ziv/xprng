@@ -23,6 +23,10 @@ export abstract class DocumentationComponent {
     return p as Prop;
   }
 
+  notify(msg: unknown) {
+
+  }
+
   protected constructor() {
     effect(() => {
       if (this.parent && this.routeDescriptor()) {

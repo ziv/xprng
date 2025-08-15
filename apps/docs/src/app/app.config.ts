@@ -6,7 +6,7 @@ import {provideClientHydration, withEventReplay} from '@angular/platform-browser
 import {provideHttpClient, withFetch} from '@angular/common/http';
 import {CONFIGURATION_TOKEN} from '@xprng/docs';
 
-export const appConfig: ApplicationConfig = {
+export default {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
@@ -23,4 +23,4 @@ export const appConfig: ApplicationConfig = {
       },
     }
   ]
-};
+} as ApplicationConfig;

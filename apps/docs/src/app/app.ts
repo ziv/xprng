@@ -2,12 +2,14 @@ import {booleanAttribute, Component, computed, inject, InjectionToken} from '@an
 import {ActivatedRoute, Router, RouterOutlet} from '@angular/router';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {Settings} from '@xprng/docs'
+import {Markdown} from '@xprng/markdown';
+import Navigation from './services/navigation';
 
 export const AppAccess = new InjectionToken('AppAccess');
 
 @Component({
   selector: 'xpd-root',
-  imports: [RouterOutlet, Settings],
+  imports: [RouterOutlet, Settings, Markdown],
   providers: [
     {
       provide: AppAccess,
@@ -27,7 +29,7 @@ export const AppAccess = new InjectionToken('AppAccess');
             <button aria-label="Close" rel="prev" (click)="clear()"></button>
             <h4>Settings</h4>
           </header>
-          <xpd-settings/>
+          <xpd-settings></xpd-settings>
         </article>
       </dialog>
     }
@@ -39,60 +41,28 @@ export const AppAccess = new InjectionToken('AppAccess');
             <h4>Help</h4>
             <p>Help for yet another documentation app</p>
           </header>
-          <!-- todo the help will come from remote content -->
-          <h5>About</h5>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat.</p>
-
-          <h5>Keyboard Shortcuts</h5>
-          <table>
-            <tr>
-              <td>
-                <kbd>⌘ S</kbd>
-              </td>
-              <td>Open settings</td>
-            </tr>
-            <tr>
-              <td>
-                <kbd>⌘ H</kbd>
-              </td>
-              <td>Open help</td>
-            </tr>
-            <tr>
-              <td>
-                <kbd>Esc</kbd>
-              </td>
-              <td>Close dialogs</td>
-          </table>
+          <xpr-markdown src="/internal/help.md"/>
         </article>
       </dialog>
     }
     <router-outlet/>
   `,
 })
-export class App {
+export default class App {
   private readonly router = inject(Router);
+  private readonly nav = inject(Navigation);
   private readonly query = toSignal(inject(ActivatedRoute).queryParams);
 
   protected readonly showSettings = computed(() => booleanAttribute(this.query()?.['settings']));
   protected readonly showHelp = computed(() => booleanAttribute(this.query()?.['help']));
 
-  open(name: 'settings' | 'help', e?: Event) {
-    if (e) {
-      e.stopPropagation();
-      e.preventDefault();
-    }
-    this.router.navigate([], {
-      queryParams: {[name]: true},
-      queryParamsHandling: 'replace',
-    }).catch(console.error);
+  open(name: 'settings' | 'help', e: Event) {
+    e.stopPropagation();
+    e.preventDefault();
+    this.nav.merge(name, true);
   }
 
   clear() {
-    this.router.navigate([], {
-      queryParams: {},
-      queryParamsHandling: 'replace',
-    }).catch(console.error);
+    this.nav.merge({settings: false, help: false});
   }
 }
