@@ -4,11 +4,6 @@ import type {HighlighterCore} from "shiki";
 import {getHighlighter} from "@xprng/vendor/shiki";
 import {ContentSrc} from "@xprng/common";
 
-const ERROR_NONE =
-  "Either 'content' or 'src' input must be provided. Neither is set.";
-const ERROR_BOTH =
-  "Either 'content' or 'src' input should be provided, not both.";
-
 /**
  * # Code
  *
@@ -17,8 +12,8 @@ const ERROR_BOTH =
  *
  * ## Inputs
  *
- * - `content`: A string containing the source content to be displayed. Unable to be used with `src`.
- * - `src`: A URL from which to fetch the source content. Unable to be used with `content`.
+ * - `content`: A string containing the source content to be displayed. When provided, it overrides the `src` input.
+ * - `src`: A URL from which to fetch the source content. Ignored if `content` is provided.
  * - `lang`: The programming language of the source content. This should be a valid language identifier supported by Shiki.
  * - `theme`: The theme to use for syntax highlighting. This can be any theme supported by Shiki.
  * - `highlighter`: A custom highlighter function (Should be an instance of Shiki's `HighlighterCore`).
@@ -123,16 +118,6 @@ export class Code extends ContentSrc {
   });
 
   protected code = computed(() => {
-    const code = this.content() as string;
-    const src = this.src() as string;
-
-    if (!code && !src) {
-      throw new Error(ERROR_NONE);
-    }
-    if (code && src) {
-      throw new Error(ERROR_BOTH);
-    }
-
     const parse = (text: string) =>
       this.sanitize.bypassSecurityTrustHtml(
         getHighlighter().codeToHtml(text, {
@@ -141,11 +126,9 @@ export class Code extends ContentSrc {
         }).toString(),
       );
 
-    if (code) return parse(code as string);
+    if (this.content()) return parse(this.content() as string);
 
-    if (this.res.hasValue()) {
-      return parse(this.res.value());
-    }
+    if (this.res.hasValue()) return parse(this.res.value());
 
     return parse("");
   });

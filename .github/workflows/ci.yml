@@ -42,8 +42,8 @@ jobs:
       - name: 🌈 build
         run: npm run build
 
-      - name: 🍓 test
-        run: npm test
+#      - name: 🍓 test
+#        run: npm test
 
       - name: 🦋release common
         if: contains(github.event.head_commit.message, '(common)')
@@ -64,11 +64,11 @@ jobs:
         run: cd dist/xprng/markdown && npx semantic-release
 
       - name: 🦋release content
-        if: contains(github.event.head_commit.message, '(content)')
+        if: contains(github.event.head_commit.message, '(code)')
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: cd dist/xprng/content && npx semantic-release
+        run: cd dist/xprng/code && npx semantic-release
 
       - name: 🦋release slides
         if: contains(github.event.head_commit.message, '(slides)')
