@@ -48,7 +48,7 @@ export class XpdConfiguration {
   }
 
   get items() {
-    return (this.routes ?? []).map(r => ({label: r.title ?? 'Unknown', route: `${this.base}/docs/${r.path}`}));
+    return (this.routes ?? []).map(r => ({label: r.title ?? 'Unknown', route: `/${this.base}/docs/${r.path}`}));
   }
 
   constructor() {
