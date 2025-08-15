@@ -535,7 +535,7 @@ If <code>code</code> is provided, this will be ignored.</p>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div>@if (content()) {  <!--  Markdown code is provided directly mode.  -->  <div class="xpr-value xpr-local" [innerHTML]="markdown()"></div>} @else if (src()) {  <!--  Source URL is provided mode.  -->  @if (res.hasValue() && res.value()) {    <div class="xpr-value xpr-loaded" [innerHTML]="markdown()"></div>  } @else if (res.isLoading()) {    <ng-content select="xpr-loading-state"/>  } @else if (res.error()) {    <ng-content select="xpr-error-state"/>  } @else {    <ng-content select="xpr-empty-state"/>  }}</div>'
-    var COMPONENTS = [{'name': 'Code', 'selector': 'xpr-content'},{'name': 'Markdown', 'selector': 'xpr-markdown'},{'name': 'Slide', 'selector': 'xpr-slide'},{'name': 'Slides', 'selector': 'xpr-slides'}];
+    var COMPONENTS = [{'name': 'Code', 'selector': 'xpr-code'},{'name': 'Markdown', 'selector': 'xpr-markdown'},{'name': 'Slide', 'selector': 'xpr-slide'},{'name': 'Slides', 'selector': 'xpr-slides'}];
     var DIRECTIVES = [{'name': 'ContentSrc', 'selector': ''},{'name': 'EmptyState', 'selector': 'xpr-empty-state,[xpr-empty-state]'},{'name': 'ErrorState', 'selector': 'xpr-error-state,[xpr-error-state]'},{'name': 'LoadingState', 'selector': 'xpr-loading-state,[xpr-loading-state]'},{'name': 'OkState', 'selector': 'xpr-ok-state,[xpr-ok-state]'}];
     var ACTUAL_COMPONENT = {'name': 'Markdown'};
 </script>
