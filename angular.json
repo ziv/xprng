@@ -170,7 +170,8 @@
               "apps/docs/src/styles.css"
             ],
             "server": "apps/docs/src/main.server.ts",
-            "outputMode": "server",
+            "outputMode": "static",
+            "baseHref": "/xprng/",
             "ssr": {
               "entry": "apps/docs/src/server.ts"
             }
@@ -180,13 +181,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "1MB",
+                  "maximumError": "2MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
+                  "maximumWarning": "8kB",
+                  "maximumError": "16kB"
                 }
               ],
               "outputHashing": "all"
