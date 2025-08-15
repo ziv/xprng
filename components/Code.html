@@ -118,8 +118,8 @@
 It can either take a string of content directly or fetch it from a remote source.</p>
 <h2>Inputs</h2>
 <ul>
-<li><code>content</code>: A string containing the source content to be displayed. Unable to be used with <code>src</code>.</li>
-<li><code>src</code>: A URL from which to fetch the source content. Unable to be used with <code>content</code>.</li>
+<li><code>content</code>: A string containing the source content to be displayed. When provided, it overrides the <code>src</code> input.</li>
+<li><code>src</code>: A URL from which to fetch the source content. Ignored if <code>content</code> is provided.</li>
 <li><code>lang</code>: The programming language of the source content. This should be a valid language identifier supported by Shiki.</li>
 <li><code>theme</code>: The theme to use for syntax highlighting. This can be any theme supported by Shiki.</li>
 <li><code>highlighter</code>: A custom highlighter function (Should be an instance of Shiki&#39;s <code>HighlighterCore</code>).</li>
@@ -303,16 +303,6 @@ See the example below for how to use these states.</p>
                 <tr>
                     <td class="col-md-4">
                         <i>Default value : </i><code>computed(() &#x3D;&gt; {
-    const code &#x3D; this.content() as string;
-    const src &#x3D; this.src() as string;
-
-    if (!code &amp;&amp; !src) {
-      throw new Error(ERROR_NONE);
-    }
-    if (code &amp;&amp; src) {
-      throw new Error(ERROR_BOTH);
-    }
-
     const parse &#x3D; (text: string) &#x3D;&gt;
       this.sanitize.bypassSecurityTrustHtml(
         getHighlighter().codeToHtml(text, {
@@ -321,11 +311,9 @@ See the example below for how to use these states.</p>
         }).toString(),
       );
 
-    if (code) return parse(code as string);
+    if (this.content()) return parse(this.content() as string);
 
-    if (this.res.hasValue()) {
-      return parse(this.res.value());
-    }
+    if (this.res.hasValue()) return parse(this.res.value());
 
     return parse(&quot;&quot;);
   })</code>
