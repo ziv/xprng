@@ -15,6 +15,7 @@ import {XpdConfiguration} from '../services/configuration';
       <div class="row g-10 m-10 wrap">
         @for (item of items; track item.route) {
           <button [routerLink]="item.route">{{ item.label }}</button>
+          <a [routerLink]="item.route">{{ item.label }}</a>
         }
       </div>
       <! -- todo replace with xpr-markdown -->
