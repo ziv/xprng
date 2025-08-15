@@ -44,7 +44,7 @@
     "**/*.js",
     "*.js",
     "*.d.ts",
-    "EADME.md",
+    "README.md",
     "license"
   ],
   "release": {
