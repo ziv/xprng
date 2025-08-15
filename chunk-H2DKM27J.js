@@ -1,1 +1,0 @@
-import{h as t,na as n,q as e}from"./chunk-T3WBTFKC.js";var r=class o{component=e({});queryParams=e({});notification=e(null);props=n(()=>this.component()?.props??[]);static \u0275fac=function(a){return new(a||o)};static \u0275prov=t({token:o,factory:o.\u0275fac,providedIn:"root"})};export{r as a};

@@ -1,0 +1,1 @@
+import{g as n,ka as a,o as e}from"./chunk-L2F66LQ2.js";var t=class r{component=e({});queryParams=e({});notification=e(null);props=a(()=>this.component()?.props??[]);queryParam(o){return this.queryParams()[o]}static \u0275fac=function(i){return new(i||r)};static \u0275prov=n({token:r,factory:r.\u0275fac,providedIn:"root"})};export{t as a};
