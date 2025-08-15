@@ -1,21 +1,27 @@
 import {Component} from '@angular/core';
 import {Markdown} from '@xprng/markdown';
-import {DocumentationComponent} from '../app/documentation-component';
-// import {DocumentationComponent} from '@xprng/docs';
+import {DocumentationComponent} from '../app/components/documentation-component';
 
 @Component({
   selector: 'xpd-docs-markdown',
   imports: [Markdown],
   template: `
-    @if (prop('content').value) {
-      <xpr-markdown [content]="prop('content').value"/>
-    } @else if (prop('src').value) {
-      <xpr-markdown [src]="prop('src').value"/>
+    @if (markdown) {
+      <xpr-markdown [content]="markdown"/>
+    } @else if (source) {
+      <xpr-markdown [src]="source"/>
     } @else {
-      <p>No content or source provided.</p>
+      <p>No markdown content or source provided.</p>
     }
   `,
 })
 export default class MarkdownDoc extends DocumentationComponent {
 
+  get markdown() {
+    return this.prop('content').value;
+  }
+
+  get source() {
+    return this.prop('src').value;
+  }
 }

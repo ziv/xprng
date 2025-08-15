@@ -23,6 +23,10 @@ button.toolbar {
   height: 100vh;
 }
 
+.wvw {
+  width: 100vw;
+}
+
 .fh {
   height: 100%;
 }
@@ -38,6 +42,11 @@ button.toolbar {
 .px-10 {
   padding-left: 1rem;
   padding-right: 1rem;
+}
+
+.py-10 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 
@@ -62,6 +71,10 @@ button.toolbar {
 .centered {
   align-items: center;
   justify-content: center;
+}
+
+.wrap {
+  flex-wrap: wrap;
 }
 
 .g-10 {

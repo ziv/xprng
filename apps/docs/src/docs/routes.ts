@@ -31,6 +31,41 @@ export default [
     }
   },
   {
+    path: 'code',
+    title: 'Code',
+    loadComponent: () => import('./code-doc') as Promise<any>,
+    data: {
+      component: {
+        id: 'code',
+        name: 'Code Highlighter',
+        overview: "/docs.overview.md",
+        props: [
+          {
+            id: 'src',
+            name: 'src',
+            type: 'string',
+            description: 'Path to a source file to load.',
+            value: '/example.js',
+          },
+          {
+            id: 'content',
+            name: 'content',
+            type: 'text',
+            description: 'Source code to render.',
+            value: 'console.log("Hello world!");',
+          },
+          {
+            id: 'lang',
+            name: 'lang',
+            type: 'string',
+            description: 'Language of the source code for syntax highlighting.',
+            value: 'javascript',
+          }
+        ],
+      }
+    }
+  },
+  {
     path: 'slides',
     title: 'Slides',
     loadComponent: () => import('./slides-doc'),

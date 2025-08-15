@@ -1,10 +1,23 @@
 import {inject, Injectable} from '@angular/core';
 import {Router} from '@angular/router';
+import {toSignal} from '@angular/core/rxjs-interop';
 
 @Injectable({providedIn: 'root'})
 export default class Navigation {
   private readonly router = inject(Router);
+  readonly params = toSignal(this.router.routerState.root.queryParams);
 
+  param(key: string): string | null {
+    const params = this.params();
+    if (params && key in params) {
+      return params[key];
+    }
+    return null;
+  }
+
+  clear() {
+    this.replace({});
+  }
 
   merge(key: string, value: unknown): void;
   merge(obj: { [key: string]: unknown }): void;

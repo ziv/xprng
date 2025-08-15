@@ -6,7 +6,7 @@
     "build-docs": "ng build  @apps/docs",
     "build": "./ng-build.sh",
     "test": "./ng-test.sh",
-    "docs": "ng build @apps/docs",
+    "docs": "ng build @apps/docs --configuration github",
     "ng": "ng",
     "start": "ng serve",
     "watch": "ng build --watch --configuration development",

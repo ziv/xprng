@@ -2,13 +2,17 @@ import {booleanAttribute, Component, computed, inject, numberAttribute, signal} 
 import {ActivatedRoute, EventType, Router, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {Markdown} from '@xprng/markdown';
 import {DocDescriptor, Player, Props} from '@xprng/docs';
-import routes from '../docs/routes';
-import {DocsHost} from './documentation-component';
-import NgLogo from './nglogo';
+import routes from '../../docs/routes';
+import NgLogo from '../components/nglogo';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {filter, map} from 'rxjs';
-import Navigation from './services/navigation';
+import Navigation from '../services/navigation';
+import SharedData from '../services/shared-data';
 
+/**
+ * NaN is not a valid number, so we return 0 in that case.
+ * @param value
+ */
 function numericAttribute(value: unknown): number {
   const n = numberAttribute(value);
   return isNaN(n) ? 0 : n;
@@ -30,25 +34,12 @@ function numericAttribute(value: unknown): number {
     RouterLinkActive,
     NgLogo,
   ],
-  providers: [
-    {
-      provide: DocsHost,
-      useExisting: Documentation,
-    }
-  ],
+  host: {
+    class: 'row wvw hvh',
+  },
   styles: `
-    :host {
-      display: flex;
-      width: 100%;
-      height: 100%;
-    }
-
     aside {
-      padding: 1em 0;
       width: 20%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       background: var(--pico-primary-background);
 
       xpd-nglogo {
@@ -60,39 +51,27 @@ function numericAttribute(value: unknown): number {
         filter: brightness(1.1);
       }
 
-      li.xpd-nav {
-        a {
-          color: var(--pico-primary-inverse);
-        }
+      li.xpd-nav a {
+        color: var(--pico-primary-inverse);
       }
 
-      li.active {
+      li.xpd-nav.active {
         background: var(--pico-primary-inverse);
+      }
 
-        a {
-          color: var(--pico-primary-background);
-        }
+      li.xpd-nav.active a {
+        color: var(--pico-primary-background);
       }
     }
 
-    div.documentation-area {
-      --pico-background-color: var(--pico-secondary-background);
-      flex: 1;
-
+    main.xpd-main {
       background: var(--pico-secondary-background);
       color: var(--pico-primary-inverse);
-      height: 100%;
-      display: flex;
-      flex-direction: column;
 
-      h1 {
+      h1.xpd-main {
         color: var(--pico-primary-inverse);
         font-size: calc(var(--pico-font-size) / 1.5);
         margin-bottom: 0;
-      }
-
-      div.documentation-overview {
-        margin: .5em 1em;
       }
     }
 
@@ -102,7 +81,8 @@ function numericAttribute(value: unknown): number {
     }
   `,
   template: `
-    <aside>
+    <!-- side panel -->
+    <aside class="col hvh centered py-10">
       <xpd-nglogo routerLink="/home" style="width: 50%"/>
       <div class="grow" style="overflow-y: auto; padding:0 1.5em;margin: 0 .5em;">
         <nav>
@@ -119,11 +99,13 @@ function numericAttribute(value: unknown): number {
       <button (click)="help()"><span class="sym">help</span></button>
       <button (click)="settings()"><span class="sym">settings</span></button>
     </aside>
-    <div class="documentation-area">
-      @let c = component();
-      <div class="documentation-overview">
+
+    <!-- content panel -->
+    <main class="xpd-main col hvh grow">
+      @let c = sharedData.component();
+      <div class="m-10">
         @if (c) {
-          <h1>{{ c.name }}</h1>
+          <h1 class="xpd-main">{{ c.name }}</h1>
           @if (c.description) {
             <small>{{ c.description }}</small>
           }
@@ -177,11 +159,11 @@ function numericAttribute(value: unknown): number {
         }
       </div>
 
-    </div>
+    </main>
   `,
 })
 export default class Documentation {
-  private readonly router = inject(Router);
+  protected readonly sharedData = inject(SharedData);
   private readonly navigte = inject(Navigation);
   protected readonly params = toSignal(inject(ActivatedRoute).queryParams);
   readonly component = signal<DocDescriptor | undefined>(undefined);
@@ -227,4 +209,7 @@ export default class Documentation {
     filter(e => e.type === EventType.NavigationEnd),
     map(e => new URL(e.url, 'http://localhost')),
   ));
+
+  constructor() {
+  }
 }

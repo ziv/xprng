@@ -15,6 +15,7 @@ import { Prop } from "../descriptor";
       --pico-typography-spacing-vertical: 0.5rem;
       --pico-form-element-spacing-vertical: 0.5rem;
       --pico-form-element-spacing-horizontal: 0.5rem;
+      --pico-background-color: var(--pico-secondary-background);
 
       td, th, td small.xpd-dec {
         --pico-color: var(--pico-primary-inverse);

@@ -170,8 +170,6 @@
               "apps/docs/src/styles.css"
             ],
             "server": "apps/docs/src/main.server.ts",
-            "outputMode": "static",
-            "baseHref": "/xprng/",
             "ssr": {
               "entry": "apps/docs/src/server.ts"
             }
@@ -191,6 +189,23 @@
                 }
               ],
               "outputHashing": "all"
+            },
+            "github": {
+              "baseHref": "/xprng/",
+              "outputMode": "static",
+              "outputHashing": "all",
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2MB",
+                  "maximumError": "3MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "8kB",
+                  "maximumError": "16kB"
+                }
+              ]
             },
             "development": {
               "optimization": false,

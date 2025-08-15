@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
-import routes from '../docs/routes';
+import routes from '../../docs/routes';
 import {RouterLink} from '@angular/router';
-import NgLogo from './nglogo';
+import NgLogo from '../components/nglogo';
 
 @Component({
   selector: 'xpd-home',
@@ -12,28 +12,19 @@ import NgLogo from './nglogo';
   host: {
     class: 'row'
   },
-  styles: `
-    aside {
-      height: 100vh;
-      background-color: var(--pico-primary-background);
-
-      xpd-nglogo {
-        width: 60%;
-      }
-    }
-  `,
   template: `
     <main class="grow col">
-      <div class="row g-10 m-10" style="flex-wrap: wrap;">
+      <div class="row g-10 m-10 wrap">
         @for (item of items; track item.route) {
           <button [routerLink]="item.route">{{ item.label }}</button>
         }
       </div>
+      <! -- todo replace with xpr-markdown -->
       <p class="m-10">Yet Another Documentation Tool</p>
       <p class="m-10"><small>Made with ❤️</small></p>
     </main>
-    <aside class="row centered grow">
-      <xpd-nglogo/>
+    <aside class="row centered grow hvh" [style.background-color]="'var(--pico-primary-background)'">
+      <xpd-nglogo style="width: 60%"/>
     </aside>
   `,
 
