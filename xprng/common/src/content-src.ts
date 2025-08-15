@@ -11,7 +11,7 @@ export abstract class ContentSrc {
 
   /**
    * Specifies the source URL for the code.
-   * If `code` is provided, this will be ignored.
+   * If `code` is provided, `src` will be ignored.
    * @input
    */
   readonly src = input<string | undefined>();
