@@ -1,8 +1,8 @@
-import { Component, computed, inject, input } from "@angular/core";
-import { DomSanitizer } from "@angular/platform-browser";
-import type { HighlighterCore } from "shiki";
-import { getHighlighter } from "@xprng/vendor/shiki";
-import { ContentSrc } from "@xprng/common";
+import {Component, computed, inject, input} from "@angular/core";
+import {DomSanitizer} from "@angular/platform-browser";
+import type {HighlighterCore} from "shiki";
+import {getHighlighter} from "@xprng/vendor/shiki";
+import {ContentSrc} from "@xprng/common";
 
 const ERROR_NONE =
   "Either 'content' or 'src' input must be provided. Neither is set.";
@@ -64,10 +64,10 @@ const ERROR_BOTH =
  * ```
  */
 @Component({
-  selector: "xpr-content",
+  selector: "xpr-code",
   host: {
     "[style.display]": '"block"',
-    class: "xpr-content",
+    class: "xpr-code",
   },
   template: `
     @switch (state()) {
