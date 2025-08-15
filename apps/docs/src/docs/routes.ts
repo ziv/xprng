@@ -8,8 +8,8 @@ export default [
     data: {
       component: {
         id: 'markdown',
-        name: 'Markdown Documentation',
-        description: 'Documentation for the Markdown component.',
+        name: 'Markdown XpdDocumentation',
+        description: 'XpdDocumentation for the Markdown component.',
         overview: "/docs.overview.md",
         props: [
           {
@@ -72,8 +72,8 @@ export default [
     data: {
       component: {
         id: 'slides',
-        name: 'Slides Documentation',
-        description: 'Documentation for the Markdown component',
+        name: 'Slides XpdDocumentation',
+        description: 'XpdDocumentation for the Markdown component',
         overview: "/docs.overview.md",
         props: [
           {
@@ -101,8 +101,8 @@ export default [
     data: {
       component: {
         id: 'button',
-        name: 'Button Documentation',
-        description: 'Documentation for the simple button',
+        name: 'Button XpdDocumentation',
+        description: 'XpdDocumentation for the simple button',
         overview: "/docs.overview.md",
         props: [
           {

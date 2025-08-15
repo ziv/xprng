@@ -5,6 +5,8 @@ import {routes} from './app.routes';
 import {provideClientHydration, withEventReplay} from '@angular/platform-browser';
 import {provideHttpClient, withFetch} from '@angular/common/http';
 import {CONFIGURATION_TOKEN} from '@xprng/docs';
+import {ROUTES_TOKEN} from './services/configuration';
+import docsRoutes from '../docs/routes';
 
 export default {
   providers: [
@@ -13,6 +15,7 @@ export default {
     provideRouter(routes, withHashLocation(), withViewTransitions()),
     provideClientHydration(withEventReplay()),
     provideHttpClient(withFetch()),
+    // todo replace with provide function
     {
       provide: CONFIGURATION_TOKEN,
       useValue: {
@@ -21,6 +24,10 @@ export default {
         homeHeader: '/internal/home-header.md',
         homeFooter: '/internal/home-footer.md',
       },
+    },
+    {
+      provide: ROUTES_TOKEN,
+      useValue: docsRoutes
     }
   ]
 } as ApplicationConfig;

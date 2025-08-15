@@ -1,5 +1,5 @@
-import {booleanAttribute, Component, computed, inject} from '@angular/core';
-import Navigation from '../services/navigation';
+import {Component, computed, inject} from '@angular/core';
+import XpdNavigation from '../services/navigation';
 
 @Component({
   selector: 'xpd-settings-dialog',
@@ -18,7 +18,7 @@ import Navigation from '../services/navigation';
     }
   `
 })
-export default class SettingsDialog {
-  protected readonly nav = inject(Navigation);
-  protected readonly show = computed(() => booleanAttribute(this.nav.param('settings')));
+export default class XpdSettingsDialog {
+  protected readonly nav = inject(XpdNavigation);
+  protected readonly show = computed(() => this.nav.booleanParam('settings'));
 }

@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Markdown} from '@xprng/markdown';
-import {DocumentationComponent} from '../app/components/documentation-component';
+import {XpdDocumentationComponent} from '../app/components/documentation-component.directive';
 
 @Component({
   selector: 'xpd-docs-markdown',
@@ -15,7 +15,7 @@ import {DocumentationComponent} from '../app/components/documentation-component'
     }
   `,
 })
-export default class MarkdownDoc extends DocumentationComponent {
+export default class MarkdownDoc extends XpdDocumentationComponent {
 
   get markdown() {
     return this.prop('content').value;

@@ -1,8 +1,8 @@
 // import { ComponentFixture, TestBed } from '@angular/core/testing';
 //
-// import { Documentation } from './documentation';
+// import { XpdDocumentation } from './documentation';
 //
-// describe('Documentation', () => {
+// describe('XpdDocumentation', () => {
 //   let component: Docs;
 //   let fixture: ComponentFixture<Docs>;
 //

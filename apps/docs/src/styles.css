@@ -2,6 +2,23 @@ html, body {
   height: 100vh;
 }
 
+/* pico variables changes */
+:root {
+  /*--pico-font-size: 95%;*/
+
+  /* spacing */
+  /*--pico-spacing: .9rem;*/
+  /*--pico-typography-spacing-vertical: .9rem;*/
+
+  /*--pico-form-element-spacing-vertical: 0.7rem;*/
+  /*--pico-form-element-spacing-horizontal: .9rem;*/
+
+  /*--pico-nav-element-spacing-vertical: .9rem;*/
+  /*--pico-nav-element-spacing-horizontal: 0.45rem;*/
+  /*--pico-nav-link-spacing-vertical: 0.45rem;*/
+  /*--pico-nav-link-spacing-horizontal: 0.45rem;*/
+}
+
 /* fix pico */
 
 dialog > article > header .close, dialog > article > header :is(a,button)[rel=prev] {

@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {DocumentationComponent} from '../app/components/documentation-component';
+import {XpdDocumentationComponent} from '../app/components/documentation-component.directive';
 import {Code} from '@xprng/code';
 
 @Component({
@@ -15,7 +15,7 @@ import {Code} from '@xprng/code';
     }
   `,
 })
-export default class CodeDoc extends DocumentationComponent {
+export default class CodeDoc extends XpdDocumentationComponent {
   get language(): string {
     return this.prop('lang').value ?? 'javascript';
   }

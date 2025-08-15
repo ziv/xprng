@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import Navigation from './navigation';
+import XpdNavigation from './navigation';
 
 function clear(e?: Event) {
   if (!e) {
@@ -10,8 +10,8 @@ function clear(e?: Event) {
 }
 
 @Injectable({providedIn: 'root'})
-export default class Dialogs {
-  private readonly nav = inject(Navigation);
+export default class XpdDialogs {
+  private readonly nav = inject(XpdNavigation);
 
   help(e?: Event) {
     clear(e);

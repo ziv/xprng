@@ -1,7 +1,7 @@
-import {booleanAttribute, Component, computed, inject} from '@angular/core';
-import Navigation from '../services/navigation';
+import {Component, computed, inject} from '@angular/core';
+import XpdNavigation from '../services/navigation';
 import {Markdown} from '@xprng/markdown';
-import {PlatformLocation} from '@angular/common';
+import {XpdConfiguration} from '../services/configuration';
 
 @Component({
   selector: 'xpd-help-dialog',
@@ -13,7 +13,7 @@ import {PlatformLocation} from '@angular/common';
       <dialog open>
         <article>
           <header>
-            <button aria-label="Close" rel="prev" (click)="nav.merge({help: false})"></button>
+            <button aria-label="Close" rel="prev" (click)="nav.merge('help', false)"></button>
             <h4>Help</h4>
             <p>Help for yet another documentation app</p>
           </header>
@@ -23,8 +23,8 @@ import {PlatformLocation} from '@angular/common';
     }
   `
 })
-export default class HelpDialog {
-  protected src = inject(PlatformLocation).getBaseHrefFromDOM() + 'internal/help.md';
-  protected readonly nav = inject(Navigation);
-  protected readonly show = computed(() => booleanAttribute(this.nav.param('help')));
+export default class XpdHelpDialog {
+  protected readonly src = inject(XpdConfiguration).help;
+  protected readonly nav = inject(XpdNavigation);
+  protected readonly show = computed(() => this.nav.booleanParam('help'));
 }

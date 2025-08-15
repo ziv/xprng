@@ -62,7 +62,7 @@ You can toggle the autoplay mode and speed using keyboard shortcuts.
 
 Autoplay is always in cyclic mode.
 
-### Keyboard Navigation
+### Keyboard XpdNavigation
 
 | Key(s)                    | Action                           |
 |---------------------------|----------------------------------|

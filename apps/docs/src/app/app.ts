@@ -1,12 +1,12 @@
 import {Component, inject} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
-import HelpDialog from './components/help-dialog';
-import SettingsDialog from './components/settings-dialog';
-import Dialogs from './services/dialogs';
+import XpdHelpDialog from './components/help-dialog';
+import XpdSettingsDialog from './components/settings-dialog';
+import XpdDialogs from './services/dialogs';
 
 @Component({
   selector: 'xpd-root',
-  imports: [RouterOutlet, HelpDialog, SettingsDialog],
+  imports: [RouterOutlet, XpdHelpDialog, XpdSettingsDialog],
   host: {
     '(document:keydown.meta.s)': 'dialogs.settings($event)',
     '(document:keydown.meta.h)': 'dialogs.help($event)',
@@ -19,5 +19,5 @@ import Dialogs from './services/dialogs';
   `,
 })
 export default class App {
-  protected dialogs = inject(Dialogs);
+  protected dialogs = inject(XpdDialogs);
 }

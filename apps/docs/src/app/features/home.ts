@@ -1,13 +1,11 @@
-import {Component} from '@angular/core';
-import routes from '../../docs/routes';
+import {Component, inject} from '@angular/core';
 import {RouterLink} from '@angular/router';
-import NgLogo from '../components/nglogo';
+import {XpdConfiguration} from '../services/configuration';
 
 @Component({
   selector: 'xpd-home',
   imports: [
     RouterLink,
-    NgLogo,
   ],
   host: {
     class: 'row'
@@ -24,14 +22,12 @@ import NgLogo from '../components/nglogo';
       <p class="m-10"><small>Made with ❤️</small></p>
     </main>
     <aside class="row centered grow hvh" [style.background-color]="'var(--pico-primary-background)'">
-      <xpd-nglogo style="width: 60%"/>
+      <img [src]="logo" style="width: 60%" alt="logo"/>
     </aside>
   `,
 
 })
-export default class HomeFeature {
-  readonly items = routes.map(route => ({
-    label: route.title,
-    route: `/docs/${route.path}`,
-  }));
+export default class XpdHome {
+  protected readonly logo = inject(XpdConfiguration).logo;
+  protected readonly items = inject(XpdConfiguration).items;
 }

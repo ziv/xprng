@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {DocumentationComponent} from '../app/components/documentation-component';
+import {XpdDocumentationComponent} from '../app/components/documentation-component.directive';
 
 @Component({
   selector: 'xpd-docs-buttons',
@@ -7,7 +7,7 @@ import {DocumentationComponent} from '../app/components/documentation-component'
     <button [disabled]="prop('disabled').value">{{ prop('content').value }}</button>
   `,
 })
-export default class ButtonsDoc extends DocumentationComponent {
+export default class ButtonsDoc extends XpdDocumentationComponent {
 }
 
-console.log(DocumentationComponent);
+console.log(XpdDocumentationComponent);

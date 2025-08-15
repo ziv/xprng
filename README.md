@@ -13,7 +13,7 @@ Compatible with **Zoneless** Angular 20+.
 | `@xprng/markdown` | [Markdown](xprng/markdown/README.md) | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fmarkdown) | Markdown component           |
 | `@xprng/code`     | [Code](xprng/code/README.md)         | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fcode)     | Code highlighter component   |
 | `@xprng/slides`   | [Slides](xprng/slides/README.md)     | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fslides)   | Slides viewer component      |
-| `@xprng/docs`     | [Docs](xprng/docs/README.md)         | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fdocs)     | Documentation utilities      |
+| `@xprng/docs`     | [Docs](xprng/docs/README.md)         | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fdocs)     | XpdDocumentation utilities      |
 
 ---
 

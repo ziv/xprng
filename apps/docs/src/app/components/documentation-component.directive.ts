@@ -1,17 +1,13 @@
-import {Directive, effect, inject, InjectionToken} from '@angular/core';
+import {Directive, effect, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {map} from 'rxjs';
-import {DocDescriptor, Prop} from '@xprng/docs';
-import SharedData from '../services/shared-data';
-
-export const DocsHost = new InjectionToken('DocsHost');
+import {DocDescriptor, Prop} from '../descriptor';
+import XpdShared from '../services/shared';
 
 @Directive({})
-export abstract class DocumentationComponent {
-  protected readonly sharedData = inject(SharedData);
-
-  // private readonly parent = inject<{ component: WritableSignal<any> }>(DocsHost, {optional: true});
+export abstract class XpdDocumentationComponent {
+  protected readonly sharedData = inject(XpdShared);
 
   get props() {
     return this.sharedData.props();
@@ -28,11 +24,7 @@ export abstract class DocumentationComponent {
   protected constructor() {
     effect(() => {
       this.sharedData.component.set(this.componentDescriptor() ?? {});
-      // if (this.parent && this.componentDescriptor()) {
-      //   this.parent.component.set(this.componentDescriptor());
-      // }
     });
-
     effect(() => {
       this.sharedData.queryParams.set(this.queryParams() ?? {});
     });
