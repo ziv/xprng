@@ -6,6 +6,7 @@ import {Markdown} from '@xprng/markdown';
 import {DocDescriptor, Player, Props} from '@xprng/docs';
 import routes from '../docs/routes';
 import {DocsHost} from './documentation-component';
+import NgLogo from './nglogo';
 
 /**
  * # Documentation component
@@ -21,6 +22,7 @@ import {DocsHost} from './documentation-component';
     Props,
     RouterLink,
     RouterLinkActive,
+    NgLogo,
   ],
   providers: [
     {
@@ -35,52 +37,71 @@ import {DocsHost} from './documentation-component';
       height: 100%;
     }
 
-    button.active {
-      background-color: red;
-    }
-
     aside {
       padding: 1em 0;
       width: 20%;
-      background: #a6e162;
       display: flex;
       flex-direction: column;
       align-items: center;
+      background: var(--pico-primary-background);
+
+      xpd-nglogo {
+        margin: 1em 0 2em 0;
+      }
+
+      xpd-nglogo:hover {
+        cursor: pointer;
+        filter: brightness(1.1);
+      }
+
+      li.xpd-nav {
+        a {
+          color: var(--pico-primary-inverse);
+        }
+      }
 
       li.active {
-        background: #6491ff;
+        background: var(--pico-primary-inverse);
 
         a {
-          color: white;
+          color: var(--pico-primary-background);
         }
       }
     }
 
     div.documentation-area {
+      --pico-background-color: var(--pico-secondary-background);
       flex: 1;
-      background: #6491ff;
+
+      background: var(--pico-secondary-background);
+      color: var(--pico-primary-inverse);
       height: 100%;
       display: flex;
       flex-direction: column;
 
+      h1 {
+        color: var(--pico-primary-inverse);
+        font-size: calc(var(--pico-font-size) / 1.5);
+        margin-bottom: 0;
+      }
+
       div.documentation-overview {
         margin: .5em 1em;
-
-        h1 {
-          color: white;
-        }
       }
+    }
+
+    li.tab {
+      padding-bottom: 0;
+      padding-top: 0;
     }
   `,
   template: `
     <aside>
+      <xpd-nglogo routerLink="/home" size="100" />
       <nav>
         <ul>
-          <li>
-            <a routerLink="/home">Home</a>
-          </li>
           @for (item of items; track item.route) {
-            <li routerLinkActive="active">
+            <li routerLinkActive="active" class="xpd-nav">
               <a [routerLink]="item.route">{{ item.label }}</a>
             </li>
           }
@@ -89,10 +110,10 @@ import {DocsHost} from './documentation-component';
       <span style="flex:1"></span>
       <nav>
         <ul>
-          <li>
+          <li class="xpd-nav">
             <a (click)="help()">Help</a>
           </li>
-          <li>
+          <li class="xpd-nav">
             <a (click)="settings()">Settings</a>
           </li>
         </ul>
@@ -102,15 +123,15 @@ import {DocsHost} from './documentation-component';
       @let c = component();
       <div class="documentation-overview">
         @if (c) {
-          <h2>{{ c.name }}</h2>
+          <h1>{{ c.name }}</h1>
           @if (c.description) {
-            <div>{{ c.description }}</div>
+            <small>{{ c.description }}</small>
           }
-<!--          @if (c.overview) {-->
-<!--            <div>-->
-<!--              <xpr-markdown [src]="c.overview"></xpr-markdown>-->
-<!--            </div>-->
-<!--          }-->
+          <!--          @if (c.overview) {-->
+            <!--            <div>-->
+            <!--              <xpr-markdown [src]="c.overview"></xpr-markdown>-->
+            <!--            </div>-->
+            <!--          }-->
         }
       </div>
 
@@ -119,13 +140,21 @@ import {DocsHost} from './documentation-component';
       </xpd-player>
 
       <div>
-        @for (t of tabs(); track t.value) {
-          @if (t.value === tab()) {
-            <button (click)="tab.set(t.value)" class="active">{{ t.label }}</button>
-          } @else {
-            <button (click)="tab.set(t.value)">{{ t.label }}</button>
-          }
-        }
+        <nav>
+          <ul>
+            @for (t of tabs(); track t.value) {
+              @if (t.value === tab()) {
+                <li class="tab">
+                  <button (click)="tab.set(t.value)">{{ t.label }}</button>
+                </li>
+              } @else {
+                <li class="tab">
+                  <button class="secondary" (click)="tab.set(t.value)">{{ t.label }}</button>
+                </li>
+              }
+            }
+          </ul>
+        </nav>
         @switch (tab()) {
           @case (0) {
             @if (c && c.props) {
@@ -149,6 +178,8 @@ import {DocsHost} from './documentation-component';
 export default class Docs {
   private readonly router = inject(Router);
   readonly component = signal<DocDescriptor | undefined>(undefined);
+  readonly log = signal<unknown[]>([]);
+
   protected readonly routeDescriptor = toSignal(inject(ActivatedRoute).data.pipe(map(data => data['component'] as DocDescriptor)));
 
 

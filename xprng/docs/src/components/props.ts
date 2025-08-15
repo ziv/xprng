@@ -15,6 +15,11 @@ import { Prop } from "../descriptor";
       --pico-typography-spacing-vertical: 0.5rem;
       --pico-form-element-spacing-vertical: 0.5rem;
       --pico-form-element-spacing-horizontal: 0.5rem;
+
+      td, th, td small.xpd-dec {
+        --pico-color: var(--pico-primary-inverse);
+        --pico-muted-color: var(--pico-primary-inverse);
+      }
     }
 
     section {
@@ -30,16 +35,15 @@ import { Prop } from "../descriptor";
     }
 
     table {
+      width: 100%;
+
       td, th {
         height: 80px;
       }
     }
   `,
   template: `
-    <div>
-      properties
-    </div>
-    <table class="pico" style="width: 100%">
+    <table>
       @for (prop of props(); track prop.name) {
         <tr>
           <th>
@@ -53,7 +57,7 @@ import { Prop } from "../descriptor";
               @case ('string') {
                 <label>
                   <input type="text" [(ngModel)]="prop.value"/>
-                  <small>{{ prop.description }}</small>
+                  <small class="xpd-dec">{{ prop.description }}</small>
                 </label>
               }
               @case ('text') {

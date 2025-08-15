@@ -77,6 +77,13 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: cd dist/xprng/slides && npx semantic-release
 
+      - name: 🦋release docs
+        if: contains(github.event.head_commit.message, '(docs)')
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: cd dist/xprng/docs && npx semantic-release
+
   docs:
     name: docs
     runs-on: ubuntu-latest
