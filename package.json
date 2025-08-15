@@ -6,7 +6,7 @@
     "build-docs": "ng build  @apps/docs",
     "build": "./ng-build.sh",
     "test": "./ng-test.sh",
-    "docs": "compodoc -p tsconfig.doc.json",
+    "docs": "ng build @apps/docs",
     "ng": "ng",
     "start": "ng serve",
     "watch": "ng build --watch --configuration development",
