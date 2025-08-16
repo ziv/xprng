@@ -24,7 +24,6 @@ function read(defaults: Partial<ConfigurationOptions>): Partial<ConfigurationOpt
     return defaults;
   }
   try {
-    console.log(JSON.parse(raw));
     return JSON.parse(raw);
   } catch (e) {
     return defaults;

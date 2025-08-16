@@ -95,16 +95,21 @@ export default [
     }
   },
   {
-    path: 'button',
-    title: 'Button',
-    loadComponent: () => import('./buttons-doc'),
+    path: 'example',
+    title: 'Pico Example',
+    loadComponent: () => import('./exampl-doc'),
     data: {
       component: {
         id: 'button',
-        name: 'Button XpdDocumentation',
-        description: 'XpdDocumentation for the simple button',
-        overview: "/docs.overview.md",
+        name: 'Pico Documentation',
         props: [
+          {
+            id: 'open',
+            name: 'open',
+            type: 'boolean',
+            description: 'Open the accordion',
+            value: true,
+          },
           {
             id: 'disabled',
             name: 'disabled',
@@ -118,6 +123,18 @@ export default [
             type: 'string',
             description: 'Button text',
             value: 'click me',
+          },
+          {
+            id: 'type',
+            name: 'type',
+            type: 'list',
+            description: 'Button type',
+            value: 'primary',
+            options: [
+              {label: 'Primary', value: 'primary'},
+              {label: 'Secondary', value: 'secondary'},
+              {label: 'Contrast', value: 'contrast'},
+            ]
           }
         ],
       }

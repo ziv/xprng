@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Slide, Slides} from '@xprng/slides';
-import {XpdDocumentationComponent} from '../app/components/documentation-component.directive';
+import {XpdDocumentationComponent} from '../app/components/documentation-component';
 
 @Component({
   selector: 'xpd-docs-slides',

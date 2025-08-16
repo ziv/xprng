@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {XpdDocumentationComponent} from '../app/components/documentation-component.directive';
+import {XpdDocumentationComponent} from '../app/components/documentation-component';
 import {Code} from '@xprng/code';
 
 @Component({

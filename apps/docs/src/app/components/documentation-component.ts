@@ -21,6 +21,10 @@ export abstract class XpdDocumentationComponent {
     return p as Prop;
   }
 
+  propValue(id: string): unknown {
+    return this.prop(id).value;
+  }
+
   protected constructor() {
     effect(() => {
       this.sharedData.component.set(this.componentDescriptor() ?? {});

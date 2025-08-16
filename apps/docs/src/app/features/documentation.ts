@@ -1,4 +1,4 @@
-import {booleanAttribute, Component, computed, inject} from '@angular/core';
+import {booleanAttribute, Component, computed, contentChild, ElementRef, inject, viewChild} from '@angular/core';
 import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import XpdNavigation from '../services/navigation';
 import XpdShared from '../services/shared';
@@ -23,6 +23,8 @@ import {XpdPreview} from '../components/preview';
   ],
   host: {
     class: 'row wvw hvh',
+    '(document:mousemove)': 'move($event)',
+    '(document:mouseup)': 'end()',
   },
   styles: `
     aside {
@@ -103,16 +105,23 @@ import {XpdPreview} from '../components/preview';
         <router-outlet/>
       </xpd-preview>
 
+      <!-- properties -->
       <div class="px-10">
+        <!-- properties toolbar -->
         <nav>
-          <button class="secondary">Properties</button>
+          <button class="secondary" (mousedown)="start()">Properties
+          </button>
           @if (minimized()) {
-            <button (click)="minimize(false)" class="secondary toolbar" data-tooltip="Maximize"
+            <button (click)="minimize(false)"
+                    class="secondary toolbar"
+                    data-tooltip="Maximize"
                     data-placement="left">
               <span class="sym">maximize</span>
             </button>
           } @else {
-            <button (click)="minimize(true)" class="secondary toolbar" data-tooltip="Minimize"
+            <button (click)="minimize(true)"
+                    class="secondary toolbar"
+                    data-tooltip="Minimize"
                     data-placement="left">
               <span class="sym">minimize</span>
             </button>
@@ -120,12 +129,14 @@ import {XpdPreview} from '../components/preview';
         </nav>
 
         @if (!minimized()) {
-          @if (c && c.props) {
-            <xpd-properties [props]="c.props"/>
-          }
+          <div style="min-height: 10em;overflow-y: auto;" #properties>
+            @if (c && c.props) {
+              <xpd-properties [props]="c.props"/>
+            }
+
+          </div>
         }
       </div>
-
     </main>
   `,
 })
@@ -134,6 +145,7 @@ export default class XpdDocumentation {
   protected readonly items = inject(XpdConfiguration).items;
   protected readonly shared = inject(XpdShared);
   private readonly nav = inject(XpdNavigation);
+  private readonly properties = viewChild<ElementRef>('properties');
 
   minimize(minimize: boolean) {
     this.nav.merge({minimize})
@@ -148,4 +160,34 @@ export default class XpdDocumentation {
   }
 
   protected readonly minimized = computed(() => this.nav.booleanParam('minimize') ?? false);
+
+
+  // todo complete this part
+
+  inChange = false;
+  top = 0;
+
+
+  start() {
+    this.inChange = true;
+    this.top = this.properties()?.nativeElement.getBoundingClientRect().top; //  - window.scrollY;
+    console.log('start', this.top);
+  }
+
+  end() {
+    this.inChange = false;
+    console.log('stop', this.top);
+  }
+
+  move(e: MouseEvent) {
+    const el = this.properties()?.nativeElement;
+    // change the element height based on the mouse position
+    if (this.inChange && el) {
+      const rect = el.getBoundingClientRect();
+      const newHeight = rect.height - (e.clientY - rect.top);
+      if (newHeight > 100) {
+        el.style.height = `${newHeight}px`;
+      }
+    }
+  }
 }
