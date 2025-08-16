@@ -23,7 +23,7 @@ import {Prop} from "../descriptor";
             }
 
             td, th {
-                vertical-align: top;
+                /*vertical-align: top;*/
             }
         }
 
@@ -44,6 +44,11 @@ import {Prop} from "../descriptor";
 
             td, th {
                 height: 80px;
+            }
+
+            th {
+                width: 5%;
+                white-space: nowrap;
             }
         }
     `,

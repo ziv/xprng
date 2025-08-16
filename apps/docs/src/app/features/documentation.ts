@@ -1,4 +1,13 @@
-import {booleanAttribute, Component, computed, contentChild, ElementRef, inject, viewChild} from '@angular/core';
+import {
+  booleanAttribute,
+  Component,
+  computed,
+  contentChild,
+  ElementRef,
+  inject,
+  signal,
+  viewChild
+} from '@angular/core';
 import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import XpdNavigation from '../services/navigation';
 import XpdShared from '../services/shared';
@@ -23,8 +32,6 @@ import {XpdPreview} from '../components/preview';
   ],
   host: {
     class: 'row wvw hvh',
-    '(document:mousemove)': 'move($event)',
-    '(document:mouseup)': 'end()',
   },
   styles: `
     aside {
@@ -68,6 +75,20 @@ import {XpdPreview} from '../components/preview';
       padding-bottom: 0;
       padding-top: 0;
     }
+
+    .xpd-expander {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      cursor: ns-resize;
+      background: var(--pico-secondary-background);
+    }
+
+    .xpd-expander:hover {
+      background: var(--pico-primary);
+    }
   `,
   template: `
     <!-- side panel -->
@@ -106,10 +127,11 @@ import {XpdPreview} from '../components/preview';
       </xpd-preview>
 
       <!-- properties -->
-      <div class="px-10">
+      <div class="px-10" style="zoom:.7;position: relative;">
+        <div class="xpd-expander" (mousedown)="start()"></div>
         <!-- properties toolbar -->
         <nav>
-          <button class="secondary" (mousedown)="start()">Properties
+          <button class="secondary">Properties
           </button>
           @if (minimized()) {
             <button (click)="minimize(false)"
@@ -129,7 +151,7 @@ import {XpdPreview} from '../components/preview';
         </nav>
 
         @if (!minimized()) {
-          <div style="min-height: 10em;overflow-y: auto;" #properties>
+          <div [style.height]="height()" style="min-height: 5em;overflow-y: auto;" #properties>
             @if (c && c.props) {
               <xpd-properties [props]="c.props"/>
             }
@@ -164,30 +186,31 @@ export default class XpdDocumentation {
 
   // todo complete this part
 
-  inChange = false;
-  top = 0;
+  height = signal<string>('auto');
 
-
+  // change the height of the properties panel (dragging the bottom edge)
   start() {
-    this.inChange = true;
-    this.top = this.properties()?.nativeElement.getBoundingClientRect().top; //  - window.scrollY;
-    console.log('start', this.top);
-  }
-
-  end() {
-    this.inChange = false;
-    console.log('stop', this.top);
-  }
-
-  move(e: MouseEvent) {
-    const el = this.properties()?.nativeElement;
-    // change the element height based on the mouse position
-    if (this.inChange && el) {
-      const rect = el.getBoundingClientRect();
-      const newHeight = rect.height - (e.clientY - rect.top);
-      if (newHeight > 100) {
-        el.style.height = `${newHeight}px`;
-      }
+    if (this.minimized()) {
+      return;
     }
+    const el = this.properties()?.nativeElement as HTMLElement;
+    // this.top = el.getBoundingClientRect().top; //  - window.scrollY;
+
+    let last = 0;
+    const onMouseMove = (e: MouseEvent) => {
+      if (last !== 0) {
+        const newHeight = el.offsetHeight - (e.clientY - last);
+        if (newHeight > 100) {
+          // el.style.height = `${newHeight}px`;
+          this.height.set(`${newHeight}px`);
+        }
+      }
+      last = e.clientY;
+    };
+    document.addEventListener('mousemove', onMouseMove);
+
+    document.addEventListener('mouseup', () => {
+      document.removeEventListener('mousemove', onMouseMove);
+    }, {once: true});
   }
 }
