@@ -1,6 +1,8 @@
 import {Component, inject} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
-import {XpdDialogs, XpdSettingsDialog, XpdHelpDialog} from '@xprng/docs';
+import {XpdHelpDialog} from './components/help-dialog';
+import {XpdSettingsDialog} from './components/settings-dialog';
+import {XpdDialogs} from './services/dialogs';
 
 @Component({
   selector: 'xpd-root',

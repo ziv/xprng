@@ -1,19 +1,10 @@
-import {
-  effect,
-  inject,
-  Injectable,
-  InjectionToken,
-  signal,
-} from "@angular/core";
+import {effect, inject, Injectable, InjectionToken, signal,} from "@angular/core";
+import {PlatformLocation} from '@angular/common';
+import {Routes} from '@angular/router';
 
 export type ConfigurationOptions = {
-  // Colors
-  primaryColor: string;
-  secondaryColor: string;
-
-  // URLs
-  homeHeader: string;
-  homeFooter: string;
+  logo: string;
+  help: string;
 };
 
 function isClient() {
@@ -21,11 +12,43 @@ function isClient() {
 }
 
 export const CONFIGURATION_TOKEN = new InjectionToken("configuration");
+export const ROUTES_TOKEN = new InjectionToken("routes");
 
-@Injectable({ providedIn: "root" })
-export class Configuration {
-  private readonly defaults = inject(CONFIGURATION_TOKEN, { optional: true });
-  readonly conf = signal<Partial<ConfigurationOptions>>(this.defaults ?? {});
+function read(defaults: Partial<ConfigurationOptions>): Partial<ConfigurationOptions> {
+  if (!isClient()) {
+    return defaults;
+  }
+  const raw = localStorage.getItem('configuration');
+  if (!raw) {
+    console.log('No configuration found.');
+    return defaults;
+  }
+  try {
+    return JSON.parse(raw);
+  } catch (e) {
+    return defaults;
+  }
+}
+
+@Injectable({providedIn: "root"})
+export class XpdConfiguration {
+  private readonly base = inject(PlatformLocation).getBaseHrefFromDOM();
+  private readonly defaults = inject<ConfigurationOptions>(CONFIGURATION_TOKEN, {optional: true});
+  private readonly routes = inject<Routes>(ROUTES_TOKEN, {optional: true});
+
+  readonly conf = signal<Partial<ConfigurationOptions>>(read(this.defaults ?? {}));
+
+  get logo() {
+    return this.base + (this.conf().logo ?? 'logosh.svg');
+  }
+
+  get help() {
+    return this.base + (this.conf().help ?? 'internal/help.md');
+  }
+
+  get items() {
+    return (this.routes ?? []).map(r => ({label: r.title ?? 'Unknown', route: `/docs/${r.path}`}));
+  }
 
   constructor() {
     effect(() => {
@@ -33,29 +56,7 @@ export class Configuration {
         localStorage.setItem("configuration", JSON.stringify(this.conf()));
       }
     });
+    console.log('injected configuration', this.defaults);
+    console.log('injected routes', this.routes);
   }
 }
-
-//
-// const DefaultConfiguration: ConfigurationOptions = {
-//   primaryColor: '#6491ff',
-//   secondaryColor: '#a6e162',
-//   homeHeader: '/internal/home-header.md',
-//   homeFooter: '/internal/home-footer.md',
-// };
-// function read() {
-//   if (!isClient()) {
-//     return {};
-//   }
-//   const raw = localStorage.getItem('configuration');
-//   if (!raw) {
-//     console.log('No configuration found.');
-//     return DefaultConfiguration;
-//   }
-//   try {
-//     console.log(JSON.parse(raw));
-//     return JSON.parse(raw);
-//   } catch (e) {
-//     return DefaultConfiguration;
-//   }
-// }

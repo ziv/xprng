@@ -1,10 +1,11 @@
 export type Prop = {
   id: string;
   name: string;
-  type: "string" | "text" | "number" | "boolean";
+  type: "string" | "text" | "number" | "boolean" | "list";
   description: string;
   value: any;
   required?: boolean;
+  options?: { label: string; value: any }[];
 };
 
 export type DocDescriptor = {

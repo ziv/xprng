@@ -1,6 +1,19 @@
-import {Component, computed, ElementRef, inject, signal, viewChild} from '@angular/core';
+import {
+  booleanAttribute,
+  Component,
+  computed,
+  contentChild,
+  ElementRef,
+  inject,
+  signal,
+  viewChild
+} from '@angular/core';
 import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
-import {XpdConfiguration, XpdNavigation, XpdPreview, XpdProperties, XpdShared} from '@xprng/docs';
+import { XpdNavigation } from '../services/navigation';
+import {XpdShared} from '../services/shared';
+import {XpdConfiguration} from '../services/configuration';
+import {XpdProperties} from '../components/properties';
+import {XpdPreview} from '../components/preview';
 
 /**
  * # XpdDocumentation component

@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {toSignal} from '@angular/core/rxjs-interop';
 
 @Injectable({providedIn: 'root'})
-export default class XpdNavigation {
+export class XpdNavigation {
   private readonly router = inject(Router);
   readonly params = toSignal(this.router.routerState.root.queryParams);
 

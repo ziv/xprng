@@ -1,15 +1,33 @@
-import {inject, Injectable} from '@angular/core';
+import {booleanAttribute, inject, Injectable} from '@angular/core';
 import {Router} from '@angular/router';
+import {toSignal} from '@angular/core/rxjs-interop';
 
 @Injectable({providedIn: 'root'})
-export default class Navigation {
+export class XpdNavigation {
   private readonly router = inject(Router);
+  readonly params = toSignal(this.router.routerState.root.queryParams);
 
+  param(key: string): string | null {
+    const params = this.params();
+    if (params && key in params) {
+      return params[key];
+    }
+    return null;
+  }
+
+  booleanParam(key: string): boolean {
+    return booleanAttribute(this.param(key));
+  }
+
+  clear() {
+    this.replace({});
+  }
 
   merge(key: string, value: unknown): void;
   merge(obj: { [key: string]: unknown }): void;
   merge(arr: [string, unknown][]): void;
   merge(arg1: string | { [key: string]: unknown } | [string, unknown][], value?: unknown): void {
+    console.log(arg1);
     this.router.navigate([], {
       queryParams: this.build(arg1, value),
       queryParamsHandling: 'merge',

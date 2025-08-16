@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {Code} from '@xprng/content';
+import {Code} from '@xprng/code';
 
 @Component({
   selector: 'xpd-content',

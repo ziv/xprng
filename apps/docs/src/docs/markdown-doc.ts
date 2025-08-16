@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Markdown} from '@xprng/markdown';
-import {XpdDocumentationComponent} from '../app/components/documentation-component';
+import {XpdDocumentationComponent} from '@xprng/docs';
 
 @Component({
   selector: 'xpd-docs-markdown',

@@ -3,11 +3,11 @@ import {Routes} from '@angular/router';
 export const routes: Routes = [
   {
     path: 'home',
-    loadComponent: () => import('./features/home')
+    loadComponent: () => import('@xprng/docs').then(m => m.XpdHome)
   },
   {
     path: 'docs',
-    loadComponent: () => import('./features/documentation'),
+    loadComponent: () => import('@xprng/docs').then(m => m.XpdDocumentation),
     loadChildren: () => import('../docs/routes'),
   },
   {

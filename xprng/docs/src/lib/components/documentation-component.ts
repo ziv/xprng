@@ -27,7 +27,6 @@ export abstract class XpdDocumentationComponent {
 
   protected constructor() {
     effect(() => {
-      console.log('update shared component data');
       this.sharedData.component.set(this.componentDescriptor() ?? {});
     });
     effect(() => {
@@ -36,5 +35,5 @@ export abstract class XpdDocumentationComponent {
   }
 
   private readonly queryParams = toSignal(inject(ActivatedRoute).queryParams);
-  protected readonly componentDescriptor = toSignal(inject(ActivatedRoute).data.pipe(map(data => data['component'] as DocDescriptor)));
+  private readonly componentDescriptor = toSignal(inject(ActivatedRoute).data.pipe(map(data => data['component'] as DocDescriptor)));
 }

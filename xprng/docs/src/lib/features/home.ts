@@ -1,6 +1,6 @@
 import {Component, inject} from '@angular/core';
 import {RouterLink} from '@angular/router';
-import {XpdConfiguration} from '@xprng/docs';
+import {XpdConfiguration} from '../services/configuration';
 
 @Component({
   selector: 'xpd-home',
@@ -27,7 +27,7 @@ import {XpdConfiguration} from '@xprng/docs';
   `,
 
 })
-export default class XpdHome {
+export class XpdHome {
   protected readonly logo = inject(XpdConfiguration).logo;
   protected readonly items = inject(XpdConfiguration).items;
 }

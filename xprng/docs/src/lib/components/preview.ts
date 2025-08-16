@@ -1,8 +1,8 @@
-import { Component, computed, signal } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import {Component, computed, signal} from "@angular/core";
+import {FormsModule} from "@angular/forms";
 
 @Component({
-  selector: "xpd-player",
+  selector: "xpd-preview",
   imports: [FormsModule],
   host: {
     "[style]": "contentStyles()",
@@ -36,15 +36,15 @@ import { FormsModule } from "@angular/forms";
     }
   `,
   template: `
-<!--    <div class="toolbar">-->
-<!--      <button class="secondary" data-tooltip="open controls" data-placement="left">▦</button>-->
-<!--    </div>-->
+    <!--    <div class="toolbar">-->
+    <!--      <button class="secondary" data-tooltip="open controls" data-placement="left">▦</button>-->
+    <!--    </div>-->
     <div class="content">
       <ng-content/>
     </div>
   `,
 })
-export class Player {
+export class XpdPreview {
   showGrid = signal(false);
   gridSize = signal("10px");
 

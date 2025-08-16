@@ -1,6 +1,10 @@
 import {Component, computed, ElementRef, inject, signal, viewChild} from '@angular/core';
 import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
-import {XpdConfiguration, XpdNavigation, XpdPreview, XpdProperties, XpdShared} from '@xprng/docs';
+import {XpdProperties} from '../components/properties';
+import {XpdPreview} from '../components/preview';
+import {XpdConfiguration} from '../services/configuration';
+import {XpdShared} from '../services/shared';
+import {XpdNavigation} from '../services/navigation';
 
 /**
  * # XpdDocumentation component
@@ -149,7 +153,7 @@ import {XpdConfiguration, XpdNavigation, XpdPreview, XpdProperties, XpdShared} f
     </main>
   `,
 })
-export default class XpdDocumentation {
+export class XpdDocumentation {
   protected readonly logo = inject(XpdConfiguration).logo;
   protected readonly items = inject(XpdConfiguration).items;
   protected readonly shared = inject(XpdShared);
