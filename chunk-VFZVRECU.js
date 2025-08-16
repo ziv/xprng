@@ -1,1 +1,0 @@
-import{g as n,o as e,oa as a}from"./chunk-RSPCY7EI.js";var t=class r{component=e({});queryParams=e({});notification=e(null);props=a(()=>this.component()?.props??[]);queryParam(o){return this.queryParams()[o]}static \u0275fac=function(i){return new(i||r)};static \u0275prov=n({token:r,factory:r.\u0275fac,providedIn:"root"})};export{t as a};
