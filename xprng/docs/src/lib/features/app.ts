@@ -8,6 +8,7 @@ import {XpdDialogs} from '../services/dialogs';
   selector: 'xpd-root',
   imports: [RouterOutlet, XpdHelpDialog, XpdSettingsDialog],
   host: {
+    class: 'pico',
     '(document:keydown.meta.s)': 'dialogs.settings($event)',
     '(document:keydown.meta.h)': 'dialogs.help($event)',
     '(document:keydown.Esc)': 'dialogs.clear($event)',
@@ -18,6 +19,6 @@ import {XpdDialogs} from '../services/dialogs';
     <router-outlet/>
   `,
 })
-export class App {
+export class XpdApp {
   protected dialogs = inject(XpdDialogs);
 }

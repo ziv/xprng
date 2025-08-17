@@ -6,9 +6,11 @@ export * from "./lib/services/shared";
 export * from "./lib/features/app";
 export * from "./lib/features/home";
 export * from "./lib/features/documentation";
+export * from "./lib/features/iframe";
+export * from "./lib/features/shell";
 export * from "./lib/components/documentation-component";
 export * from "./lib/components/help-dialog";
 export * from "./lib/components/preview";
 export * from "./lib/components/properties";
 export * from "./lib/components/settings-dialog";
-
+export * from "./lib/provide";

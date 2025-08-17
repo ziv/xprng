@@ -2,7 +2,7 @@ import {Component, computed, inject, input} from "@angular/core";
 import {DomSanitizer} from "@angular/platform-browser";
 import type {HighlighterCore} from "shiki";
 import {getHighlighter} from "@xprng/vendor/shiki";
-import {ContentSrc} from "@xprng/common";
+import {httpResource} from '@angular/common/http';
 
 /**
  * # Code
@@ -40,22 +40,22 @@ import {ContentSrc} from "@xprng/common";
  * ### Directly providing content code
  *
  * ```html
- * <xpr-content [content]="myCode" lang="javascript" theme="nord"></xpr-content>
+ * <xpr-code [content]="myCode" lang="javascript" theme="nord"></xpr-code>
  * ```
  *
  * ### Fetching content from a remote source
  *
  * ```html
- * <xpr-content src="https://example.com/my-code.js" lang="javascript" theme="nord"></xpr-content>
+ * <xpr-code src="https://example.com/my-code.js" lang="javascript" theme="nord"></xpr-code>
  * ```
  *
  * ### Using nested code for different states
  * ```html
- * <xpr-content src="https://example.com/my-code.js" lang="javascript" theme="nord">
+ * <xpr-code src="https://example.com/my-code.js" lang="javascript" theme="nord">
  *   <xpr-loading-state>Loading...</xpr-loading-state>
  *   <xpr-error-state>Error loading content.</xpr-error-state>
  *   <xpr-empty-state>No content available.</xpr-empty-state>
- * </xpr-content>
+ * </xpr-code>
  * ```
  */
 @Component({
@@ -86,7 +86,20 @@ import {ContentSrc} from "@xprng/common";
     }
   `,
 })
-export class Code extends ContentSrc {
+export class Code {
+  /**
+   * Provides code to be displayed in the component.
+   * @input
+   */
+  readonly content = input<string | undefined>();
+
+  /**
+   * Specifies the source URL for the code.
+   * If `code` is provided, `src` will be ignored.
+   * @input
+   */
+  readonly src = input<string | undefined>();
+
   /**
    * The programming language of the source content.
    * This should be a valid language identifier supported by Shiki.
@@ -133,6 +146,6 @@ export class Code extends ContentSrc {
     return parse("");
   });
 
-  // private readonly res = httpResource.text(() => this.src());
   private readonly sanitize = inject(DomSanitizer);
+  private readonly res = httpResource.text(() => this.src());
 }

@@ -21,7 +21,7 @@ import {XpdDocumentationComponent} from '@xprng/docs';
     }
   `,
   template: `
-    <xpr-slides [cyclic]="prop('cyclic').value">
+    <xpr-slides [cyclic]="prop('cyclic')">
       <xpr-slide>Slide A</xpr-slide>
       <xpr-slide>Slide B</xpr-slide>
       <xpr-slide>Slide C</xpr-slide>

@@ -1,7 +1,7 @@
 import {bootstrapApplication} from '@angular/platform-browser';
-import App from './app/app';
+import {XpdShell} from '@xprng/docs';
 import Config from './app/app.config.server';
 
-const bootstrap = () => bootstrapApplication(App, Config);
+const bootstrap = () => bootstrapApplication(XpdShell, Config);
 
 export default bootstrap;

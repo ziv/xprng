@@ -9,6 +9,7 @@ import {FormsModule} from "@angular/forms";
   },
   styles: `
     :host {
+      background-color: gray;
       flex: 1;
       display: block;
       position: relative;

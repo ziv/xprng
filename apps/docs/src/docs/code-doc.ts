@@ -3,28 +3,23 @@ import {XpdDocumentationComponent} from '@xprng/docs';
 import {Code} from '@xprng/code';
 
 @Component({
-  selector: 'xpd-docs-slides',
+  selector: 'xpd-docs-code',
   imports: [Code],
   template: `
-    @if (code) {
-      <xpr-code [content]="code" [lang]="language"/>
-    } @else if (source) {
-      <xpr-code [src]="source" [lang]="language"/>
-    } @else {
-      <p>No code content or source provided.</p>
-    }
+    <xpr-code [content]="content" [src]="src" [lang]="lang"/>
   `,
 })
 export default class CodeDoc extends XpdDocumentationComponent {
-  get language(): string {
-    return this.prop('lang').value ?? 'javascript';
+
+  get content() {
+    return this.prop('content');
   }
 
-  get code() {
-    return this.prop('content').value;
+  get lang() {
+    return this.prop('lang') ?? 'javascript';
   }
 
-  get source() {
-    return this.prop('src').value;
+  get src() {
+    return this.prop('src') ?? 'https://raw.githubusercontent.com/ziv/xprng/refs/heads/main/apps/docs/public/example.js';
   }
 }

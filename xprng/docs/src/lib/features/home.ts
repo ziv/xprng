@@ -8,7 +8,7 @@ import {XpdConfiguration} from '../services/configuration';
     RouterLink,
   ],
   host: {
-    class: 'row'
+    class: 'row pico'
   },
   template: `
     <main class="grow col">
@@ -22,12 +22,11 @@ import {XpdConfiguration} from '../services/configuration';
       <p class="m-10"><small>Made with ❤️</small></p>
     </main>
     <aside class="row centered grow hvh" [style.background-color]="'var(--pico-primary-background)'">
-      <img [src]="logo" style="width: 60%" alt="logo"/>
+      <img src="/logosh.svg" routerLink="/home" style="width: 60%" alt="logo"/>
     </aside>
   `,
 
 })
 export class XpdHome {
-  protected readonly logo = inject(XpdConfiguration).logo;
   protected readonly items = inject(XpdConfiguration).items;
 }

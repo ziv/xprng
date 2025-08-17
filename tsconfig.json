@@ -23,6 +23,9 @@
       "@xprng/docs": [
         "./dist/xprng/docs"
       ],
+      "@xprng/docs/*": [
+        "./dist/xprng/docs/*"
+      ],
       "@xprng/markdown": [
         "./dist/xprng/markdown"
       ],

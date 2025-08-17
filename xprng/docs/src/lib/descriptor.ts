@@ -15,3 +15,10 @@ export type DocDescriptor = {
   overview?: string; // URL
   props: Prop[];
 };
+export type XpdDocDescriptor = {
+  id: string;
+  name: string;
+  description: string;
+  overview?: string; // URL
+  props: Prop[];
+};

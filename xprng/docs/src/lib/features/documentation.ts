@@ -1,10 +1,15 @@
-import {Component, computed, ElementRef, inject, signal, viewChild} from '@angular/core';
-import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
+import {Component, computed, effect, ElementRef, inject, signal, viewChild} from '@angular/core';
+import {ActivatedRoute, Params, RouterLink, RouterLinkActive} from '@angular/router';
 import {XpdProperties} from '../components/properties';
-import {XpdPreview} from '../components/preview';
-import {XpdConfiguration} from '../services/configuration';
-import {XpdShared} from '../services/shared';
 import {XpdNavigation} from '../services/navigation';
+import {toSignal} from '@angular/core/rxjs-interop';
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import {delay, map, tap} from 'rxjs';
+import {XpdDialogs} from '../services/dialogs';
+import {XpdConfiguration} from '../services/configuration';
+import {XpdDescriptorsToken} from '../provide';
+import {XpdDocDescriptor} from '../descriptor';
+import {FormControl, FormGroup} from '@angular/forms';
 
 /**
  * # XpdDocumentation component
@@ -14,15 +19,16 @@ import {XpdNavigation} from '../services/navigation';
 @Component({
   selector: 'xpd-docs',
   imports: [
-    RouterOutlet,
     RouterLink,
-    RouterLinkActive,
     XpdProperties,
-    XpdPreview,
+    RouterLinkActive,
 
   ],
   host: {
-    class: 'row wvw hvh',
+    class: 'row wvw hvh pico',
+    '(document:keydown.meta.s)': 'dialogs.settings($event)',
+    '(document:keydown.meta.h)': 'dialogs.help($event)',
+    '(document:keydown.Esc)': 'dialogs.clear($event)',
   },
   styles: `
     aside {
@@ -36,6 +42,12 @@ import {XpdNavigation} from '../services/navigation';
 
       img[alt="logo"]:hover {
         filter: brightness(1.1);
+      }
+
+      div.xpd-items {
+        overflow-y: auto;
+        padding: 0 1.5em;
+        margin: 0 .5em;
       }
 
       li.xpd-nav a {
@@ -62,30 +74,34 @@ import {XpdNavigation} from '../services/navigation';
       }
     }
 
-    li.tab {
-      padding-bottom: 0;
-      padding-top: 0;
-    }
-
-    .xpd-expander {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 5px;
-      cursor: ns-resize;
+    article.xpd-footer {
       background: var(--pico-secondary-background);
+      color: var(--pico-primary-inverse);
+      max-height: 40vh;
+      padding-bottom: 0;
+      margin-bottom: 0;
+
+      xpd-properties {
+        display: block;
+        overflow-y: scroll;
+        max-height: 30vh;
+      }
+
+
+      --pico-accordion-close-summary-color: var(--pico-muted-color);
+      --pico-accordion-open-summary-color: var(--pico-secondary-inverse);
+
+      div.xpd-properties {
+        /*overflow-y: scroll;*/
+      }
     }
 
-    .xpd-expander:hover {
-      background: var(--pico-primary);
-    }
   `,
   template: `
     <!-- side panel -->
     <aside class="col hvh centered py-10">
-      <img [src]="logo" routerLink="/home" style="width: 50%" alt="logo"/>
-      <div class="grow" style="overflow-y: auto; padding:0 1.5em;margin: 0 .5em;">
+      <img src="/logosh.svg" routerLink="/home" style="width: 50%" alt="logo"/>
+      <div class="xpd-items grow">
         <nav>
           <ul>
             @for (item of items; track item.route) {
@@ -97,111 +113,114 @@ import {XpdNavigation} from '../services/navigation';
         </nav>
       </div>
       <button><span class="sym">routine</span></button>
-      <button (click)="help()"><span class="sym">help</span></button>
-      <button (click)="settings()"><span class="sym">settings</span></button>
+      <button (click)="dialogs.help()"><span class="sym">help</span></button>
+      <button (click)="dialogs.settings()"><span class="sym">settings</span></button>
     </aside>
 
     <!-- content panel -->
     <main class="xpd-main col hvh grow">
-      @let c = shared.component();
+
+      <!-- header -->
       <div class="m-10">
-        @if (c) {
-          <h1 class="xpd-main">{{ c.name }}</h1>
-          @if (c.description) {
-            <small>{{ c.description }}</small>
-          }
+        <h1 class="xpd-main">{{ component()?.name }}</h1>
+        <small>{{ component()?.description }}</small>
+      </div>
+
+      <!-- preview -->
+      <div class="col grow" style="">
+        @if (url()) {
+          <iframe [src]="url()" class="grow" (load)="loading.set(false)"></iframe>
         }
       </div>
 
-      <xpd-preview>
-        <router-outlet/>
-      </xpd-preview>
-
-      <!-- properties -->
-      <div class="px-10" style="zoom:.7;position: relative;">
-        <div class="xpd-expander" (mousedown)="start()"></div>
-        <!-- properties toolbar -->
-        <nav>
-          <button class="secondary">Properties
-          </button>
-          @if (minimized()) {
-            <button (click)="minimize(false)"
-                    class="secondary toolbar"
-                    data-tooltip="Maximize"
-                    data-placement="left">
-              <span class="sym">maximize</span>
-            </button>
-          } @else {
-            <button (click)="minimize(true)"
-                    class="secondary toolbar"
-                    data-tooltip="Minimize"
-                    data-placement="left">
-              <span class="sym">minimize</span>
-            </button>
-          }
-        </nav>
-
-        @if (!minimized()) {
-          <div [style.height]="height()" style="min-height: 5em;overflow-y: auto;" #properties>
-            @if (c && c.props) {
-              <xpd-properties [props]="c.props"/>
-            }
-
-          </div>
-        }
-      </div>
+      <!-- footer -->
+      <article class="xpd-footer">
+        <details name="properties" open>
+          <summary>Properties</summary>
+          <xpd-properties [props]="component()?.props ?? []" (change)="update($event)"/>
+        </details>
+      </article>
     </main>
   `,
 })
 export class XpdDocumentation {
-  protected readonly logo = inject(XpdConfiguration).logo;
+  // properties form (see constructor)
+  protected form = new FormGroup({});
+  // component descriptor (see constructor)
+  // descriptors list
+  protected readonly descriptors = inject<XpdDocDescriptor[]>(XpdDescriptorsToken);
+  // the preview iframe state
+  protected readonly loading = signal(false);
+  // the component name
+  protected readonly compName = toSignal(inject(ActivatedRoute).params.pipe(
+    map(p => p['component'] as string),
+  ));
+  // the component descriptor itself
+  protected readonly component = computed(() => {
+    const name = this.compName();
+    if (!name) {
+      return null;
+    }
+    return this.descriptors.find(d => d.id === name) as XpdDocDescriptor;
+  });
+  // list of routes
   protected readonly items = inject(XpdConfiguration).items;
-  protected readonly shared = inject(XpdShared);
-  private readonly nav = inject(XpdNavigation);
-  private readonly properties = viewChild<ElementRef>('properties');
 
-  minimize(minimize: boolean) {
-    this.nav.merge({minimize})
+  protected readonly dialogs = inject(XpdDialogs);
+  private readonly sanitize = inject(DomSanitizer);
+
+  // iframe URL
+  protected readonly url = signal<null | SafeResourceUrl>(null);
+
+
+  constructor() {
+    effect(() => {
+      const name = this.compName();
+      setTimeout(() => {
+        this.url.set(this.sanitize.bypassSecurityTrustResourceUrl(`#/iframe/${name}`))
+      }, 500)
+    });
   }
 
-  settings() {
-    return this.nav.merge({settings: true});
+  update(params: { [key: string]: string | number | boolean }) {
+    const qs = new URLSearchParams(params as Record<string, string>);
+    const name = this.compName();
+    this.url.set(this.sanitize.bypassSecurityTrustResourceUrl(`#/iframe/${name}?${qs.toString()}`));
   }
-
-  help() {
-    return this.nav.merge({help: true});
-  }
-
-  protected readonly minimized = computed(() => this.nav.booleanParam('minimize') ?? false);
-
 
   // todo complete this part
 
-  height = signal<string>('auto');
-
   // change the height of the properties panel (dragging the bottom edge)
   start() {
-    if (this.minimized()) {
-      return;
-    }
-    const el = this.properties()?.nativeElement as HTMLElement;
-    // this.top = el.getBoundingClientRect().top; //  - window.scrollY;
-
-    let last = 0;
-    const onMouseMove = (e: MouseEvent) => {
-      if (last !== 0) {
-        const newHeight = el.offsetHeight - (e.clientY - last);
-        if (newHeight > 100) {
-          // el.style.height = `${newHeight}px`;
-          this.height.set(`${newHeight}px`);
-        }
-      }
-      last = e.clientY;
-    };
-    document.addEventListener('mousemove', onMouseMove);
-
-    document.addEventListener('mouseup', () => {
-      document.removeEventListener('mousemove', onMouseMove);
-    }, {once: true});
+    // if (this.minimized()) {
+    //   return;
+    // }
+    // const el = (this.properties()?.nativeElement as HTMLElement).offsetHeight;
+    // const h = window.innerHeight;
+    // // this.top = el.getBoundingClientRect().top; //  - window.scrollY;
+    //
+    // let last = 0;
+    // const onMouseMove = (e: MouseEvent) => {
+    //   console.log('mousemove', e.clientY, h);
+    //   if (last !== 0) {
+    //     let newHeight = h - e.clientY + 1; //  el.offsetHeight - e.clientY; // (e.clientY - last - 1);
+    //     // let neeHeight = this.height() + (e.clientY - last);
+    //     if (newHeight < 100) {
+    //       newHeight = 100;
+    //     }
+    //     this.height.set(`${newHeight}px`);
+    //   }
+    //   last = e.clientY;
+    // };
+    // // document.addEventListener('mousemove', onMouseMove);
+    // document.addEventListener('mousemove', onMouseMove);
+    //
+    //
+    // document.addEventListener('mouseleave', () => {
+    //   document.removeEventListener('mousemove', onMouseMove);
+    // }, {once: true});
+    // document.addEventListener('mouseup', () => {
+    //   document.removeEventListener('mousemove', onMouseMove);
+    // }, {once: true});
   }
 }

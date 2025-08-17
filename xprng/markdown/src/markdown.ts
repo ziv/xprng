@@ -1,8 +1,8 @@
-import { Component, computed, inject, input } from "@angular/core";
-import { DomSanitizer } from "@angular/platform-browser";
-import type { MarkedOptions } from "marked";
-import { marked } from "@xprng/vendor/marked";
-import { ContentSrc } from "@xprng/common";
+import {Component, computed, inject, input} from "@angular/core";
+import {DomSanitizer} from "@angular/platform-browser";
+import type {MarkedOptions} from "marked";
+import {marked} from "@xprng/vendor/marked";
+import {httpResource} from '@angular/common/http';
 
 /**
  * Marked options for parsing markdown.
@@ -17,41 +17,38 @@ export type MarkdownOptions = MarkedOptions;
     class: "xpr-markdown",
   },
   template: `
-    @if (content()) {
-      <!--
-      Markdown code is provided directly mode.
-      -->
-      <div class="xpr-value xpr-local" [innerHTML]="markdown()"></div>
-
-    } @else if (src()) {
-      <!--
-      Source URL is provided mode.
-      -->
-      @if (res.hasValue() && res.value()) {
-        <div class="xpr-value xpr-loaded" [innerHTML]="markdown()"></div>
-      } @else if (res.isLoading()) {
-        <ng-content select="xpr-loading-state"/>
-      } @else if (res.error()) {
+    @switch (state()) {
+      @case ('local') {
+        <div class="xpr-value xpr-local" [innerHTML]="markdown()"></div>
+      }
+      @case ('error') {
         <ng-content select="xpr-error-state"/>
-      } @else {
+      }
+      @case ('loading') {
+        <ng-content select="xpr-loading-state"/>
+      }
+      @case ('resolved') {
+        <div class="xpr-value xpr-loaded" [innerHTML]="markdown()"></div>
+      }
+      @default {
         <ng-content select="xpr-empty-state"/>
       }
     }
   `,
 })
-export class Markdown extends ContentSrc {
+export class Markdown {
   /**
-   * The markdown code to be rendered.
+   * Provides code to be displayed in the component.
    * @input
    */
-  // readonly code = input<string | undefined>();
+  readonly content = input<string | undefined>();
 
   /**
-   * The source URL of the markdown code.
-   * If `code` is provided, this will be ignored.
+   * Specifies the source URL for the code.
+   * If `code` is provided, `src` will be ignored.
    * @input
    */
-  // readonly src = input<string | undefined>();
+  readonly src = input<string | undefined>();
 
   /**
    * The theme to use for syntax highlighting.
@@ -65,9 +62,16 @@ export class Markdown extends ContentSrc {
    */
   readonly options = input<Partial<MarkdownOptions>>({});
 
+
   //
 
-  // protected mdContent = computed(() => this.code(this.code() ?? ""));
+  protected state = computed(() => {
+    console.log('state called');
+    if (this.content()) return "local";
+    if (this.src()) return this.res.status();
+    return "empty";
+  });
+
   protected markdown = computed(() => {
     return this.content()
       ? this.parse(this.content()!)
@@ -81,6 +85,6 @@ export class Markdown extends ContentSrc {
     );
   }
 
-  // protected readonly res = httpResource.text(() => this.src());
   private readonly sanitize = inject(DomSanitizer);
+  private readonly res = httpResource.text(() => this.src());
 }

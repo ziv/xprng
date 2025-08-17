@@ -6,6 +6,8 @@ import {ROUTES_TOKEN, CONFIGURATION_TOKEN} from '@xprng/docs';
 
 import {routes} from './app.routes';
 import docsRoutes from '../docs/routes';
+import {provideDescriptors} from '@xprng/docs';
+import descriptors from '../docs/descriptors';
 
 export default {
   providers: [
@@ -14,16 +16,19 @@ export default {
     provideRouter(routes, withHashLocation(), withViewTransitions()),
     provideClientHydration(withEventReplay()),
     provideHttpClient(withFetch()),
+
+    // @xprng/docs items:
+    provideDescriptors(descriptors),
     // todo replace with provide function
-    {
-      provide: CONFIGURATION_TOKEN,
-      useValue: {
-        primaryColor: '#6491ff',
-        secondaryColor: '#a6e162',
-        homeHeader: '/internal/home-header.md',
-        homeFooter: '/internal/home-footer.md',
-      },
-    },
+    // {
+    //   provide: CONFIGURATION_TOKEN,
+    //   useValue: {
+    //     primaryColor: '#6491ff',
+    //     secondaryColor: '#a6e162',
+    //     homeHeader: '/internal/home-header.md',
+    //     homeFooter: '/internal/home-footer.md',
+    //   },
+    // },
     {
       provide: ROUTES_TOKEN,
       useValue: docsRoutes

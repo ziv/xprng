@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import { XpdNavigation } from './navigation';
+import {XpdNavigation} from './navigation';
 
 function clear(e?: Event) {
   if (!e) {
@@ -12,6 +12,10 @@ function clear(e?: Event) {
 @Injectable({providedIn: 'root'})
 export class XpdDialogs {
   private readonly nav = inject(XpdNavigation);
+
+  minimize(minimize: boolean) {
+    this.nav.merge({minimize})
+  }
 
   help(e?: Event) {
     clear(e);

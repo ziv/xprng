@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "peerDependencies": {
     "@angular/common": "^20.1.0",
-    "@angular/core": "^20.1.0",
+    "@angular/core": "^20.1.0"
   },
   "devDependencies": {
     "semantic-release": "^24.2.7"
