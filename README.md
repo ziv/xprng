@@ -6,26 +6,14 @@ Micro packages of very simple, yet, smart components.
 
 Compatible with **Zoneless** Angular 20+.
 
-#### Components Packages
-
-| Package           | Component                            | Version                                                          | Content                    |
-|-------------------|--------------------------------------|------------------------------------------------------------------|----------------------------|
-| `@xprng/markdown` | [Markdown](xprng/markdown/README.md) | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fmarkdown) | Markdown component         |
-| `@xprng/code`     | [Code](xprng/code/README.md)         | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fcode)     | Code highlighter component |
-| `@xprng/slides`   | [Slides](xprng/slides/README.md)     | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fslides)   | Slides viewer component    |
-| `@xprng/docs`     | [Docs](xprng/docs/README.md)         | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fdocs)     | XpdDocumentation utilities |
-
-#### Directives Packages
-
-| Package         | Metadata                         | Version                                                        | Content          |
-|-----------------|----------------------------------|----------------------------------------------------------------|------------------|
-| `@xprng/common` | [Common](xprng/common/README.md) | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fcommon) | State directives |
-
-#### Specific Packages
-
-| Package         | Metadata                         | Version                                                        | Content                      |
-|-----------------|----------------------------------|----------------------------------------------------------------|------------------------------|
-| `@xprng/vendor` | [Vendor](xprng/vendor/README.md) | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fvendor) | 3rd party libraries bindings |
+| Package           | Name                                 | Version                                                          | Content                      |
+|-------------------|--------------------------------------|------------------------------------------------------------------|------------------------------|
+| `@xprng/common`   | [Common](xprng/common/README.md)     | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fcommon)   | State directives             |
+| `@xprng/vendor`   | [Vendor](xprng/vendor/README.md)     | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fvendor)   | 3rd party libraries bindings |
+| `@xprng/markdown` | [Markdown](xprng/markdown/README.md) | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fmarkdown) | Markdown component           |
+| `@xprng/code`     | [Code](xprng/code/README.md)         | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fcode)     | Code highlighter component   |
+| `@xprng/slides`   | [Slides](xprng/slides/README.md)     | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fslides)   | Slides viewer component      |
+| `@xprng/docs`     | [Docs](xprng/docs/README.md)         | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fdocs)     | XpdDocumentation utilities   |
 
 ---
 
