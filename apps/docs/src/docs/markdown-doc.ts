@@ -6,10 +6,11 @@ import {XpdWrap} from '@xprng/docs';
   selector: 'xpd-docs-markdown',
   imports: [Markdown],
   template: `
-    @if (src) {
-      <xpr-markdown [src]="src"/>
-    } @else if (content) {
+    @if (content) {
       <xpr-markdown [content]="content"/>
+
+    } @else if (src) {
+      <xpr-markdown [src]="src"/>
     } @else {
       <p>No content or src provided for MarkdownDoc component.</p>
     }
@@ -22,6 +23,6 @@ export default class MarkdownDoc extends XpdWrap {
   }
 
   get src() {
-    return this.prop<string>('src');
+    return this.prop<string>('src') ?? 'https://ziv.github.io/xprng/example.md';
   }
 }

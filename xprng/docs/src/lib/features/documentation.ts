@@ -219,6 +219,7 @@ export class XpdDocumentation {
 
   update(params: { [key: string]: string | number | boolean }) {
     const iframe = this.iframe()?.nativeElement as HTMLIFrameElement;
+    console.log(params, iframe);
     if (!iframe || !iframe.contentWindow) {
       return;
     }
