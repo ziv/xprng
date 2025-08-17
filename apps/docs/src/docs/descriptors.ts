@@ -25,7 +25,8 @@ export default [
   },
   {
     id: 'code',
-    name: 'Code Highlighter',
+    name: 'Code ',
+    description: 'Code highlighter component based on Shiki',
     overview: "/docs.overview.md",
     props: [
       {
@@ -45,9 +46,15 @@ export default [
       {
         id: 'lang',
         name: 'lang',
-        type: 'string',
+        type: 'list',
         description: 'Language of the source code for syntax highlighting.',
         value: 'javascript',
+        options: [
+          {label: 'Javascript', value: 'javascript'},
+          {label: 'Typescript', value: 'typescript'},
+          {label: 'CSS', value: 'css'},
+          {label: 'HTML/XML', value: 'html'},
+        ]
       }
     ],
   },
