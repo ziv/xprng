@@ -17,13 +17,13 @@ Compatible with **Zoneless** Angular 20+.
 
 #### Directives Packages
 
-| Package         | Content                          | Version                                                        | Content          |
+| Package         | Metadata                         | Version                                                        | Content          |
 |-----------------|----------------------------------|----------------------------------------------------------------|------------------|
 | `@xprng/common` | [Common](xprng/common/README.md) | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fcommon) | State directives |
 
 #### Specific Packages
 
-| Package         | Content                          | Version                                                        | Content                      |
+| Package         | Metadata                         | Version                                                        | Content                      |
 |-----------------|----------------------------------|----------------------------------------------------------------|------------------------------|
 | `@xprng/vendor` | [Vendor](xprng/vendor/README.md) | ![NPM Version](https://img.shields.io/npm/v/%40xprng%2Fvendor) | 3rd party libraries bindings |
 
