@@ -10,7 +10,6 @@ import {RouterOutlet} from '@angular/router';
     :host {
       height: 100%;
       width: 100%;
-      background-color: lightblue;
       display: flex;
       padding: 1em;
       justify-content: center;
