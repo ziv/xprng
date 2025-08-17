@@ -1,7 +1,7 @@
-import {Component, effect, input, OnInit} from "@angular/core";
-import {FormControl, FormGroup, ReactiveFormsModule,} from "@angular/forms";
+import {Component, input} from "@angular/core";
+import {ReactiveFormsModule,} from "@angular/forms";
 import {Prop} from "../descriptor";
-import {isDebug} from '../utils';
+import {debugLog, isDebug} from '../utils';
 
 function read() {
   const value = localStorage.getItem('__xpd-properties');
@@ -55,87 +55,79 @@ function update(value: unknown, name?: string) {
     }
   `,
   template: `
-    <form [formGroup]="form">
-      <table>
-        @for (prop of props(); track prop.name) {
-          <tr>
-            <th>
-              <span class="label">{{ prop.name }}</span>
-              @if (prop.required) {
-                <span class="required">* required</span>
+    <table>
+      @for (prop of props(); track prop.name) {
+        <tr>
+          <th>
+            <span class="label">{{ prop.name }}</span>
+            @if (prop.required) {
+              <span class="required">* required</span>
+            }
+          </th>
+          <td>
+            @switch (prop.type) {
+              @case ('string') {
+                <label>
+                  <input type="text" [value]="prop.value" (keyup)="update(prop.name, $event)"/>
+                  <small class="xpd-dec">{{ prop.description }}</small>
+                </label>
               }
-            </th>
-            <td>
-              @switch (prop.type) {
-                @case ('string') {
-                  <label>
-                    <input type="text" [formControlName]="prop.name"/>
-                    <small class="xpd-dec">{{ prop.description }}</small>
-                  </label>
-                }
-                @case ('text') {
-                  <label>
-                    <textarea [formControlName]="prop.name"></textarea>
-                    <small>{{ prop.description }}</small>
-                  </label>
-                }
-                @case ('number') {
-                  <label>
-                    <input type="number" [formControlName]="prop.name"/>
-                    <small>{{ prop.description }}</small>
-                  </label>
-                }
-                @case ('boolean') {
-                  <label>
-                    <input type="checkbox" [formControlName]="prop.name"/>
-                    <span>{{ prop.description }}</span>
-                  </label>
-                }
-                @case ('list') {
-                  <label>
-                    <select [formControlName]="prop.name">
-                      @if (prop.options) {
-                        @for (option of prop.options; track option.value) {
-                          <option [value]="option.value">{{ option.label }}</option>
-                        }
+              @case ('text') {
+                <label>
+                  <textarea [value]="prop.value" (keyup)="update(prop.name, $event)"></textarea>
+                  <small>{{ prop.description }}</small>
+                </label>
+              }
+              @case ('number') {
+                <label>
+                  <input type="number" [value]="prop.value" (keyup)="update(prop.name, $event)"
+                         (change)="update(prop.name, $event)"/>
+                  <small>{{ prop.description }}</small>
+                </label>
+              }
+              @case ('boolean') {
+                <label>
+                  <input type="checkbox" [checked]="prop.value" (change)="update(prop.name, $event)"/>
+                  <span>{{ prop.description }}</span>
+                </label>
+              }
+              @case ('list') {
+                <label>
+                  <select [value]="prop.value" (change)="update(prop.name, $event)">
+                    @if (prop.options) {
+                      @for (option of prop.options; track option.value) {
+                        <option [value]="option.value">{{ option.label }}</option>
                       }
-                    </select>
-                    <small>{{ prop.description }}</small>
-                  </label>
-                }
-                @default {
-                  <span class="label">unknown</span>
-                }
+                    }
+                  </select>
+                  <small>{{ prop.description }}</small>
+                </label>
               }
-            </td>
-          </tr>
-        }
-      </table>
-    </form>
+              @default {
+                <span class="label">unknown</span>
+              }
+            }
+          </td>
+        </tr>
+      }
+    </table>
   `,
 })
 export class XpdProperties {
-  protected readonly form = new FormGroup({});
+  output: any = {};
   readonly name = input.required<string | undefined>();
   readonly props = input.required<Prop[]>();
 
-  constructor() {
-    this.form.valueChanges.subscribe(value => {
-      update(value, this.name());
-    });
-
-    effect(() => {
-      // as soon as props are set, initialize the form controls
-      const value = {} as Record<string, unknown>;
-      for (const prop of this.props()) {
-        this.form.addControl(prop.name, new FormControl(prop.value));
-        value[prop.name] = prop.value;
-      }
-      update(value, this.name());
-      if (isDebug()) {
-        console.info("XpdProperties initialized with props:", this.props());
-        console.info("Form controls:", this.form.controls);
-      }
-    });
+  update(name: string, event: Event) {
+    // @ts-ignore
+    const v = event.target.value;
+    if (v === 'on') {
+      // @ts-ignore
+      this.output[name] = event.target.checked;
+    } else {
+      this.output[name] = v;
+    }
+    debugLog('Updating properties:', this.name(), this.output);
+    localStorage.setItem('__xpd-properties', JSON.stringify({[this.name() ?? '']: this.output}));
   }
 }

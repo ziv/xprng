@@ -23,6 +23,7 @@ export abstract class XpdWrap {
       const raw = localStorage.getItem('__xpd-properties');
       try {
         const params = JSON.parse(raw ?? '{}');
+        debugLog('params read', params);
         if (name in params) {
           this.props.set(params[name]);
         } else {
