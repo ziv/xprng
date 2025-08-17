@@ -1,0 +1,1 @@
+var o=[{path:"markdown",title:"Markdown",loadComponent:()=>import("./chunk-72HFLUP7.js")},{path:"code",title:"Code",loadComponent:()=>import("./chunk-2LH3T7W7.js")},{path:"slides",title:"Slides",loadComponent:()=>import("./chunk-FVBDYKCI.js")},{path:"example",title:"Pico Example",loadComponent:()=>import("./chunk-ZEQHR3BY.js")}];export{o as a};
