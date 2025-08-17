@@ -1,11 +1,11 @@
-import { InjectionToken } from "@angular/core";
-import { DocDescriptor } from "./descriptor";
-import { Routes } from "@angular/router";
-import { ConfigurationOptions } from "./services/configuration";
+import {inject, InjectionToken, provideAppInitializer} from "@angular/core";
+import {DocDescriptor} from "./descriptor";
+import {Routes} from "@angular/router";
+import {ConfigurationOptions, XpdConfiguration} from "./services/configuration";
+import {PlatformLocation} from '@angular/common';
 
 export const XpdDescriptorsToken = new InjectionToken("XpdDescriptors");
 export const XpdRoutesToken = new InjectionToken("XpdRoutes");
-export const XpdConfigToken = new InjectionToken("XpdConfig");
 
 export function provideDescriptors(descriptors: DocDescriptor[]) {
   return {
@@ -22,8 +22,14 @@ export function provideRoutes(routes: Routes) {
 }
 
 export function provideConfig(config: Partial<ConfigurationOptions>) {
-  return {
-    provide: XpdConfigToken,
-    useValue: config,
-  };
+  return provideAppInitializer(() => {
+    const base = inject(PlatformLocation).getBaseHrefFromDOM();
+    if (config?.logo) {
+      config.logo = base + config.logo;
+    }
+    if (config?.help) {
+      config.help = base + config.help;
+    }
+    inject(XpdConfiguration).conf.set(config);
+  });
 }

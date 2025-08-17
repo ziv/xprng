@@ -1,70 +1,24 @@
-import {
-  effect,
-  inject,
-  Injectable,
-  InjectionToken,
-  signal,
-} from "@angular/core";
-import { PlatformLocation } from "@angular/common";
-import { Routes } from "@angular/router";
-import { XpdConfigToken, XpdRoutesToken } from "../provide";
+import {Injectable, signal,} from "@angular/core";
 
 export type ConfigurationOptions = {
   help: string;
+  logo: string;
   navigation: { label: string; route: string }[];
 };
 
-function isClient() {
-  return "localStorage" in globalThis;
-}
-
-function read(
-  defaults: Partial<ConfigurationOptions>,
-): Partial<ConfigurationOptions> {
-  if (!isClient()) {
-    return defaults;
-  }
-  const raw = localStorage.getItem("configuration");
-  if (!raw) {
-    console.log("No configuration found.");
-    return defaults;
-  }
-  try {
-    return JSON.parse(raw);
-  } catch (e) {
-    return defaults;
-  }
-}
-
-@Injectable({ providedIn: "root" })
+@Injectable({providedIn: "root"})
 export class XpdConfiguration {
-  private readonly base = inject(PlatformLocation).getBaseHrefFromDOM();
+  readonly conf = signal<Partial<ConfigurationOptions>>({});
 
-  private readonly defaults = inject<ConfigurationOptions>(XpdConfigToken, {
-    optional: true,
-  });
-  private readonly routes = inject<Routes>(XpdRoutesToken, { optional: true });
-
-  readonly conf = signal<Partial<ConfigurationOptions>>(
-    read(this.defaults ?? {}),
-  );
-
-  get help() {
-    return this.base + (this.conf().help ?? "internal/help.md");
+  get HelpUrl() {
+    return this.conf().help;
   }
 
-  get items() {
-    return (this.routes ?? []).map((r) => ({
-      label: r.title ?? "Unknown",
-      route: `/app/docs/${r.path}`,
-    }));
+  get LogoUrl() {
+    return this.conf().logo;
   }
 
-  constructor() {
-    effect(() => {
-      if (isClient()) {
-        localStorage.setItem("configuration", JSON.stringify(this.conf()));
-      }
-    });
+  get Navigation() {
+    return this.conf().navigation ?? [];
   }
 }

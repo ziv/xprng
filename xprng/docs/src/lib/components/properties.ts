@@ -120,7 +120,7 @@ export class XpdProperties {
     effect(() => {
       // replace the iframe url
       // console.log(this.changed());
-      console.log(this.changed());
+      // console.log(this.changed());
       this.change.emit(
         this.changed() as { [key: string]: string | number | boolean },
       );

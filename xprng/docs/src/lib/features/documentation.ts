@@ -1,28 +1,13 @@
-import {
-  Component,
-  computed,
-  effect,
-  ElementRef,
-  inject,
-  signal,
-  viewChild,
-} from "@angular/core";
-import {
-  ActivatedRoute,
-  Params,
-  RouterLink,
-  RouterLinkActive,
-} from "@angular/router";
-import { XpdProperties } from "../components/properties";
-import { XpdNavigation } from "../services/navigation";
-import { toSignal } from "@angular/core/rxjs-interop";
-import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
-import { delay, map, tap } from "rxjs";
-import { XpdDialogs } from "../services/dialogs";
-import { XpdConfiguration } from "../services/configuration";
-import { XpdDescriptorsToken } from "../provide";
-import { XpdDocDescriptor } from "../descriptor";
-import { FormControl, FormGroup } from "@angular/forms";
+import {Component, computed, ElementRef, inject, signal, viewChild,} from "@angular/core";
+import {ActivatedRoute, RouterLink, RouterLinkActive,} from "@angular/router";
+import {XpdProperties} from "../components/properties";
+import {toSignal} from "@angular/core/rxjs-interop";
+import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
+import {map} from "rxjs";
+import {XpdDialogs} from "../services/dialogs";
+import {XpdConfiguration} from "../services/configuration";
+import {XpdDescriptorsToken} from "../provide";
+import {XpdDocDescriptor} from "../descriptor";
 
 /**
  * # XpdDocumentation component
@@ -117,7 +102,7 @@ import { FormControl, FormGroup } from "@angular/forms";
   template: `
     <!-- side panel -->
     <aside class="col hvh centered py-10">
-      <img src="/xprng/logosh.svg" routerLink="/home" style="width: 50%" alt="logo"/>
+      <img [src]="logo" routerLink="/app/home" style="width: 50%" alt="logo"/>
       <div class="xpd-items grow">
         <nav>
           <ul>
@@ -168,6 +153,9 @@ import { FormControl, FormGroup } from "@angular/forms";
   `,
 })
 export class XpdDocumentation {
+  // logo path
+  protected readonly logo = inject(XpdConfiguration).LogoUrl;
+
   /// injected services
 
   // open dialogs
@@ -179,7 +167,7 @@ export class XpdDocumentation {
     XpdDescriptorsToken,
   );
   // list of routes
-  protected readonly items = inject(XpdConfiguration).items;
+  protected readonly items = inject(XpdConfiguration).Navigation;
 
   // reactivity
 
@@ -219,14 +207,17 @@ export class XpdDocumentation {
 
   update(params: { [key: string]: string | number | boolean }) {
     const iframe = this.iframe()?.nativeElement as HTMLIFrameElement;
-    console.log(params, iframe);
     if (!iframe || !iframe.contentWindow) {
       return;
     }
-    iframe.contentWindow?.postMessage({
-      type: "update",
-      params: JSON.stringify(params),
-    }, "*");
+    try {
+      iframe.contentWindow?.postMessage({
+        type: "update",
+        params: JSON.stringify(params),
+      }, "*");
+    } catch (e) {
+      console.error("Failed to post message to iframe:", e);
+    }
   }
 
   toggleColors() {

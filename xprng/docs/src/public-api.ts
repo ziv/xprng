@@ -2,7 +2,6 @@ export * from "./lib/descriptor";
 export * from "./lib/services/dialogs";
 export * from "./lib/services/navigation";
 export * from "./lib/services/configuration";
-export * from "./lib/services/shared";
 export * from "./lib/features/app";
 export * from "./lib/features/home";
 export * from "./lib/features/documentation";

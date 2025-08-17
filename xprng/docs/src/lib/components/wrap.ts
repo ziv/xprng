@@ -1,10 +1,4 @@
-import { computed, Directive, effect, inject, signal } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { toSignal } from "@angular/core/rxjs-interop";
-import { map } from "rxjs";
-import { DocDescriptor, Prop } from "../descriptor";
-import { XpdShared } from "../services/shared";
-import { XpdDescriptorsToken } from "../provide";
+import {Directive, signal} from "@angular/core";
 
 @Directive({})
 export abstract class XpdWrap {
@@ -24,8 +18,12 @@ export abstract class XpdWrap {
         return; // listen of the same origin only
       }
       if (e.data && e.data.type === "update" && e.data.params) {
-        const params = JSON.parse(e.data.params);
-        this.props.set(params);
+        try {
+          const params = JSON.parse(e.data.params);
+          this.props.set(params);
+        } catch (err) {
+          console.error('unable to parse update request', err);
+        }
       }
     });
   }

@@ -1,27 +1,13 @@
-import { booleanAttribute, inject, Injectable } from "@angular/core";
-import { Router } from "@angular/router";
-import { toSignal } from "@angular/core/rxjs-interop";
+import {inject, Injectable} from "@angular/core";
+import {Router} from "@angular/router";
+import {toSignal} from "@angular/core/rxjs-interop";
 
-@Injectable({ providedIn: "root" })
+@Injectable({providedIn: "root"})
 export class XpdNavigation {
   private readonly router = inject(Router);
   readonly params = toSignal(this.router.routerState.root.queryParams);
+  // readonly params = toSignal(inject(ActivatedRoute).queryParams);
 
-  param(key: string): string | null {
-    const params = this.params();
-    if (params && key in params) {
-      return params[key];
-    }
-    return null;
-  }
-
-  booleanParam(key: string): boolean {
-    return booleanAttribute(this.param(key));
-  }
-
-  clear() {
-    this.replace({});
-  }
 
   merge(key: string, value: unknown): void;
   merge(obj: { [key: string]: unknown }): void;
@@ -61,7 +47,7 @@ export class XpdNavigation {
       return arg1;
     }
     if (value !== undefined) {
-      return { [arg1]: value };
+      return {[arg1]: value};
     }
     throw new Error("Invalid arguments for build method");
   }

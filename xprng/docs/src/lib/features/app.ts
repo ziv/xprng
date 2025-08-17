@@ -1,9 +1,11 @@
-import { Component, computed, inject } from "@angular/core";
-import { RouterOutlet } from "@angular/router";
-import { Markdown } from "@xprng/markdown";
-import { XpdDialogs } from "../services/dialogs";
-import { XpdConfiguration } from "../services/configuration";
-import { XpdNavigation } from "../services/navigation";
+import {booleanAttribute, Component, computed, inject} from "@angular/core";
+import {RouterOutlet} from "@angular/router";
+import {Markdown} from "@xprng/markdown";
+import {XpdDialogs} from "../services/dialogs";
+import {XpdConfiguration} from "../services/configuration";
+import {XpdNavigation} from "../services/navigation";
+import {PlatformLocation} from '@angular/common';
+import {toSignal} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: "xpd-app",
@@ -43,12 +45,15 @@ import { XpdNavigation } from "../services/navigation";
   `,
 })
 export class XpdApp {
+  protected readonly helpSrc = inject(XpdConfiguration).HelpUrl;
   protected readonly nav = inject(XpdNavigation);
   protected readonly dialogs = inject(XpdDialogs);
-  protected readonly helpSrc = inject(XpdConfiguration).help;
 
-  protected readonly showHelp = computed(() => this.nav.booleanParam("help"));
-  protected readonly showSettings = computed(() =>
-    this.nav.booleanParam("settings")
+  protected readonly showHelp = computed(() =>
+    booleanAttribute(this.nav.params()?.["help"]),
   );
+  protected readonly showSettings = computed(() =>
+    booleanAttribute(this.nav.params()?.["settings"]),
+  );
+
 }

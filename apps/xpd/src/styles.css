@@ -1,0 +1,135 @@
+/* pico variables changes */
+:root {
+  --pico-font-family-sans-serif: "Noto Sans", system-ui, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, Helvetica, Arial, "Helvetica Neue", sans-serif, var(--pico-font-family-emoji);
+  --xpd-body-height: auto;
+  /*--pico-font-size: 95%;*/
+
+  /* spacing */
+  /*--pico-spacing: .9rem;*/
+  /*--pico-typography-spacing-vertical: .9rem;*/
+
+  /*--pico-form-element-spacing-vertical: 0.7rem;*/
+  /*--pico-form-element-spacing-horizontal: .9rem;*/
+
+  /*--pico-nav-element-spacing-vertical: .9rem;*/
+  /*--pico-nav-element-spacing-horizontal: 0.45rem;*/
+  /*--pico-nav-link-spacing-vertical: 0.45rem;*/
+  /*--pico-nav-link-spacing-horizontal: 0.45rem;*/
+}
+
+html, body {
+  height: var(--xpd-body-height);
+}
+
+.pico {
+
+
+  /* fix pico */
+
+  dialog > article > header .close, dialog > article > header :is(a,button)[rel=prev] {
+    /* fix the position of the close button */
+    transform: translateY(5px);
+  }
+
+  /* pico overrides */
+
+  button.toolbar {
+    /* small button with icon */
+    padding: 0;
+  }
+
+
+  /* space utils */
+
+  .hvh {
+    height: 100vh;
+  }
+
+  .wvw {
+    width: 100vw;
+  }
+
+  .fh {
+    height: 100%;
+  }
+
+  .fw {
+    width: 100%;
+  }
+
+  .m-10 {
+    margin: 1rem;
+  }
+
+  .p-10 {
+    padding: 1rem;
+  }
+
+  .px-10 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .py-10 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+
+  /* flex utils */
+
+  .col, .row {
+    display: flex;
+  }
+
+  .col {
+    flex-direction: column;
+  }
+
+  .row {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .grow {
+    flex: 1;
+  }
+
+  .centered {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .wrap {
+    flex-wrap: wrap;
+  }
+
+  .g-10 {
+    gap: 1rem;
+  }
+
+
+  /* documentation blocks */
+
+  xpr-code pre {
+    padding: 1em;
+  }
+
+  /* symbols */
+
+  .sym {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+  }
+}

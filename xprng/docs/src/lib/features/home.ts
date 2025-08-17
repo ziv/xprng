@@ -1,6 +1,7 @@
 import { Component, inject } from "@angular/core";
 import { RouterLink } from "@angular/router";
 import { XpdConfiguration } from "../services/configuration";
+import {PlatformLocation} from '@angular/common';
 
 @Component({
   selector: "xpd-home",
@@ -22,10 +23,13 @@ import { XpdConfiguration } from "../services/configuration";
       <p class="m-10"><small>Made with ❤️</small></p>
     </main>
     <aside class="row centered grow hvh" [style.background-color]="'var(--pico-primary-background)'">
-      <img src="/xprng/logosh.svg" routerLink="/home" style="width: 60%" alt="logo"/>
+      <img [src]="logo" routerLink="/home" style="width: 60%" alt="logo"/>
     </aside>
   `,
 })
 export class XpdHome {
-  protected readonly items = inject(XpdConfiguration).items;
+  // logo path
+  protected readonly logo = inject(XpdConfiguration).LogoUrl;
+
+  protected readonly items = inject(XpdConfiguration).Navigation;
 }

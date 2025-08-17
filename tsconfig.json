@@ -110,6 +110,12 @@
     },
     {
       "path": "./xprng/docs/tsconfig.spec.json"
+    },
+    {
+      "path": "./apps/xpd/tsconfig.app.json"
+    },
+    {
+      "path": "./apps/xpd/tsconfig.spec.json"
     }
   ]
 }
