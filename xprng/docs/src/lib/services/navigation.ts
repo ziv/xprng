@@ -6,7 +6,6 @@ import {toSignal} from "@angular/core/rxjs-interop";
 export class XpdNavigation {
   private readonly router = inject(Router);
   readonly params = toSignal(this.router.routerState.root.queryParams);
-  // readonly params = toSignal(inject(ActivatedRoute).queryParams);
 
 
   merge(key: string, value: unknown): void;

@@ -4,8 +4,6 @@ import {Markdown} from "@xprng/markdown";
 import {XpdDialogs} from "../services/dialogs";
 import {XpdConfiguration} from "../services/configuration";
 import {XpdNavigation} from "../services/navigation";
-import {PlatformLocation} from '@angular/common';
-import {toSignal} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: "xpd-app",
@@ -55,5 +53,4 @@ export class XpdApp {
   protected readonly showSettings = computed(() =>
     booleanAttribute(this.nav.params()?.["settings"]),
   );
-
 }

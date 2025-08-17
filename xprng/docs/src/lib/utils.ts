@@ -1,4 +1,4 @@
-import { Routes } from "@angular/router";
+import {Routes} from "@angular/router";
 
 export function routesToNavigation(
   routes: Routes,
@@ -8,3 +8,15 @@ export function routesToNavigation(
     route: `/app/docs/${r.path}`,
   }));
 }
+
+export function isDebug() {
+  return ('xpdDebug' in globalThis);
+}
+
+export function debugLog(...args: any[]) {
+  if (isDebug()) {
+    console.log(...args);
+  }
+}
+
+

@@ -2,18 +2,13 @@ import {Component, computed, ElementRef, inject, signal, viewChild,} from "@angu
 import {ActivatedRoute, RouterLink, RouterLinkActive,} from "@angular/router";
 import {XpdProperties} from "../components/properties";
 import {toSignal} from "@angular/core/rxjs-interop";
-import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
+import {SafeResourceUrl} from "@angular/platform-browser";
 import {map} from "rxjs";
 import {XpdDialogs} from "../services/dialogs";
 import {XpdConfiguration} from "../services/configuration";
-import {XpdDescriptorsToken} from "../provide";
 import {XpdDocDescriptor} from "../descriptor";
+import {isDebug} from '../utils';
 
-/**
- * # XpdDocumentation component
- * This component serves as a host for displaying documentation of various components.
- * It provides itself to allow subcomponents to access their host and update the displayed component.
- */
 @Component({
   selector: "xpd-docs",
   imports: [
@@ -23,9 +18,6 @@ import {XpdDocDescriptor} from "../descriptor";
   ],
   host: {
     class: "row wvw hvh pico",
-    "(document:keydown.meta.s)": "dialogs.settings($event)",
-    "(document:keydown.meta.h)": "dialogs.help($event)",
-    "(document:keydown.Esc)": "dialogs.clear($event)",
   },
   styles: `
     aside {
@@ -102,11 +94,11 @@ import {XpdDocDescriptor} from "../descriptor";
   template: `
     <!-- side panel -->
     <aside class="col hvh centered py-10">
-      <img [src]="logo" routerLink="/app/home" style="width: 50%" alt="logo"/>
+      <img [src]="conf.LogoUrl" routerLink="/app/home" style="width: 50%" alt="logo"/>
       <div class="xpd-items grow">
         <nav>
           <ul>
-            @for (item of items; track item.route) {
+            @for (item of conf.Navigation; track item.route) {
               <li routerLinkActive="active" class="xpd-nav">
                 <a [routerLink]="item.route"
                    (click)="loading.set(true)"
@@ -133,7 +125,10 @@ import {XpdDocDescriptor} from "../descriptor";
       <!-- preview -->
       <div class="xpd-preview col grow">
         @if (url()) {
-          <iframe #iframe [src]="url()" class="col grow" (load)="loading.set(false)"></iframe>
+          <iframe #iframe
+                  [src]="url()" class="col grow"
+                  (load)="loading.set(false)"
+                  (error)="onIframeError($event)"></iframe>
         }
       </div>
 
@@ -141,84 +136,43 @@ import {XpdDocDescriptor} from "../descriptor";
       <article class="xpd-footer">
         <details name="properties">
           <summary>Properties</summary>
-          <xpd-properties [props]="component()?.props ?? []" (change)="update($event)"/>
-        </details>
-        <details name="source">
-          <summary>Overview</summary>
-          <div>
-          </div>
+          <xpd-properties [props]="component()?.props ?? []" [name]="compName()"/>
         </details>
       </article>
     </main>
   `,
 })
 export class XpdDocumentation {
-  // logo path
-  protected readonly logo = inject(XpdConfiguration).LogoUrl;
+  protected readonly conf = inject(XpdConfiguration);
 
   /// injected services
 
   // open dialogs
   protected readonly dialogs = inject(XpdDialogs);
-  // sanitizer for iframe URLs
-  private readonly sanitize = inject(DomSanitizer);
   // descriptors list
-  protected readonly descriptors = inject<XpdDocDescriptor[]>(
-    XpdDescriptorsToken,
-  );
-  // list of routes
-  protected readonly items = inject(XpdConfiguration).Navigation;
 
   // reactivity
 
   // the preview iframe reference
-  protected readonly iframe = viewChild<ElementRef>("iframe");
+  // protected readonly iframe = viewChild<ElementRef>("iframe");
+
   // the preview iframe state
   protected readonly loading = signal(false);
-  // the preview iframe URL
-  protected readonly url = computed<null | SafeResourceUrl>(() =>
-    this.compName()
-      ? this.sanitize.bypassSecurityTrustResourceUrl(
-        `#/iframe/${this.compName()}`,
-      )
-      : null
-  );
-  // the component name
+
+  // the component name from the route
   protected readonly compName = toSignal(
     inject(ActivatedRoute).params.pipe(map((p) => p["component"] as string)),
   );
-  // the component descriptor itself
-  protected readonly component = computed(() =>
-    this.compName()
-      ? this.descriptors.find((d) =>
-        d.id === this.compName()
-      ) as XpdDocDescriptor
-      : null
+
+  // the preview iframe URL
+  protected readonly url = computed<SafeResourceUrl | undefined>(() =>
+    this.conf.iframeUrl(this.compName())
   );
 
-  // constructor() {
-  //   effect(() => {
-  //     const name = this.compName();
-  //     if (name) {
-  //       this.url.set(this.sanitize.bypassSecurityTrustResourceUrl(`#/iframe/${name}`));
-  //     }
-  //   });
-  // }
-
-  update(params: { [key: string]: string | number | boolean }) {
-    const iframe = this.iframe()?.nativeElement as HTMLIFrameElement;
-    if (!iframe || !iframe.contentWindow) {
-      return;
-    }
-    try {
-      iframe.contentWindow?.postMessage({
-        type: "update",
-        params: JSON.stringify(params),
-      }, "*");
-    } catch (e) {
-      console.error("Failed to post message to iframe:", e);
-    }
-  }
+  // the component descriptor itself
+  protected readonly component = computed(() =>
+    this.conf.descriptor(this.compName())
+  );
 
   toggleColors() {
     const el = document.querySelector("html") as HTMLElement;
@@ -227,5 +181,12 @@ export class XpdDocumentation {
       "data-theme",
       (!theme || theme === "light") ? "dark" : "light",
     );
+  }
+
+  onIframeError(e: any) {
+    this.loading.set(false);
+    if (isDebug()) {
+      console.error("Error loading iframe:", e);
+    }
   }
 }

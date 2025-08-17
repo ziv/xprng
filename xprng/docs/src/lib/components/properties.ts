@@ -1,12 +1,27 @@
-import { Component, computed, effect, input, output } from "@angular/core";
-import {
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-} from "@angular/forms";
-import { Prop } from "../descriptor";
-import { toSignal } from "@angular/core/rxjs-interop";
+import {Component, effect, input, OnInit} from "@angular/core";
+import {FormControl, FormGroup, ReactiveFormsModule,} from "@angular/forms";
+import {Prop} from "../descriptor";
+import {isDebug} from '../utils';
+
+function read() {
+  const value = localStorage.getItem('__xpd-properties');
+  if (value) {
+    try {
+      return JSON.parse(value);
+    } catch (e) {
+      if (isDebug()) {
+        console.error("Failed to parse properties from localStorage:", e);
+      }
+    }
+  }
+  return {};
+}
+
+function update(value: unknown, name?: string) {
+  const saved = read();
+  saved[name ?? ''] = value;
+  localStorage.setItem('__xpd-properties', JSON.stringify(saved));
+}
 
 @Component({
   selector: "xpd-properties",
@@ -101,29 +116,26 @@ import { toSignal } from "@angular/core/rxjs-interop";
 })
 export class XpdProperties {
   protected readonly form = new FormGroup({});
-  protected readonly changed = toSignal(this.form.valueChanges);
-
+  readonly name = input.required<string | undefined>();
   readonly props = input.required<Prop[]>();
-  readonly change = output<{ [key: string]: string | number | boolean }>();
 
   constructor() {
-    effect(() => {
-      for (const prop of this.props()) {
-        if (!this.form.contains(prop.name)) {
-          this.form.addControl(prop.name, new FormControl(prop.value));
-        } else {
-          this.form.get(prop.name)?.setValue(prop.value);
-        }
-      }
+    this.form.valueChanges.subscribe(value => {
+      update(value, this.name());
     });
 
     effect(() => {
-      // replace the iframe url
-      // console.log(this.changed());
-      // console.log(this.changed());
-      this.change.emit(
-        this.changed() as { [key: string]: string | number | boolean },
-      );
+      // as soon as props are set, initialize the form controls
+      const value = {} as Record<string, unknown>;
+      for (const prop of this.props()) {
+        this.form.addControl(prop.name, new FormControl(prop.value));
+        value[prop.name] = prop.value;
+      }
+      update(value, this.name());
+      if (isDebug()) {
+        console.info("XpdProperties initialized with props:", this.props());
+        console.info("Form controls:", this.form.controls);
+      }
     });
   }
 }
