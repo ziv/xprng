@@ -8,7 +8,7 @@ export * from "./lib/features/home";
 export * from "./lib/features/documentation";
 export * from "./lib/features/iframe";
 export * from "./lib/features/shell";
-export * from "./lib/components/documentation-component";
+export * from "./lib/components/wrap";
 export * from "./lib/components/help-dialog";
 export * from "./lib/components/preview";
 export * from "./lib/components/properties";

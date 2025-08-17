@@ -1,8 +1,11 @@
 import {Component} from '@angular/core';
-import {XpdDocumentationComponent} from '@xprng/docs';
+import {XpdWrap} from '@xprng/docs';
 
 @Component({
   selector: 'xpd-docs-buttons',
+  host: {
+    class: 'pico'
+  },
   styles: `
     :host {
       flex: 1;
@@ -14,7 +17,7 @@ import {XpdDocumentationComponent} from '@xprng/docs';
         <summary>Accordion example</summary>
         <p>Button Example</p>
         <p>
-          <button [disabled]="prop('disabled')" [class]="prop('type')">{{ prop('content') }}</button>
+          <button [disabled]="prop('disabled')" [class]="prop('type')">{{ prop('text') }}</button>
         </p>
         <p>Switch example</p>
         <fieldset>
@@ -33,6 +36,6 @@ import {XpdDocumentationComponent} from '@xprng/docs';
     </article>
   `,
 })
-export default class ExamplDoc extends XpdDocumentationComponent {
+export default class ExamplDoc extends XpdWrap {
 
 }

@@ -66,24 +66,16 @@ export class Markdown {
   //
 
   protected state = computed(() => {
-    console.log('state called');
     if (this.content()) return "local";
     if (this.src()) return this.res.status();
     return "empty";
   });
 
   protected markdown = computed(() => {
-    return this.content()
-      ? this.parse(this.content()!)
-      : this.parse(this.res.hasValue() ? this.res.value() : "");
+    const text = this.content() ?? (this.res.hasValue() ? this.res.value() : "");
+    const parsed = marked(this.theme()).parse(text, this.options()) as string;
+    return this.sanitize.bypassSecurityTrustHtml(parsed);
   });
-
-  private parse(text: string) {
-    const parser = marked(this.theme());
-    return this.sanitize.bypassSecurityTrustHtml(
-      parser.parse(text, this.options()) as string,
-    );
-  }
 
   private readonly sanitize = inject(DomSanitizer);
   private readonly res = httpResource.text(() => this.src());

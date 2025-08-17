@@ -106,7 +106,9 @@ import {FormControl, FormGroup} from '@angular/forms';
           <ul>
             @for (item of items; track item.route) {
               <li routerLinkActive="active" class="xpd-nav">
-                <a [routerLink]="item.route" queryParamsHandling="merge">{{ item.label }}</a>
+                <a [routerLink]="item.route"
+                   (click)="loading.set(true)"
+                   queryParamsHandling="merge">{{ item.label }}</a>
               </li>
             }
           </ul>
@@ -129,7 +131,7 @@ import {FormControl, FormGroup} from '@angular/forms';
       <!-- preview -->
       <div class="col grow" style="">
         @if (url()) {
-          <iframe [src]="url()" class="grow" (load)="loading.set(false)"></iframe>
+          <iframe #iframe [src]="src()" class="grow" (load)="loading.set(false)"></iframe>
         }
       </div>
 
@@ -144,9 +146,7 @@ import {FormControl, FormGroup} from '@angular/forms';
   `,
 })
 export class XpdDocumentation {
-  // properties form (see constructor)
-  protected form = new FormGroup({});
-  // component descriptor (see constructor)
+  protected readonly iframe = viewChild<ElementRef>('iframe');
   // descriptors list
   protected readonly descriptors = inject<XpdDocDescriptor[]>(XpdDescriptorsToken);
   // the preview iframe state
@@ -171,6 +171,7 @@ export class XpdDocumentation {
 
   // iframe URL
   protected readonly url = signal<null | SafeResourceUrl>(null);
+  protected readonly src = signal<SafeResourceUrl | null>(null);
 
 
   constructor() {
@@ -180,12 +181,36 @@ export class XpdDocumentation {
         this.url.set(this.sanitize.bypassSecurityTrustResourceUrl(`#/iframe/${name}`))
       }, 500)
     });
+
+    effect(async () => {
+      const empty = this.sanitize.bypassSecurityTrustResourceUrl('');
+      this.src.set(empty);
+      const url = this.url();
+      await new Promise(resolve => setTimeout(resolve, 100));
+      this.src.set(url ?? empty);
+    });
   }
 
   update(params: { [key: string]: string | number | boolean }) {
-    const qs = new URLSearchParams(params as Record<string, string>);
-    const name = this.compName();
-    this.url.set(this.sanitize.bypassSecurityTrustResourceUrl(`#/iframe/${name}?${qs.toString()}`));
+    console.log(this.iframe()?.nativeElement, params)
+    const iframe = this.iframe()?.nativeElement as HTMLIFrameElement;
+    if (!iframe || !iframe.contentWindow) {
+      return;
+    }
+    iframe.contentWindow?.postMessage({
+      type: 'update',
+      params: JSON.stringify(params),
+    }, '*');
+    // if ('localStorage' in window) {
+    //   document.querySelector('iframe')?.contentWindow?.postMessage({
+    //     type: 'update',
+    //     params: params,
+    //   }, '*');
+    // }
+
+
+    // const qs = new URLSearchParams(params as Record<string, string>);
+    // this.url.set(this.sanitize.bypassSecurityTrustResourceUrl(`#/iframe/${this.compName()}?${qs.toString()}`));
   }
 
   // todo complete this part

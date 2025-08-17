@@ -1,8 +1,7 @@
 import {Component} from '@angular/core';
 import {Markdown} from '@xprng/markdown';
-import {XpdDocumentationComponent} from '@xprng/docs';
+import {XpdWrap} from '@xprng/docs';
 
-console.log(Markdown);
 @Component({
   selector: 'xpd-docs-markdown',
   imports: [Markdown],
@@ -16,13 +15,13 @@ console.log(Markdown);
     }
   `,
 })
-export default class MarkdownDoc extends XpdDocumentationComponent {
+export default class MarkdownDoc extends XpdWrap {
 
   get content() {
-    return this.prop('content');
+    return this.prop<string>('content');
   }
 
   get src() {
-    return this.prop('src') ?? 'https://raw.githubusercontent.com/ziv/xprng/refs/heads/main/apps/docs/public/example.md';
+    return this.prop<string>('src') ?? 'https://raw.githubusercontent.com/ziv/xprng/refs/heads/main/apps/docs/public/example.md';
   }
 }

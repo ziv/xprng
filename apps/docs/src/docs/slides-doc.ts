@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Slide, Slides} from '@xprng/slides';
-import {XpdDocumentationComponent} from '@xprng/docs';
+import {XpdWrap} from '@xprng/docs';
 
 @Component({
   selector: 'xpd-docs-slides',
@@ -30,5 +30,5 @@ import {XpdDocumentationComponent} from '@xprng/docs';
     </xpr-slides>
   `,
 })
-export default class SlidesDoc extends XpdDocumentationComponent {
+export default class SlidesDoc extends XpdWrap {
 }
