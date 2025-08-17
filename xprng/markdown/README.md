@@ -14,7 +14,7 @@ markdown, [Shiki](https://shiki.style/) for syntax highlighting, and Angular.
 ## Usage
 
 ```typescript
-import { Markdown } from '@xprng/markdown';
+import { Markdown } from "@xprng/markdown";
 ```
 
 ### Binding markdown code

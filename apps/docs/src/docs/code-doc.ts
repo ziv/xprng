@@ -1,10 +1,16 @@
-import {Component} from '@angular/core';
+import {Component, ViewEncapsulation} from '@angular/core';
 import {XpdWrap} from '@xprng/docs';
 import {Code} from '@xprng/code';
 
 @Component({
   selector: 'xpd-docs-code',
   imports: [Code],
+  encapsulation: ViewEncapsulation.None,
+  styles: `
+    pre {
+      padding: 1em;
+    }
+  `,
   template: `
     @if (content) {
       <xpr-code [content]="content" [lang]="lang"/>

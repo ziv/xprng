@@ -19,6 +19,6 @@ export default [
   {
     path: 'example',
     title: 'Pico Example',
-    loadComponent: () => import('./exampl-doc'),
+    loadComponent: () => import('./example-doc'),
   },
 ] as Routes;

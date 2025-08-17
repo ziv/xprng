@@ -13,11 +13,14 @@ import {XpdWrap} from '@xprng/docs';
   `,
   template: `
     <article>
-      <details name="example" [open]="prop('open')">
+      <details name="example" [open]="isOpen">
         <summary>Accordion example</summary>
         <p>Button Example</p>
         <p>
-          <button [disabled]="prop('disabled')" [class]="prop('type')">{{ prop('text') }}</button>
+          <button (click)="notify($event)"
+                  [disabled]="btnDisabled"
+                  [class]="type">{{ buttonText }}
+          </button>
         </p>
         <p>Switch example</p>
         <fieldset>
@@ -36,6 +39,21 @@ import {XpdWrap} from '@xprng/docs';
     </article>
   `,
 })
-export default class ExamplDoc extends XpdWrap {
+export default class ExampleDoc extends XpdWrap {
 
+  get buttonText() {
+    return this.prop<string>('text') ?? 'Click me';
+  }
+
+  get type() {
+    return this.prop<string>('type') ?? '';
+  }
+
+  get btnDisabled() {
+    return this.prop<boolean>('disabled') ?? false;
+  }
+
+  get isOpen() {
+    return this.prop<boolean>('open') ?? true;
+  }
 }

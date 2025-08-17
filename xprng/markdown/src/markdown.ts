@@ -1,8 +1,8 @@
-import {Component, computed, inject, input} from "@angular/core";
-import {DomSanitizer} from "@angular/platform-browser";
-import type {MarkedOptions} from "marked";
-import {marked} from "@xprng/vendor/marked";
-import {httpResource} from '@angular/common/http';
+import { Component, computed, inject, input } from "@angular/core";
+import { DomSanitizer } from "@angular/platform-browser";
+import type { MarkedOptions } from "marked";
+import { marked } from "@xprng/vendor/marked";
+import { httpResource } from "@angular/common/http";
 
 /**
  * Marked options for parsing markdown.
@@ -62,7 +62,6 @@ export class Markdown {
    */
   readonly options = input<Partial<MarkdownOptions>>({});
 
-
   //
 
   protected state = computed(() => {
@@ -72,7 +71,8 @@ export class Markdown {
   });
 
   protected markdown = computed(() => {
-    const text = this.content() ?? (this.res.hasValue() ? this.res.value() : "");
+    const text = this.content() ??
+      (this.res.hasValue() ? this.res.value() : "");
     const parsed = marked(this.theme()).parse(text, this.options()) as string;
     return this.sanitize.bypassSecurityTrustHtml(parsed);
   });

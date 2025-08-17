@@ -1,10 +1,10 @@
-import {Component} from '@angular/core';
-import {RouterOutlet} from '@angular/router';
+import { Component } from "@angular/core";
+import { RouterOutlet } from "@angular/router";
 
 @Component({
-  selector: 'xpd-iframe',
+  selector: "xpd-iframe",
   imports: [
-    RouterOutlet
+    RouterOutlet,
   ],
   styles: `
     :host {
@@ -16,8 +16,7 @@ import {RouterOutlet} from '@angular/router';
       align-items: center;
     }
   `,
-  template: '<router-outlet />',
+  template: "<router-outlet />",
 })
 export class XpdIframe {
-
 }

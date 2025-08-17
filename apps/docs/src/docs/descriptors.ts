@@ -78,6 +78,13 @@ export default [
     name: 'Pico Documentation',
     props: [
       {
+        id: 'open',
+        name: 'open',
+        type: 'boolean',
+        description: 'Open the accordion',
+        value: true,
+      },
+      {
         id: 'disabled',
         name: 'disabled',
         type: 'boolean',

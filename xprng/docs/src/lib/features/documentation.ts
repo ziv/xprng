@@ -1,15 +1,28 @@
-import {Component, computed, effect, ElementRef, inject, signal, viewChild} from '@angular/core';
-import {ActivatedRoute, Params, RouterLink, RouterLinkActive} from '@angular/router';
-import {XpdProperties} from '../components/properties';
-import {XpdNavigation} from '../services/navigation';
-import {toSignal} from '@angular/core/rxjs-interop';
-import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
-import {delay, map, tap} from 'rxjs';
-import {XpdDialogs} from '../services/dialogs';
-import {XpdConfiguration} from '../services/configuration';
-import {XpdDescriptorsToken} from '../provide';
-import {XpdDocDescriptor} from '../descriptor';
-import {FormControl, FormGroup} from '@angular/forms';
+import {
+  Component,
+  computed,
+  effect,
+  ElementRef,
+  inject,
+  signal,
+  viewChild,
+} from "@angular/core";
+import {
+  ActivatedRoute,
+  Params,
+  RouterLink,
+  RouterLinkActive,
+} from "@angular/router";
+import { XpdProperties } from "../components/properties";
+import { XpdNavigation } from "../services/navigation";
+import { toSignal } from "@angular/core/rxjs-interop";
+import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
+import { delay, map, tap } from "rxjs";
+import { XpdDialogs } from "../services/dialogs";
+import { XpdConfiguration } from "../services/configuration";
+import { XpdDescriptorsToken } from "../provide";
+import { XpdDocDescriptor } from "../descriptor";
+import { FormControl, FormGroup } from "@angular/forms";
 
 /**
  * # XpdDocumentation component
@@ -17,18 +30,17 @@ import {FormControl, FormGroup} from '@angular/forms';
  * It provides itself to allow subcomponents to access their host and update the displayed component.
  */
 @Component({
-  selector: 'xpd-docs',
+  selector: "xpd-docs",
   imports: [
     RouterLink,
     XpdProperties,
     RouterLinkActive,
-
   ],
   host: {
-    class: 'row wvw hvh pico',
-    '(document:keydown.meta.s)': 'dialogs.settings($event)',
-    '(document:keydown.meta.h)': 'dialogs.help($event)',
-    '(document:keydown.Esc)': 'dialogs.clear($event)',
+    class: "row wvw hvh pico",
+    "(document:keydown.meta.s)": "dialogs.settings($event)",
+    "(document:keydown.meta.h)": "dialogs.help($event)",
+    "(document:keydown.Esc)": "dialogs.clear($event)",
   },
   styles: `
     aside {
@@ -63,7 +75,7 @@ import {FormControl, FormGroup} from '@angular/forms';
       }
     }
 
-    main.xpd-main {
+    div.xpd-main {
       background: var(--pico-secondary-background);
       color: var(--pico-primary-inverse);
 
@@ -72,11 +84,16 @@ import {FormControl, FormGroup} from '@angular/forms';
         font-size: calc(var(--pico-font-size) / 1.5);
         margin-bottom: 0;
       }
+
+      div.xpd-preview {
+        background-color: var(--pico-background-color);
+      }
     }
 
     article.xpd-footer {
-      background: var(--pico-secondary-background);
-      color: var(--pico-primary-inverse);
+      /*background: var(--pico-secondary-background);*/
+      /*color: var(--pico-primary-inverse);*/
+      background-color: var(--pico-background-color);
       max-height: 40vh;
       padding-bottom: 0;
       margin-bottom: 0;
@@ -88,8 +105,8 @@ import {FormControl, FormGroup} from '@angular/forms';
       }
 
 
-      --pico-accordion-close-summary-color: var(--pico-muted-color);
-      --pico-accordion-open-summary-color: var(--pico-secondary-inverse);
+      /*--pico-accordion-close-summary-color: var(--pico-muted-color);*/
+      /*--pico-accordion-open-summary-color: var(--pico-secondary-inverse);*/
 
       div.xpd-properties {
         /*overflow-y: scroll;*/
@@ -114,138 +131,109 @@ import {FormControl, FormGroup} from '@angular/forms';
           </ul>
         </nav>
       </div>
-      <button><span class="sym">routine</span></button>
+      <button (click)="toggleColors()"><span class="sym">routine</span></button>
       <button (click)="dialogs.help()"><span class="sym">help</span></button>
       <button (click)="dialogs.settings()"><span class="sym">settings</span></button>
     </aside>
 
     <!-- content panel -->
-    <main class="xpd-main col hvh grow">
+    <main class="col hvh grow">
 
       <!-- header -->
-      <div class="m-10">
+      <div class="p-10 xpd-main">
         <h1 class="xpd-main">{{ component()?.name }}</h1>
         <small>{{ component()?.description }}</small>
       </div>
 
       <!-- preview -->
-      <div class="col grow" style="">
+      <div class="xpd-preview col grow">
         @if (url()) {
-          <iframe #iframe [src]="src()" class="grow" (load)="loading.set(false)"></iframe>
+          <iframe #iframe [src]="url()" class="col grow" (load)="loading.set(false)"></iframe>
         }
       </div>
 
       <!-- footer -->
       <article class="xpd-footer">
-        <details name="properties" open>
+        <details name="properties">
           <summary>Properties</summary>
           <xpd-properties [props]="component()?.props ?? []" (change)="update($event)"/>
+        </details>
+        <details name="source">
+          <summary>Overview</summary>
+          <div>
+          </div>
         </details>
       </article>
     </main>
   `,
 })
 export class XpdDocumentation {
-  protected readonly iframe = viewChild<ElementRef>('iframe');
+  /// injected services
+
+  // open dialogs
+  protected readonly dialogs = inject(XpdDialogs);
+  // sanitizer for iframe URLs
+  private readonly sanitize = inject(DomSanitizer);
   // descriptors list
-  protected readonly descriptors = inject<XpdDocDescriptor[]>(XpdDescriptorsToken);
-  // the preview iframe state
-  protected readonly loading = signal(false);
-  // the component name
-  protected readonly compName = toSignal(inject(ActivatedRoute).params.pipe(
-    map(p => p['component'] as string),
-  ));
-  // the component descriptor itself
-  protected readonly component = computed(() => {
-    const name = this.compName();
-    if (!name) {
-      return null;
-    }
-    return this.descriptors.find(d => d.id === name) as XpdDocDescriptor;
-  });
+  protected readonly descriptors = inject<XpdDocDescriptor[]>(
+    XpdDescriptorsToken,
+  );
   // list of routes
   protected readonly items = inject(XpdConfiguration).items;
 
-  protected readonly dialogs = inject(XpdDialogs);
-  private readonly sanitize = inject(DomSanitizer);
+  // reactivity
 
-  // iframe URL
-  protected readonly url = signal<null | SafeResourceUrl>(null);
-  protected readonly src = signal<SafeResourceUrl | null>(null);
+  // the preview iframe reference
+  protected readonly iframe = viewChild<ElementRef>("iframe");
+  // the preview iframe state
+  protected readonly loading = signal(false);
+  // the preview iframe URL
+  protected readonly url = computed<null | SafeResourceUrl>(() =>
+    this.compName()
+      ? this.sanitize.bypassSecurityTrustResourceUrl(
+        `#/iframe/${this.compName()}`,
+      )
+      : null
+  );
+  // the component name
+  protected readonly compName = toSignal(
+    inject(ActivatedRoute).params.pipe(map((p) => p["component"] as string)),
+  );
+  // the component descriptor itself
+  protected readonly component = computed(() =>
+    this.compName()
+      ? this.descriptors.find((d) =>
+        d.id === this.compName()
+      ) as XpdDocDescriptor
+      : null
+  );
 
-
-  constructor() {
-    effect(() => {
-      const name = this.compName();
-      setTimeout(() => {
-        this.url.set(this.sanitize.bypassSecurityTrustResourceUrl(`#/iframe/${name}`))
-      }, 500)
-    });
-
-    effect(async () => {
-      const empty = this.sanitize.bypassSecurityTrustResourceUrl('');
-      this.src.set(empty);
-      const url = this.url();
-      await new Promise(resolve => setTimeout(resolve, 100));
-      this.src.set(url ?? empty);
-    });
-  }
+  // constructor() {
+  //   effect(() => {
+  //     const name = this.compName();
+  //     if (name) {
+  //       this.url.set(this.sanitize.bypassSecurityTrustResourceUrl(`#/iframe/${name}`));
+  //     }
+  //   });
+  // }
 
   update(params: { [key: string]: string | number | boolean }) {
-    console.log(this.iframe()?.nativeElement, params)
     const iframe = this.iframe()?.nativeElement as HTMLIFrameElement;
     if (!iframe || !iframe.contentWindow) {
       return;
     }
     iframe.contentWindow?.postMessage({
-      type: 'update',
+      type: "update",
       params: JSON.stringify(params),
-    }, '*');
-    // if ('localStorage' in window) {
-    //   document.querySelector('iframe')?.contentWindow?.postMessage({
-    //     type: 'update',
-    //     params: params,
-    //   }, '*');
-    // }
-
-
-    // const qs = new URLSearchParams(params as Record<string, string>);
-    // this.url.set(this.sanitize.bypassSecurityTrustResourceUrl(`#/iframe/${this.compName()}?${qs.toString()}`));
+    }, "*");
   }
 
-  // todo complete this part
-
-  // change the height of the properties panel (dragging the bottom edge)
-  start() {
-    // if (this.minimized()) {
-    //   return;
-    // }
-    // const el = (this.properties()?.nativeElement as HTMLElement).offsetHeight;
-    // const h = window.innerHeight;
-    // // this.top = el.getBoundingClientRect().top; //  - window.scrollY;
-    //
-    // let last = 0;
-    // const onMouseMove = (e: MouseEvent) => {
-    //   console.log('mousemove', e.clientY, h);
-    //   if (last !== 0) {
-    //     let newHeight = h - e.clientY + 1; //  el.offsetHeight - e.clientY; // (e.clientY - last - 1);
-    //     // let neeHeight = this.height() + (e.clientY - last);
-    //     if (newHeight < 100) {
-    //       newHeight = 100;
-    //     }
-    //     this.height.set(`${newHeight}px`);
-    //   }
-    //   last = e.clientY;
-    // };
-    // // document.addEventListener('mousemove', onMouseMove);
-    // document.addEventListener('mousemove', onMouseMove);
-    //
-    //
-    // document.addEventListener('mouseleave', () => {
-    //   document.removeEventListener('mousemove', onMouseMove);
-    // }, {once: true});
-    // document.addEventListener('mouseup', () => {
-    //   document.removeEventListener('mousemove', onMouseMove);
-    // }, {once: true});
+  toggleColors() {
+    const el = document.querySelector("html") as HTMLElement;
+    const theme = el.getAttribute("data-theme");
+    el.setAttribute(
+      "data-theme",
+      (!theme || theme === "light") ? "dark" : "light",
+    );
   }
 }

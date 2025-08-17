@@ -7,7 +7,6 @@ Binding 3rd-party libraries to the XPRNG library.
 | [Shiki](https://shiki.style/)    | Syntax highlighting for content |
 | [Marked](https://marked.js.org/) | Markdown parser                 |
 
-
 ## Installation
 
 ```shell

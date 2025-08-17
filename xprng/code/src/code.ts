@@ -1,8 +1,8 @@
-import {Component, computed, inject, input} from "@angular/core";
-import {DomSanitizer} from "@angular/platform-browser";
-import type {HighlighterCore} from "shiki";
-import {getHighlighter} from "@xprng/vendor/shiki";
-import {httpResource} from '@angular/common/http';
+import { Component, computed, inject, input } from "@angular/core";
+import { DomSanitizer } from "@angular/platform-browser";
+import type { HighlighterCore } from "shiki";
+import { getHighlighter } from "@xprng/vendor/shiki";
+import { httpResource } from "@angular/common/http";
 
 /**
  * # Code

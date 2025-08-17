@@ -1,14 +1,14 @@
-import {Component, inject} from '@angular/core';
-import {RouterLink} from '@angular/router';
-import {XpdConfiguration} from '../services/configuration';
+import { Component, inject } from "@angular/core";
+import { RouterLink } from "@angular/router";
+import { XpdConfiguration } from "../services/configuration";
 
 @Component({
-  selector: 'xpd-home',
+  selector: "xpd-home",
   imports: [
     RouterLink,
   ],
   host: {
-    class: 'row pico'
+    class: "row pico",
   },
   template: `
     <main class="grow col">
@@ -25,7 +25,6 @@ import {XpdConfiguration} from '../services/configuration';
       <img src="/xprng/logosh.svg" routerLink="/home" style="width: 60%" alt="logo"/>
     </aside>
   `,
-
 })
 export class XpdHome {
   protected readonly items = inject(XpdConfiguration).items;

@@ -1,11 +1,10 @@
-import {computed, Injectable, signal} from '@angular/core';
-import type {DocDescriptor} from '../descriptor';
+import { computed, Injectable, signal } from "@angular/core";
+import type { DocDescriptor } from "../descriptor";
 
 export type QueryParams = { [key: string]: string | string[] };
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: "root" })
 export class XpdShared {
-
   component = signal<Partial<DocDescriptor>>({});
 
   queryParams = signal<QueryParams>({});

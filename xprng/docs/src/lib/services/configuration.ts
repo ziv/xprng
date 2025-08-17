@@ -1,26 +1,32 @@
-import {effect, inject, Injectable, InjectionToken, signal,} from "@angular/core";
-import {PlatformLocation} from '@angular/common';
-import {Routes} from '@angular/router';
+import {
+  effect,
+  inject,
+  Injectable,
+  InjectionToken,
+  signal,
+} from "@angular/core";
+import { PlatformLocation } from "@angular/common";
+import { Routes } from "@angular/router";
+import { XpdConfigToken, XpdRoutesToken } from "../provide";
 
 export type ConfigurationOptions = {
-  logo: string;
   help: string;
+  navigation: { label: string; route: string }[];
 };
 
 function isClient() {
   return "localStorage" in globalThis;
 }
 
-export const CONFIGURATION_TOKEN = new InjectionToken("configuration");
-export const ROUTES_TOKEN = new InjectionToken("routes");
-
-function read(defaults: Partial<ConfigurationOptions>): Partial<ConfigurationOptions> {
+function read(
+  defaults: Partial<ConfigurationOptions>,
+): Partial<ConfigurationOptions> {
   if (!isClient()) {
     return defaults;
   }
-  const raw = localStorage.getItem('configuration');
+  const raw = localStorage.getItem("configuration");
   if (!raw) {
-    console.log('No configuration found.');
+    console.log("No configuration found.");
     return defaults;
   }
   try {
@@ -30,20 +36,28 @@ function read(defaults: Partial<ConfigurationOptions>): Partial<ConfigurationOpt
   }
 }
 
-@Injectable({providedIn: "root"})
+@Injectable({ providedIn: "root" })
 export class XpdConfiguration {
   private readonly base = inject(PlatformLocation).getBaseHrefFromDOM();
-  private readonly defaults = inject<ConfigurationOptions>(CONFIGURATION_TOKEN, {optional: true});
-  private readonly routes = inject<Routes>(ROUTES_TOKEN, {optional: true});
 
-  readonly conf = signal<Partial<ConfigurationOptions>>(read(this.defaults ?? {}));
+  private readonly defaults = inject<ConfigurationOptions>(XpdConfigToken, {
+    optional: true,
+  });
+  private readonly routes = inject<Routes>(XpdRoutesToken, { optional: true });
+
+  readonly conf = signal<Partial<ConfigurationOptions>>(
+    read(this.defaults ?? {}),
+  );
 
   get help() {
-    return this.base + (this.conf().help ?? 'internal/help.md');
+    return this.base + (this.conf().help ?? "internal/help.md");
   }
 
   get items() {
-    return (this.routes ?? []).map(r => ({label: r.title ?? 'Unknown', route: `/app/docs/${r.path}`}));
+    return (this.routes ?? []).map((r) => ({
+      label: r.title ?? "Unknown",
+      route: `/app/docs/${r.path}`,
+    }));
   }
 
   constructor() {

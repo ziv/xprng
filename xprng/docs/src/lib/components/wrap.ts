@@ -1,10 +1,10 @@
-import {computed, Directive, effect, inject, signal} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {toSignal} from '@angular/core/rxjs-interop';
-import {map} from 'rxjs';
-import {DocDescriptor, Prop} from '../descriptor';
-import {XpdShared} from '../services/shared';
-import {XpdDescriptorsToken} from '../provide';
+import { computed, Directive, effect, inject, signal } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { toSignal } from "@angular/core/rxjs-interop";
+import { map } from "rxjs";
+import { DocDescriptor, Prop } from "../descriptor";
+import { XpdShared } from "../services/shared";
+import { XpdDescriptorsToken } from "../provide";
 
 @Directive({})
 export abstract class XpdWrap {
@@ -14,14 +14,17 @@ export abstract class XpdWrap {
     return this.props()?.[id] as T;
   }
 
+  notify(e: Event) {
+    console.info("Notify", e);
+  }
+
   protected constructor() {
-    window.addEventListener('message', e => {
+    window.addEventListener("message", (e) => {
       if (e.origin !== window.location.origin) {
         return; // listen of the same origin only
       }
-      if (e.data && e.data.type === 'update' && e.data.params) {
+      if (e.data && e.data.type === "update" && e.data.params) {
         const params = JSON.parse(e.data.params);
-        console.log('Received update from iframe:', params);
         this.props.set(params);
       }
     });

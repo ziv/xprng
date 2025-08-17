@@ -1,7 +1,12 @@
-import {Component, computed, effect, input, output} from "@angular/core";
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {Prop} from "../descriptor";
-import {toSignal} from '@angular/core/rxjs-interop';
+import { Component, computed, effect, input, output } from "@angular/core";
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from "@angular/forms";
+import { Prop } from "../descriptor";
+import { toSignal } from "@angular/core/rxjs-interop";
 
 @Component({
   selector: "xpd-properties",
@@ -17,11 +22,12 @@ import {toSignal} from '@angular/core/rxjs-interop';
       /*--pico-typography-spacing-vertical: 0.5rem;*/
       /*--pico-form-element-spacing-vertical: 0.5rem;*/
       /*--pico-form-element-spacing-horizontal: 0.5rem;*/
-      --pico-background-color: var(--pico-secondary-background);
+
+      /*--pico-background-color: var(--pico-secondary-background);*/
 
       td, th, td small.xpd-dec {
-        --pico-color: var(--pico-secondary-inverse);
-        --pico-muted-color: var(--pico-secondary-inverse);
+        /*--pico-color: var(--pico-secondary-inverse);*/
+        /*--pico-muted-color: var(--pico-secondary-inverse);*/
       }
     }
 
@@ -114,7 +120,9 @@ export class XpdProperties {
     effect(() => {
       // replace the iframe url
       // console.log(this.changed());
-      this.change.emit(this.changed() as { [key: string]: string | number | boolean });
+      this.change.emit(
+        this.changed() as { [key: string]: string | number | boolean },
+      );
     });
   }
 }
