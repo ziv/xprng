@@ -20,8 +20,8 @@ import { Markdown } from "@xprng/markdown";
 ### Binding markdown code
 
 ```html
-<xpr-markdown code="# Markdown" />
-<xpr-markdown [code]="markdownContent" />
+<xpr-markdown content="# Markdown" />
+<xpr-markdown [content]="markdownContent" />
 ```
 
 ### Loading markdown from a URL
