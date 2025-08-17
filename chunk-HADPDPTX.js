@@ -1,1 +1,0 @@
-var e=[{path:"markdown",title:"Markdown",loadComponent:()=>import("./chunk-Y4B7LYHJ.js")},{path:"code",title:"Code",loadComponent:()=>import("./chunk-JPLJSBK2.js")},{path:"slides",title:"Slides",loadComponent:()=>import("./chunk-B57BG4KM.js")},{path:"example",title:"Pico Example",loadComponent:()=>import("./chunk-CBXZG5ZP.js")}];export{e as a};
