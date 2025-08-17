@@ -12,7 +12,7 @@ export default [
         name: 'src',
         type: 'string',
         description: 'Path to a markdown file to load. Do not use with `code`.',
-        value: 'https://raw.githubusercontent.com/ziv/xprng/refs/heads/main/apps/docs/public/example.md',
+        value: 'https://ziv.github.io/xprng/example.md',
       },
       {
         id: 'content',
@@ -34,7 +34,7 @@ export default [
         name: 'src',
         type: 'string',
         description: 'Path to a source file to load.',
-        value: 'https://raw.githubusercontent.com/ziv/xprng/refs/heads/main/apps/docs/public/example.js',
+        value: 'https://ziv.github.io/xprng/example.js',
       },
       {
         id: 'content',

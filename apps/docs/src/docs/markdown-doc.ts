@@ -22,6 +22,6 @@ export default class MarkdownDoc extends XpdWrap {
   }
 
   get src() {
-    return this.prop<string>('src') ?? 'https://raw.githubusercontent.com/ziv/xprng/refs/heads/main/apps/docs/public/example.md';
+    return this.prop<string>('src');
   }
 }
