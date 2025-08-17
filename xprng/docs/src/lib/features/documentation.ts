@@ -100,7 +100,7 @@ import {FormControl, FormGroup} from '@angular/forms';
   template: `
     <!-- side panel -->
     <aside class="col hvh centered py-10">
-      <img src="/logosh.svg" routerLink="/home" style="width: 50%" alt="logo"/>
+      <img src="/xprng/logosh.svg" routerLink="/home" style="width: 50%" alt="logo"/>
       <div class="xpd-items grow">
         <nav>
           <ul>

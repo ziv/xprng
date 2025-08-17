@@ -22,7 +22,7 @@ import {XpdConfiguration} from '../services/configuration';
       <p class="m-10"><small>Made with ❤️</small></p>
     </main>
     <aside class="row centered grow hvh" [style.background-color]="'var(--pico-primary-background)'">
-      <img src="/logosh.svg" routerLink="/home" style="width: 60%" alt="logo"/>
+      <img src="/xprng/logosh.svg" routerLink="/home" style="width: 60%" alt="logo"/>
     </aside>
   `,
 
