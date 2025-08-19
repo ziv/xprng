@@ -119,4 +119,9 @@ export default [
       }
     ],
   },
+  {
+    id: 'scenario',
+    name: 'Pico Documentation',
+    props: []
+  }
 ] as DocDescriptor[];

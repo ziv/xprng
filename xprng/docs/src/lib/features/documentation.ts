@@ -57,6 +57,7 @@ import {isDebug} from '../utils';
       color: var(--pico-primary-inverse);
 
       h1.xpd-main {
+        font-weight: 500;
         color: var(--pico-primary-inverse);
         font-size: calc(var(--pico-font-size) / 1.5);
         margin-bottom: 0;
@@ -119,17 +120,19 @@ import {isDebug} from '../utils';
       <!-- header -->
       <div class="p-10 xpd-main">
         <h1 class="xpd-main">{{ component()?.name }}</h1>
-        <small>{{ component()?.description }}</small>
+        <small size="font-weight:300px;">{{ component()?.description }}</small>
       </div>
 
       <!-- preview -->
-      <div class="xpd-preview col grow">
-        @if (url()) {
-          <iframe #iframe
-                  [src]="url()" class="col grow"
-                  (load)="loading.set(false)"
-                  (error)="onIframeError($event)"></iframe>
-        }
+      <div class="xpd-preview col grow" style="position: relative">
+        <button style="position: absolute;right:1em;bottom:.5em;">
+          <span class="sym">display_settings</span>
+        </button>
+
+        <iframe #iframe
+                [src]="url()" class="col grow"
+                (load)="loading.set(false)"
+                (error)="onIframeError($event)"></iframe>
       </div>
 
       <!-- footer -->
@@ -137,6 +140,14 @@ import {isDebug} from '../utils';
         <details name="properties">
           <summary>Properties</summary>
           <xpd-properties [props]="component()?.props ?? []" [name]="compName()"/>
+        </details>
+        <details name="canvas">
+          <summary>Canvas</summary>
+          <fieldset>
+            <label>
+              <input name="grid" type="checkbox" role="switch"/> Show grid
+            </label>
+          </fieldset>
         </details>
       </article>
     </main>
@@ -152,9 +163,6 @@ export class XpdDocumentation {
   // descriptors list
 
   // reactivity
-
-  // the preview iframe reference
-  // protected readonly iframe = viewChild<ElementRef>("iframe");
 
   // the preview iframe state
   protected readonly loading = signal(false);

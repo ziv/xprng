@@ -16,8 +16,8 @@ export default {
     // @xprng/docs items:
     provideConfig({
       descriptors,
-      // iframe: 'http://localhost:4200',
-      iframe: 'https://ziv.github.io/xprng',
+      iframe: 'http://localhost:4200',
+      // iframe: 'https://ziv.github.io/xprng',
       logo: 'logosh.svg',
       help: 'help.md',
       navigation: routesToNavigation(docsRoutes),
