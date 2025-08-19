@@ -16,6 +16,7 @@ export default {
     // @xprng/docs items:
     provideConfig({
       descriptors,
+      // todo move to build script
       // iframe: 'http://localhost:4200',
       iframe: 'https://ziv.github.io/xprng',
       logo: 'logosh.svg',
