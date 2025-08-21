@@ -9,11 +9,7 @@
     "docs": "ng build  @apps/xpd --configuration github",
     "ng": "ng",
     "start": "ng serve",
-    "watch": "ng build --watch --configuration development",
-    "serve:ssr:@xpr/docs": "node dist/@xpr/docs/server/server.mjs",
-    "serve:ssr:@xprng/docs": "node dist/@xprng/docs/server/server.mjs",
-    "serve:ssr:@apps/docs": "node dist/@apps/docs/server/server.mjs",
-    "serve:ssr:@apps/demo": "node dist/@apps/demo/server/server.mjs"
+    "watch": "ng build --watch --configuration development"
   },
   "config": {
     "commitizen": {
@@ -31,9 +27,6 @@
     ]
   },
   "dependencies": {
-    "@angular/platform-server": "^20.1.0",
-    "@angular/ssr": "^20.1.5",
-    "express": "^5.1.0",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
