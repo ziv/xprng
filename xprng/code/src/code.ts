@@ -3,7 +3,6 @@ import {DomSanitizer} from "@angular/platform-browser";
 import type {HighlighterCore} from "shiki";
 import {getHighlighter} from "@xprng/vendor/shiki";
 import {httpResource} from "@angular/common/http";
-import {rendererRich, transformerTwoslash} from '@shikijs/twoslash';
 
 /**
  * # Code
@@ -137,11 +136,6 @@ export class Code {
         getHighlighter().codeToHtml(text, {
           lang: this.lang(),
           theme: this.theme(),
-          transformers: [
-            transformerTwoslash({
-              renderer: rendererRich()
-            })
-          ]
         }).toString(),
       );
 
