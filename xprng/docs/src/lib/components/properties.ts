@@ -1,10 +1,10 @@
-import {Component, input} from "@angular/core";
-import {ReactiveFormsModule,} from "@angular/forms";
-import {Prop} from "../descriptor";
-import {debugLog, isDebug} from '../utils';
+import { Component, input } from "@angular/core";
+import { ReactiveFormsModule } from "@angular/forms";
+import { Prop } from "../descriptor";
+import { debugLog, isDebug } from "../utils";
 
 function read() {
-  const value = localStorage.getItem('__xpd-properties');
+  const value = localStorage.getItem("__xpd-properties");
   if (value) {
     try {
       return JSON.parse(value);
@@ -19,8 +19,8 @@ function read() {
 
 function update(value: unknown, name?: string) {
   const saved = read();
-  saved[name ?? ''] = value;
-  localStorage.setItem('__xpd-properties', JSON.stringify(saved));
+  saved[name ?? ""] = value;
+  localStorage.setItem("__xpd-properties", JSON.stringify(saved));
 }
 
 @Component({
@@ -121,13 +121,16 @@ export class XpdProperties {
   update(name: string, event: Event) {
     // @ts-ignore
     const v = event.target.value;
-    if (v === 'on') {
+    if (v === "on") {
       // @ts-ignore
       this.output[name] = event.target.checked;
     } else {
       this.output[name] = v;
     }
-    debugLog('Updating properties:', this.name(), this.output);
-    localStorage.setItem('__xpd-properties', JSON.stringify({[this.name() ?? '']: this.output}));
+    debugLog("Updating properties:", this.name(), this.output);
+    localStorage.setItem(
+      "__xpd-properties",
+      JSON.stringify({ [this.name() ?? ""]: this.output }),
+    );
   }
 }

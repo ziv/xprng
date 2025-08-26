@@ -5,6 +5,7 @@
   "peerDependencies": {
     "@angular/common": "^20.1.0",
     "@angular/core": "^20.1.0",
+    "@shikijs/twoslash": "^3.11.0",
     "marked": "^16.1.2",
     "marked-gfm-heading-id": "^4.1.2",
     "shiki": "^3.9.2"

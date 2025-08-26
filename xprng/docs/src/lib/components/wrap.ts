@@ -1,5 +1,5 @@
-import {Directive, signal} from "@angular/core";
-import {debugLog} from "../utils";
+import { Directive, signal } from "@angular/core";
+import { debugLog } from "../utils";
 
 @Directive({})
 export abstract class XpdWrap {
@@ -15,22 +15,24 @@ export abstract class XpdWrap {
 
   protected constructor() {
     window.addEventListener("storage", () => {
-      const name = window.location.hash.split('/').pop();
+      const name = window.location.hash.split("/").pop();
       if (!name) {
-        debugLog('No component name found in URL hash.');
+        debugLog("No component name found in URL hash.");
         return;
       }
-      const raw = localStorage.getItem('__xpd-properties');
+      const raw = localStorage.getItem("__xpd-properties");
       try {
-        const params = JSON.parse(raw ?? '{}');
-        debugLog('params read', params);
+        const params = JSON.parse(raw ?? "{}");
+        debugLog("params read", params);
         if (name in params) {
           this.props.set(params[name]);
         } else {
-          debugLog(`No properties found for component "${name}" in localStorage.`);
+          debugLog(
+            `No properties found for component "${name}" in localStorage.`,
+          );
         }
       } catch (err) {
-        debugLog('unable to parse update request', err);
+        debugLog("unable to parse update request", err);
       }
     });
   }

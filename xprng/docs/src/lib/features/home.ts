@@ -1,7 +1,7 @@
 import { Component, inject } from "@angular/core";
 import { RouterLink } from "@angular/router";
 import { XpdConfiguration } from "../services/configuration";
-import {PlatformLocation} from '@angular/common';
+import { PlatformLocation } from "@angular/common";
 
 @Component({
   selector: "xpd-home",

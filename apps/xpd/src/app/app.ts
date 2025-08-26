@@ -1,8 +1,8 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, signal } from "@angular/core";
+import { RouterOutlet } from "@angular/router";
 
 @Component({
-  selector: 'xpd-root',
+  selector: "xpd-root",
   imports: [RouterOutlet],
   template: `
     <h1>Welcome to {{ title() }}!</h1>
@@ -12,5 +12,5 @@ import { RouterOutlet } from '@angular/router';
   styles: [],
 })
 export class App {
-  protected readonly title = signal('@apps/xpd');
+  protected readonly title = signal("@apps/xpd");
 }

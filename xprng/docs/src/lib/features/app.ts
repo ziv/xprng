@@ -1,9 +1,9 @@
-import {booleanAttribute, Component, computed, inject} from "@angular/core";
-import {RouterOutlet} from "@angular/router";
-import {Markdown} from "@xprng/markdown";
-import {XpdDialogs} from "../services/dialogs";
-import {XpdConfiguration} from "../services/configuration";
-import {XpdNavigation} from "../services/navigation";
+import { booleanAttribute, Component, computed, inject } from "@angular/core";
+import { RouterOutlet } from "@angular/router";
+import { Markdown } from "@xprng/markdown";
+import { XpdDialogs } from "../services/dialogs";
+import { XpdConfiguration } from "../services/configuration";
+import { XpdNavigation } from "../services/navigation";
 
 @Component({
   selector: "xpd-app",
@@ -48,9 +48,9 @@ export class XpdApp {
   protected readonly dialogs = inject(XpdDialogs);
 
   protected readonly showHelp = computed(() =>
-    booleanAttribute(this.nav.params()?.["help"]),
+    booleanAttribute(this.nav.params()?.["help"])
   );
   protected readonly showSettings = computed(() =>
-    booleanAttribute(this.nav.params()?.["settings"]),
+    booleanAttribute(this.nav.params()?.["settings"])
   );
 }

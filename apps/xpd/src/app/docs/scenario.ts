@@ -1,14 +1,14 @@
-import {Component} from '@angular/core';
-import {XpdWrap} from '@xprng/docs';
-import {RouterLink} from '@angular/router';
+import { Component } from "@angular/core";
+import { XpdWrap } from "@xprng/docs";
+import { RouterLink } from "@angular/router";
 
 @Component({
-  selector: 'xpd-docs-markdown',
+  selector: "xpd-docs-markdown",
   imports: [
-    RouterLink
+    RouterLink,
   ],
   host: {
-    class: 'pico',
+    class: "pico",
   },
   template: `
     <h2>Scenario A</h2>
@@ -38,6 +38,6 @@ import {RouterLink} from '@angular/router';
 })
 export default class Scenario extends XpdWrap {
   logout() {
-    alert('Logout');
+    alert("Logout");
   }
 }

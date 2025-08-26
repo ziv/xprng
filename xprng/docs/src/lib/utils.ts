@@ -1,4 +1,4 @@
-import {Routes} from "@angular/router";
+import { Routes } from "@angular/router";
 
 export function routesToNavigation(
   routes: Routes,
@@ -10,7 +10,7 @@ export function routesToNavigation(
 }
 
 export function isDebug() {
-  return ('xpdDebug' in globalThis);
+  return ("xpdDebug" in globalThis);
 }
 
 export function debugLog(...args: any[]) {
@@ -18,5 +18,3 @@ export function debugLog(...args: any[]) {
     console.log(...args);
   }
 }
-
-

@@ -1,9 +1,9 @@
-import {Component} from '@angular/core';
-import {Slide, Slides} from '@xprng/slides';
-import {XpdWrap} from '@xprng/docs';
+import { Component } from "@angular/core";
+import { Slide, Slides } from "@xprng/slides";
+import { XpdWrap } from "@xprng/docs";
 
 @Component({
-  selector: 'xpd-docs-slides',
+  selector: "xpd-docs-slides",
   imports: [Slides, Slide],
   styles: `
     xpr-slides {

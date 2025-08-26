@@ -1,10 +1,10 @@
-import {Component} from '@angular/core';
-import {Markdown} from '@xprng/markdown';
-import {XpdWrap} from '@xprng/docs';
-import {ErrorState} from '@xprng/common';
+import { Component } from "@angular/core";
+import { Markdown } from "@xprng/markdown";
+import { XpdWrap } from "@xprng/docs";
+import { ErrorState } from "@xprng/common";
 
 @Component({
-  selector: 'xpd-docs-markdown',
+  selector: "xpd-docs-markdown",
   imports: [Markdown, ErrorState],
   template: `
     @if (content) {
@@ -19,12 +19,11 @@ import {ErrorState} from '@xprng/common';
   `,
 })
 export default class MarkdownDoc extends XpdWrap {
-
   get content() {
-    return this.prop<string>('content');
+    return this.prop<string>("content");
   }
 
   get src() {
-    return this.prop<string>('src') ?? 'https://ziv.github.io/xprng/example.md';
+    return this.prop<string>("src") ?? "https://ziv.github.io/xprng/example.md";
   }
 }

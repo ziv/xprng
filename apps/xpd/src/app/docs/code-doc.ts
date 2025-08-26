@@ -1,9 +1,9 @@
-import {Component, ViewEncapsulation} from '@angular/core';
-import {XpdWrap} from '@xprng/docs';
-import {Code} from '@xprng/code';
+import { Component, ViewEncapsulation } from "@angular/core";
+import { XpdWrap } from "@xprng/docs";
+import { Code } from "@xprng/code";
 
 @Component({
-  selector: 'xpd-docs-code',
+  selector: "xpd-docs-code",
   imports: [Code],
   encapsulation: ViewEncapsulation.None,
   styles: `
@@ -23,16 +23,16 @@ import {Code} from '@xprng/code';
   `,
 })
 export default class CodeDoc extends XpdWrap {
-
   get content() {
-    return this.prop<string>('content');
+    return this.prop<string>("content");
   }
 
   get lang() {
-    return this.prop<string>('lang') ?? 'javascript';
+    return this.prop<string>("lang") ?? "javascript";
   }
 
   get src() {
-    return this.prop<string>('src') ?? 'https://raw.githubusercontent.com/ziv/xprng/refs/heads/main/apps/docs/public/example.js';
+    return this.prop<string>("src") ??
+      "https://raw.githubusercontent.com/ziv/xprng/refs/heads/main/apps/docs/public/example.js";
   }
 }

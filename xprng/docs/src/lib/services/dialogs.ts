@@ -1,5 +1,5 @@
-import {inject, Injectable} from "@angular/core";
-import {XpdNavigation} from "./navigation";
+import { inject, Injectable } from "@angular/core";
+import { XpdNavigation } from "./navigation";
 
 function clear(e?: Event) {
   if (!e) {

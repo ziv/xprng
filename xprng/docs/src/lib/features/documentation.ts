@@ -1,13 +1,20 @@
-import {Component, computed, ElementRef, inject, signal, viewChild,} from "@angular/core";
-import {ActivatedRoute, RouterLink, RouterLinkActive,} from "@angular/router";
-import {XpdProperties} from "../components/properties";
-import {toSignal} from "@angular/core/rxjs-interop";
-import {SafeResourceUrl} from "@angular/platform-browser";
-import {map} from "rxjs";
-import {XpdDialogs} from "../services/dialogs";
-import {XpdConfiguration} from "../services/configuration";
-import {XpdDocDescriptor} from "../descriptor";
-import {isDebug} from '../utils';
+import {
+  Component,
+  computed,
+  ElementRef,
+  inject,
+  signal,
+  viewChild,
+} from "@angular/core";
+import { ActivatedRoute, RouterLink, RouterLinkActive } from "@angular/router";
+import { XpdProperties } from "../components/properties";
+import { toSignal } from "@angular/core/rxjs-interop";
+import { SafeResourceUrl } from "@angular/platform-browser";
+import { map } from "rxjs";
+import { XpdDialogs } from "../services/dialogs";
+import { XpdConfiguration } from "../services/configuration";
+import { XpdDocDescriptor } from "../descriptor";
+import { isDebug } from "../utils";
 
 @Component({
   selector: "xpd-docs",

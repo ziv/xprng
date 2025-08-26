@@ -1,10 +1,10 @@
-import {Component} from '@angular/core';
-import {XpdWrap} from '@xprng/docs';
+import { Component } from "@angular/core";
+import { XpdWrap } from "@xprng/docs";
 
 @Component({
-  selector: 'xpd-docs-buttons',
+  selector: "xpd-docs-buttons",
   host: {
-    class: 'pico'
+    class: "pico",
   },
   styles: `
     :host {
@@ -40,20 +40,19 @@ import {XpdWrap} from '@xprng/docs';
   `,
 })
 export default class ExampleDoc extends XpdWrap {
-
   get buttonText() {
-    return this.prop<string>('text') ?? 'Click me';
+    return this.prop<string>("text") ?? "Click me";
   }
 
   get type() {
-    return this.prop<string>('type') ?? '';
+    return this.prop<string>("type") ?? "";
   }
 
   get btnDisabled() {
-    return this.prop<boolean>('disabled') ?? false;
+    return this.prop<boolean>("disabled") ?? false;
   }
 
   get isOpen() {
-    return this.prop<boolean>('open') ?? true;
+    return this.prop<boolean>("open") ?? true;
   }
 }
