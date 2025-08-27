@@ -3,6 +3,8 @@ import {DomSanitizer} from "@angular/platform-browser";
 import type {HighlighterCore} from "shiki";
 import {getHighlighter} from "@xprng/vendor/shiki";
 import {httpResource} from "@angular/common/http";
+import {thsTransformer, twoandhalfslash} from 'twoandhalfslash';
+
 
 /**
  * # Code
@@ -133,10 +135,11 @@ export class Code {
   protected code = computed(() => {
     const parse = (text: string) =>
       this.sanitize.bypassSecurityTrustHtml(
-        getHighlighter().codeToHtml(text, {
+        twoandhalfslash(getHighlighter().codeToHtml(text, {
           lang: this.lang(),
           theme: this.theme(),
-        }).toString(),
+          transformers: [thsTransformer]
+        }).toString())
       );
 
     if (this.content()) return parse(this.content() as string);
