@@ -29,7 +29,7 @@
   "dependencies": {
     "marked-gfm-heading-id": "^4.1.2",
     "tslib": "^2.3.0",
-    "twoandhalfslash": "^0.0.2"
+    "twoandhalfslash": "^0.1.1"
   },
   "devDependencies": {
     "@angular/build": "^20.1.5",

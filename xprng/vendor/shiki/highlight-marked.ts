@@ -1,6 +1,6 @@
 import type {MarkedExtension} from "marked";
 import {getHighlighter} from "./get-highlighter";
-import {thsTransformer, twoandhalfslash} from 'twoandhalfslash';
+import {twoandhalfslash} from 'twoandhalfslash';
 
 /**
  * Highlight content blocks in marked using Shiki.
@@ -16,11 +16,11 @@ export function highlight(theme: string): MarkedExtension {
       const lang = (token.lang ?? "plaintext").toLowerCase().trim();
       const text = token.text ?? "";
 
-      const html = twoandhalfslash(getHighlighter().codeToHtml(text, {
+      const html = getHighlighter().codeToHtml(text, {
         lang,
         theme,
-        transformers: [thsTransformer]
-      }));
+        transformers: [twoandhalfslash()]
+      });
 
       // change the token type to 'html' and set the html code
       Object.assign(token, {
