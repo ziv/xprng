@@ -7,7 +7,7 @@
     "@angular/platform-browser": "^20.1.0",
     "@xprng/vendor": "*",
     "shiki": "^3.9.2",
-    "twoandhalfslash": "^0.0.2"
+    "twoandhalfslash": "^0.1.1"
   },
   "devDependencies": {
     "semantic-release": "^24.2.7"
