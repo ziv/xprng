@@ -267,6 +267,34 @@
           }
         }
       }
+    },
+    "@xprng/query": {
+      "projectType": "library",
+      "root": "xprng/query",
+      "sourceRoot": "xprng/query/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "xprng/query/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "xprng/query/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "runner": "vitest",
+            "tsConfig": "xprng/query/tsconfig.spec.json",
+            "buildTarget": "::development"
+          }
+        }
+      }
     }
   },
   "cli": {

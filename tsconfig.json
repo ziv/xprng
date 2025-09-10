@@ -32,6 +32,9 @@
       "@xprng/markdown/*": [
         "./dist/xprng/markdown/*"
       ],
+      "@xprng/query": [
+        "./dist/xprng/query"
+      ],
       "@xprng/slides": [
         "./dist/xprng/slides"
       ],
@@ -104,6 +107,12 @@
     },
     {
       "path": "./apps/xpd/tsconfig.spec.json"
+    },
+    {
+      "path": "./xprng/query/tsconfig.lib.json"
+    },
+    {
+      "path": "./xprng/query/tsconfig.spec.json"
     }
   ]
 }

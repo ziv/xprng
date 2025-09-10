@@ -55,9 +55,6 @@ jobs:
 
       - name: 🦋release common
         if: contains(github.event.head_commit.message, '(common)')
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: cd dist/xprng/common && npx semantic-release
 
       - name: 🦋release vendor
@@ -66,30 +63,22 @@ jobs:
 
       - name: 🦋release markdown
         if: contains(github.event.head_commit.message, '(markdown)')
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: cd dist/xprng/markdown && npx semantic-release
 
       - name: 🦋release content
         if: contains(github.event.head_commit.message, '(code)')
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: cd dist/xprng/code && npx semantic-release
 
       - name: 🦋release slides
         if: contains(github.event.head_commit.message, '(slides)')
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: cd dist/xprng/slides && npx semantic-release
+
+      - name: 🦋release query
+        if: contains(github.event.head_commit.message, '(query)')
+        run: cd dist/xprng/query && npx semantic-release
 
       - name: 🦋release docs
         if: contains(github.event.head_commit.message, '(docs)')
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: cd dist/xprng/docs && npx semantic-release
 
   docs:
