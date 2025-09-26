@@ -1,8 +1,8 @@
 import {Component, computed, inject, input} from "@angular/core";
 import {DomSanitizer} from "@angular/platform-browser";
 import type {HighlighterCore} from "shiki";
-import {getHighlighter} from "@xprng/vendor/shiki";
 import {httpResource} from "@angular/common/http";
+import {Highlighter} from '@xprng/vendor';
 
 /**
  * # Code
@@ -67,8 +67,7 @@ import {httpResource} from "@angular/common/http";
   template: `
     @switch (state()) {
       @case ("local") {
-        <div [innerHTML]="code()"
-             class="xpr-value xpr-local"></div>
+        <div [innerHTML]="code()" class="xpr-value xpr-local"></div>
       }
       @case ("error") {
         <ng-content select="xpr-error-state"/>
@@ -87,6 +86,7 @@ import {httpResource} from "@angular/common/http";
   `,
 })
 export class Code {
+
   /**
    * Provides code to be displayed in the component.
    * @input
@@ -125,27 +125,34 @@ export class Code {
   //
 
   protected state = computed(() => {
-    if (this.content()) return "local";
-    if (this.src()) return this.res.status();
+    if (this.content()) {
+      return "local";
+    }
+    if (this.src()) {
+      return this.res.status();
+    }
     return "empty";
   });
 
   protected code = computed(() => {
-    const parse = (text: string) =>
-      this.sanitize.bypassSecurityTrustHtml(
-        getHighlighter().codeToHtml(text, {
-          lang: this.lang(),
-          theme: this.theme(),
-        }).toString()
-      );
+    if (this.content()) {
+      return this.parse(this.content() as string);
+    }
 
-    if (this.content()) return parse(this.content() as string);
+    if (this.res.hasValue()) {
+      return this.parse(this.res.value());
+    }
 
-    if (this.res.hasValue()) return parse(this.res.value());
-
-    return parse("");
+    return this.parse("");
   });
 
+  parse(text: string) {
+    return this.sanitize.bypassSecurityTrustHtml(
+      this.service.highlight(text, this.lang(), this.theme())
+    );
+  }
+
+  private readonly service = inject(Highlighter);
   private readonly sanitize = inject(DomSanitizer);
   private readonly res = httpResource.text(() => this.src());
 }
