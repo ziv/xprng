@@ -1,8 +1,10 @@
-import { Component, computed, inject, input } from "@angular/core";
-import { DomSanitizer } from "@angular/platform-browser";
-import type { MarkedOptions } from "marked";
-import { marked } from "@xprng/vendor/marked";
-import { httpResource } from "@angular/common/http";
+import {Component, computed, inject, input} from "@angular/core";
+import {DomSanitizer} from "@angular/platform-browser";
+import {Marked, MarkedOptions} from "marked";
+import {gfmHeadingId} from "marked-gfm-heading-id";
+import {httpResource} from "@angular/common/http";
+import {Highlighter} from '@xprng/vendor';
+import markedShiki from 'marked-shiki';
 
 /**
  * Marked options for parsing markdown.
@@ -73,10 +75,32 @@ export class Markdown {
   protected markdown = computed(() => {
     const text = this.content() ??
       (this.res.hasValue() ? this.res.value() : "");
-    const parsed = marked(this.theme()).parse(text, this.options()) as string;
+
+    const parsed = this.marked.parse(text, {
+      ...this.options(),
+      async: false, // make sure it's sync (return string)
+    });
+
     return this.sanitize.bypassSecurityTrustHtml(parsed);
   });
 
+  private readonly marked: Marked;
   private readonly sanitize = inject(DomSanitizer);
   private readonly res = httpResource.text(() => this.src());
+
+  constructor() {
+    const hls = inject(Highlighter);
+    const theme = this.theme;
+
+    // todo add more extensions
+    // todo allow custom extensions via provide
+    this.marked = new Marked(
+      gfmHeadingId(),
+      markedShiki({
+        highlight(code, lang) {
+          return hls.highlight(code, lang, theme());
+        }
+      }),
+    );
+  }
 }

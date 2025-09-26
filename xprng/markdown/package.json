@@ -9,6 +9,8 @@
     "@xprng/vendor": "*",
     "@xprng/common": "*",
     "marked": ">=16.0.0",
+    "marked-gfm-heading-id": ">=4.1.2",
+    "marked-shiki": ">=1.2.1",
     "shiki": ">=3.9.0"
   },
   "devDependencies": {
