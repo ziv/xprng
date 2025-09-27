@@ -27,7 +27,9 @@
     ]
   },
   "dependencies": {
+    "front-matter": "^4.0.2",
     "marked-gfm-heading-id": "^4.1.2",
+    "marked-shiki": "^1.2.1",
     "thememirror": "^2.0.1",
     "tslib": "^2.3.0",
     "twoandhalfslash": "^0.1.1"
