@@ -1,5 +1,5 @@
-import {Component, computed, inject, input} from "@angular/core";
-import {DomSanitizer} from "@angular/platform-browser";
+import {Component, computed, effect, inject, input, signal} from "@angular/core";
+import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 import {Marked, MarkedOptions} from "marked";
 import {gfmHeadingId} from "marked-gfm-heading-id";
 import {httpResource} from "@angular/common/http";
@@ -40,6 +40,10 @@ export type MarkdownOptions = MarkedOptions;
   `,
 })
 export class Markdown {
+  private readonly marked: Marked;
+  private readonly sanitize = inject(DomSanitizer);
+  private readonly res = httpResource.text(() => this.src());
+
   /**
    * Provides code to be displayed in the component.
    * @input
@@ -68,7 +72,7 @@ export class Markdown {
   /**
    * Parsed front-matter attributes
    */
-  readonly frontmatter = computed(() => this.parsed().attributes);
+  readonly frontmatter = signal<Record<string, string>>({});
 
   //
 
@@ -98,17 +102,15 @@ export class Markdown {
   /**
    * The rendered and sanitized HTML from the markdown content.
    */
-  protected markdown = computed(() => {
-    const parsed = this.marked.parse(this.parsed().body, {
-      ...this.options(),
-      async: false, // make sure it's sync (return string)
-    });
-    return this.sanitize.bypassSecurityTrustHtml(parsed);
-  });
+  protected markdown = signal<SafeHtml>(this.sanitize.bypassSecurityTrustHtml(''));
+  // protected markdown = computed(() => {
+  //   const parsed = this.marked.parse(this.parsed().body, {
+  //     ...this.options(),
+  //     async: false, // make sure it's sync (return string)
+  //   });
+  //   return this.sanitize.bypassSecurityTrustHtml(parsed);
+  // });
 
-  private readonly marked: Marked;
-  private readonly sanitize = inject(DomSanitizer);
-  private readonly res = httpResource.text(() => this.src());
 
   constructor() {
     const hls = inject(Highlighter);
@@ -122,5 +124,13 @@ export class Markdown {
         }
       }),
     );
+
+    effect(async () => {
+      // on parsed changed, set 2 signals
+      const parsed = await this.marked.parse(this.parsed().body, this.options());
+
+      this.frontmatter.set(this.parsed().attributes as Record<string, string>);
+      this.markdown.set(this.sanitize.bypassSecurityTrustHtml(parsed));
+    });
   }
 }
