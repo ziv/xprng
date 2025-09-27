@@ -5,6 +5,7 @@ import {gfmHeadingId} from "marked-gfm-heading-id";
 import {httpResource} from "@angular/common/http";
 import {Highlighter} from '@xprng/vendor';
 import markedShiki from 'marked-shiki';
+import fm from 'front-matter';
 
 /**
  * Marked options for parsing markdown.
@@ -64,23 +65,44 @@ export class Markdown {
    */
   readonly options = input<Partial<MarkdownOptions>>({});
 
+  /**
+   * Parsed front-matter attributes
+   */
+  readonly frontmatter = computed(() => this.parsed().attributes);
+
   //
 
+  /**
+   * Current state of the component (for template switching)
+   */
   protected state = computed(() => {
     if (this.content()) return "local";
     if (this.src()) return this.res.status();
     return "empty";
   });
 
-  protected markdown = computed(() => {
-    const text = this.content() ??
-      (this.res.hasValue() ? this.res.value() : "");
+  /**
+   * Parsed front-matter result
+   */
+  protected parsed = computed(() => {
+    const content = this.content();
+    if (content) {
+      return fm(content);
+    }
+    if (this.res.hasValue()) {
+      return fm(this.res.value());
+    }
+    return fm('');
+  });
 
-    const parsed = this.marked.parse(text, {
+  /**
+   * The rendered and sanitized HTML from the markdown content.
+   */
+  protected markdown = computed(() => {
+    const parsed = this.marked.parse(this.parsed().body, {
       ...this.options(),
       async: false, // make sure it's sync (return string)
     });
-
     return this.sanitize.bypassSecurityTrustHtml(parsed);
   });
 
@@ -92,8 +114,6 @@ export class Markdown {
     const hls = inject(Highlighter);
     const theme = this.theme;
 
-    // todo add more extensions
-    // todo allow custom extensions via provide
     this.marked = new Marked(
       gfmHeadingId(),
       markedShiki({
