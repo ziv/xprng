@@ -5,6 +5,7 @@
   "scripts": {
     "build-docs": "ng build  @apps/docs",
     "build": "./ng-build.sh",
+    "demo": "ng build demo",
     "test": "./ng-test.sh",
     "docs": "ng build  @apps/xpd --configuration github",
     "ng": "ng",

@@ -81,46 +81,46 @@ jobs:
         if: contains(github.event.head_commit.message, '(docs)')
         run: cd dist/xprng/docs && npx semantic-release
 
-#  docs:
-#    name: docs
-#    runs-on: ubuntu-latest
-#    permissions:
-#      contents: write
-#      pages: write
-#    environment:
-#      name: github-pages # artifact name
-#      url: ${{ steps.deployment.outputs.page_url }}
-#    steps:
-#      - name: ⛵️ checkout
-#        uses: actions/checkout@v4
-#        with:
-#          fetch-depth: 0
-#
-#      - name: ☂️ setup Node.js
-#        uses: actions/setup-node@v4
-#        with:
-#          node-version: 24
-#
-#      - name: Cache npm dependencies
-#        uses: actions/cache@v4
-#        with:
-#          path: ~/.npm
-#          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-#          restore-keys: |
-#            ${{ runner.os }}-npm-
-#
-#      - name: 🔑 dependencies
-#        run: npm ci --no-fund
-#
-#      - name: 🌈 build
-#        run: npm run build
-#
-#      - name: 🌈 build docs
-#        run: npm run docs
-#
-#      - name: 📦 publish docs
-#        uses: peaceiris/actions-gh-pages@v3
-#        with:
-#          github_token: ${{ secrets.GH_TOKEN }}
-#          publish_dir: ./dist/@apps/xpd/browser
-#          publish_branch: gh-pages
+  demo:
+    name: demo
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+    environment:
+      name: github-pages # artifact name
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: ⛵️ checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: ☂️ setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Cache npm dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+
+      - name: 🔑 dependencies
+        run: npm ci --no-fund
+
+      - name: 🌈 build
+        run: npm run build
+
+      - name: 🌈 build demo
+        run: npm run demo
+
+      - name: 📦 publish docs
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          publish_dir: ./dist/@apps/xpd/browser
+          publish_branch: gh-pages

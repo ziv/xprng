@@ -181,6 +181,9 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
+            "allowedCommonJsDependencies": [
+              "front-matter"
+            ],
             "browser": "demo/src/main.ts",
             "tsConfig": "demo/tsconfig.app.json",
             "assets": [

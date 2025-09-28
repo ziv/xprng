@@ -1,5 +1,6 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {RouterLink, RouterOutlet} from '@angular/router';
+import {PlatformLocation} from '@angular/common';
 
 type NavItem = {
   label: string;
@@ -9,6 +10,16 @@ type NavItem = {
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, RouterLink],
+  styles: `
+    :host {
+      padding: 1em;
+    }
+
+    aside {
+      position: sticky;
+      top: 1em;
+    }
+  `,
   template: `
     <aside>
       <nav>
@@ -27,6 +38,8 @@ type NavItem = {
   `,
 })
 export class App {
+
+  href = inject(PlatformLocation).getBaseHrefFromDOM()
 
   items: NavItem[] = [
     {

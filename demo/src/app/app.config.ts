@@ -13,7 +13,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
 
     provideShiki({
-      themes: ['nord', 'github-light', 'github-dark'],
+      themes: ['nord', 'github-light', 'github-dark', 'catppuccin-latte'],
       langs: ['typescript', 'javascript', 'css', 'html', 'json', 'bash', 'yaml']
     }),
   ]
