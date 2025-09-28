@@ -181,6 +181,7 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
+            "baseHref": "/xprng/",
             "allowedCommonJsDependencies": [
               "front-matter"
             ],
