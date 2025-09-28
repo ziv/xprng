@@ -1,7 +1,8 @@
-import {Component, signal} from '@angular/core';
+import {Component, inject, signal} from '@angular/core';
 import {Code} from '@xprng/code';
 import {FormsModule} from '@angular/forms';
 import {ErrorState} from '@xprng/common';
+import {PlatformLocation} from '@angular/common';
 
 @Component({
   selector: 'code-demo',
@@ -38,13 +39,17 @@ import {ErrorState} from '@xprng/common';
     <div>
       <label for="state">Select state: </label>
       <select [(ngModel)]="src" id="state">
-        <option value="/example-code.js">valid file</option>
+        <option [value]="valid">valid url</option>
         <option value="http://localhost/">invalid url</option>
       </select>
     </div>
   `
 })
 export default class CodeDemo {
-  src = signal<string>('/example-code.js');
+  valid = inject(PlatformLocation).getBaseHrefFromDOM() + 'example-code.js';
+
+  src = signal<string>(this.valid);
   theme = signal<string>('catppuccin-latte');
+
+
 }

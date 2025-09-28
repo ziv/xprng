@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {Slide, Slides} from '@xprng/slides';
-import {NgOptimizedImage} from '@angular/common';
+import {NgOptimizedImage, PlatformLocation} from '@angular/common';
 
 @Component({
   selector: 'slides-demo',
@@ -20,7 +20,7 @@ import {NgOptimizedImage} from '@angular/common';
       <xpr-slides cyclic style="height:400px;overflow:hidden">
         @for (i of images; track i.src) {
           <xpr-slide>
-            <img [ngSrc]="i.src"
+            <img [ngSrc]="base + i.src"
                  [alt]="i.alt"
                  [height]="i.height"
                  [width]="i.width"
@@ -39,28 +39,28 @@ import {NgOptimizedImage} from '@angular/common';
   `
 })
 export default class SlidesDemo {
-
+  base = inject(PlatformLocation).getBaseHrefFromDOM();
   images = [
     {
-      src: '/slide0.jpg',
+      src: 'slide0.jpg',
       alt: 'slide0',
       height: 408,
       width: 612
     },
     {
-      src: '/slide1.jpg',
+      src: 'slide1.jpg',
       alt: 'slide1',
       height: 407,
       width: 612
     },
     {
-      src: '/slide2.jpg',
+      src: 'slide2.jpg',
       alt: 'slide2',
       height: 433,
       width: 612
     },
     {
-      src: '/slide3.jpg',
+      src: 'slide3.jpg',
       alt: 'slide3',
       height: 406,
       width: 612

@@ -1,7 +1,8 @@
-import {Component, computed, signal, viewChild} from '@angular/core';
+import {Component, computed, inject, signal, viewChild} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {ErrorState} from '@xprng/common';
 import {Markdown, MarkdownHeading} from '@xprng/markdown';
+import {PlatformLocation} from '@angular/common';
 
 @Component({
   selector: 'code-demo',
@@ -22,8 +23,8 @@ import {Markdown, MarkdownHeading} from '@xprng/markdown';
     </article>
     <p>Take a <code>src</code>, load, parse and display markdown content:</p>
     <article>
-      <xpr-markdown [src]="src()">
-        <xpr-error-state>Markdown at "{{ src() }}" not found.</xpr-error-state>
+      <xpr-markdown [src]="src">
+        <xpr-error-state>Markdown at "{{ src }}" not found.</xpr-error-state>
       </xpr-markdown>
     </article>
 
@@ -32,8 +33,7 @@ import {Markdown, MarkdownHeading} from '@xprng/markdown';
   `
 })
 export default class MarkdownDemo {
+  src = inject(PlatformLocation).getBaseHrefFromDOM() + 'example.md';
   md = viewChild(Markdown);
-  src = signal<string>('/example.md');
-
   protected readonly headings = computed(() => this.md()?.headings() ?? []);
 }
