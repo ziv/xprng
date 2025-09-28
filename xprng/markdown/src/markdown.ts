@@ -1,11 +1,12 @@
 import {Component, computed, effect, inject, input, signal} from "@angular/core";
 import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 import {Marked, MarkedOptions} from "marked";
-import {gfmHeadingId} from "marked-gfm-heading-id";
+import {gfmHeadingId, getHeadingList} from "marked-gfm-heading-id";
 import {httpResource} from "@angular/common/http";
 import {Highlighter} from '@xprng/vendor';
 import markedShiki from 'marked-shiki';
 import fm from 'front-matter';
+import type {Heading} from './markdown-heading';
 
 /**
  * Marked options for parsing markdown.
@@ -22,7 +23,7 @@ export type MarkdownOptions = MarkedOptions;
   template: `
     @switch (state()) {
       @case ('local') {
-        <div class="xpr-value xpr-local" [innerHTML]="markdown()"></div>
+        <div class="xpr-value xpr-local" [innerHTML]="safe()"></div>
       }
       @case ('error') {
         <ng-content select="xpr-error-state"/>
@@ -31,7 +32,7 @@ export type MarkdownOptions = MarkedOptions;
         <ng-content select="xpr-loading-state"/>
       }
       @case ('resolved') {
-        <div class="xpr-value xpr-loaded" [innerHTML]="markdown()"></div>
+        <div class="xpr-value xpr-loaded" [innerHTML]="safe()"></div>
       }
       @default {
         <ng-content select="xpr-empty-state"/>
@@ -42,7 +43,13 @@ export type MarkdownOptions = MarkedOptions;
 export class Markdown {
   private readonly marked: Marked;
   private readonly sanitize = inject(DomSanitizer);
-  private readonly res = httpResource.text(() => this.src());
+  private readonly res = httpResource.text(() => {
+    if (this.content()) {
+      // if content is provided, do not fetch (super lazy)
+      return undefined;
+    }
+    return this.src()
+  });
 
   /**
    * Provides code to be displayed in the component.
@@ -69,10 +76,19 @@ export class Markdown {
    */
   readonly options = input<Partial<MarkdownOptions>>({});
 
+  //
+
   /**
    * Parsed front-matter attributes
    */
-  readonly frontmatter = signal<Record<string, string>>({});
+  readonly frontmatter = computed(() => this.parsed().frontmatter);
+
+  /**
+   * The markdown content string
+   */
+  readonly markdown = computed(() => this.parsed().body);
+
+  readonly headings = signal<Heading[]>([]);
 
   //
 
@@ -86,51 +102,53 @@ export class Markdown {
   });
 
   /**
-   * Parsed front-matter result
+   * The parsed front-matter and body from the raw markdown content.
+   * @protected
    */
   protected parsed = computed(() => {
-    const content = this.content();
-    if (content) {
-      return fm(content);
+    if (this.content()) {
+      return fm(this.content() as string);
     }
     if (this.res.hasValue()) {
-      return fm(this.res.value());
+      return fm(this.res.value() as string);
     }
     return fm('');
   });
 
   /**
-   * The rendered and sanitized HTML from the markdown content.
+   * The rendered HTML from the markdown content, sanitized for safe insertion into the DOM.
+   * @protected
    */
-  protected markdown = signal<SafeHtml>(this.sanitize.bypassSecurityTrustHtml(''));
-  // protected markdown = computed(() => {
-  //   const parsed = this.marked.parse(this.parsed().body, {
-  //     ...this.options(),
-  //     async: false, // make sure it's sync (return string)
-  //   });
-  //   return this.sanitize.bypassSecurityTrustHtml(parsed);
-  // });
+  protected safe = signal<SafeHtml>(this.sanitize.bypassSecurityTrustHtml(''));
 
 
   constructor() {
+    // set an effect for the async parsing
+    effect(async () => {
+      const html = await this.marked.parse(this.markdown(), this.options());
+      this.safe.set(this.sanitize.bypassSecurityTrustHtml(html));
+    });
+
+    // init marked with shiki highlighter
     const hls = inject(Highlighter);
     const theme = this.theme;
+    const heading = this.headings;
 
     this.marked = new Marked(
       gfmHeadingId(),
+      {
+        hooks: {
+          postprocess(html) {
+            heading.set(getHeadingList() as Heading[]);
+            return html;
+          }
+        }
+      },
       markedShiki({
         highlight(code, lang) {
           return hls.highlight(code, lang, theme());
         }
       }),
     );
-
-    effect(async () => {
-      // on parsed changed, set 2 signals
-      const parsed = await this.marked.parse(this.parsed().body, this.options());
-
-      this.frontmatter.set(this.parsed().attributes as Record<string, string>);
-      this.markdown.set(this.sanitize.bypassSecurityTrustHtml(parsed));
-    });
   }
 }
