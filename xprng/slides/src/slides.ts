@@ -192,10 +192,13 @@ export class Slides {
     this.shouldPlay.set(!this.shouldPlay());
   }
 
-  protected toggleFullScreen() {
-    (document.fullscreenElement
-      ? document.exitFullscreen
-      : (this.el.nativeElement as HTMLElement)?.requestFullscreen)?.();
+  protected async toggleFullScreen() {
+    if (document.fullscreenElement) {
+      await document.exitFullscreen();
+    } else {
+      const el = this.el.nativeElement as HTMLElement;
+      await el.requestFullscreen.bind(el)();
+    }
   }
 
   protected next() {
