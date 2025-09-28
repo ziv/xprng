@@ -38,9 +38,6 @@ type NavItem = {
   `,
 })
 export class App {
-
-  href = inject(PlatformLocation).getBaseHrefFromDOM()
-
   items: NavItem[] = [
     {
       label: 'Code Demo',
@@ -53,6 +50,10 @@ export class App {
     {
       label: 'Slides Demo',
       route: '/slides'
+    },
+    {
+      label: 'Query Demo',
+      route: '/query'
     }
   ];
 }

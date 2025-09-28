@@ -13,4 +13,8 @@ export const routes: Routes = [
     path: 'slides',
     loadComponent: () => import('./components/slides-demo'),
   },
+  {
+    path: 'query',
+    loadComponent: () => import('./components/query-demo'),
+  },
 ];
