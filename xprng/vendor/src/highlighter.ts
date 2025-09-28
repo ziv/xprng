@@ -1,4 +1,4 @@
-import {inject, Injectable, provideAppInitializer} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {createHighlighter} from 'shiki';
 import {BundledHighlighterOptions} from '@shikijs/types';
 
@@ -32,19 +32,10 @@ export class Highlighter {
    */
   async load(options: BundledHighlighterOptions<any, any>) {
     if (this.shiki) {
+      // already loaded, do not allow re-loading
       return;
     }
     this.shiki = await createHighlighter(options);
     this.theme = options?.themes?.[0] ?? 'github-light';
   }
-}
-
-/**
- * Load and provide Shiki highlighter with given languages and themes
- * @param options
- */
-export function provideShiki(options: BundledHighlighterOptions<any, any>) {
-  return provideAppInitializer(async () => {
-    await inject(Highlighter).load(options);
-  });
 }
