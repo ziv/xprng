@@ -11,9 +11,11 @@ import {
   signal,
   ViewEncapsulation,
 } from "@angular/core";
-import { Slide } from "./slide";
+import {Slide} from "./slide";
 
 type Attr<T> = T | string | null | undefined;
+
+const transition = document.startViewTransition ? document.startViewTransition.bind(document) : (update: () => void) => update();
 
 @Component({
   selector: "xpr-slides",
@@ -29,7 +31,7 @@ type Attr<T> = T | string | null | undefined;
     "(document:keydown.Home)": "first()",
     "(document:keydown.End)": "last()",
     "(document:keydown.a)": "toggleAutoPlay()",
-    "(document:keydown.+)": "inc()",
+    "(document:keydown.=)": "inc()",
     "(document:keydown.-)": "dec()",
     "(click)": "next()",
   },
@@ -104,7 +106,7 @@ export class Slides {
    * The index of the slide to show.
    * @default 0
    */
-  readonly idx = input<number, Attr<number>>(0, { transform: numberAttribute });
+  readonly idx = input<number, Attr<number>>(0, {transform: numberAttribute});
 
   /**
    * Whether the slideshow should loop back to the first slide after reaching the last one.
@@ -175,7 +177,7 @@ export class Slides {
         return;
       }
       if (this.timer) {
-        return;
+        clearInterval(this.timer);
       }
       if (this.delay() <= 0) {
         throw new RangeError(
@@ -202,32 +204,36 @@ export class Slides {
   }
 
   protected next() {
-    this.prev = this.current();
-    const next = this.current() + 1;
-    const length = this.slides().length;
-    if (next >= length) {
-      if (this.cyclic() || this.shouldPlay()) {
-        this.current.set(0);
+    transition(() => {
+      this.prev = this.current();
+      const next = this.current() + 1;
+      const length = this.slides().length;
+      if (next >= length) {
+        if (this.cyclic() || this.shouldPlay()) {
+          this.current.set(0);
+          return;
+        }
+        // nothing to do, we are already at the last slide
         return;
       }
-      // nothing to do, we are already at the last slide
-      return;
-    }
-    this.current.set(next);
+      this.current.set(next);
+    });
   }
 
   protected previous() {
-    this.prev = this.current();
-    const previous = this.current() - 1;
-    if (previous < 0) {
-      if (this.cyclic()) {
-        this.current.set(this.slides().length - 1);
+    transition(() => {
+      this.prev = this.current();
+      const previous = this.current() - 1;
+      if (previous < 0) {
+        if (this.cyclic()) {
+          this.current.set(this.slides().length - 1);
+          return;
+        }
+        // nothing to do, we are already at the first slide
         return;
       }
-      // nothing to do, we are already at the first slide
-      return;
-    }
-    this.current.set(previous);
+      this.current.set(previous);
+    })
   }
 
   protected first() {
@@ -241,10 +247,10 @@ export class Slides {
   }
 
   protected inc() {
-    this.delay.set(Math.max(100, this.delay() - 100));
+    this.delay.set(Math.max(100, this.delay() - 500));
   }
 
   protected dec() {
-    this.delay.set(this.delay() + 100);
+    this.delay.set(this.delay() + 500);
   }
 }
