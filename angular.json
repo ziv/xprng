@@ -252,6 +252,58 @@
           }
         }
       }
+    },
+    "@xprng/components": {
+      "projectType": "library",
+      "root": "xprng/components",
+      "sourceRoot": "xprng/components/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "xprng/components/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "xprng/components/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "xprng/components/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "@xprng/blocks": {
+      "projectType": "library",
+      "root": "xprng/blocks",
+      "sourceRoot": "xprng/blocks/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "xprng/blocks/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "xprng/blocks/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "xprng/blocks/tsconfig.spec.json"
+          }
+        }
+      }
     }
   },
   "cli": {

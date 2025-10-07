@@ -8,6 +8,12 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "paths": {
+      "@xprng/blocks": [
+        "./dist/xprng/blocks"
+      ],
+      "@xprng/blocks/*": [
+        "./dist/xprng/blocks/*"
+      ],
       "@xprng/code": [
         "./dist/xprng/code"
       ],
@@ -19,6 +25,12 @@
       ],
       "@xprng/common/*": [
         "./dist/xprng/common/*"
+      ],
+      "@xprng/components": [
+        "./dist/xprng/components"
+      ],
+      "@xprng/components/*": [
+        "./dist/xprng/components/*"
       ],
       "@xprng/docs": [
         "./dist/xprng/docs"
@@ -119,6 +131,18 @@
     },
     {
       "path": "./demo/tsconfig.spec.json"
+    },
+    {
+      "path": "./xprng/components/tsconfig.lib.json"
+    },
+    {
+      "path": "./xprng/components/tsconfig.spec.json"
+    },
+    {
+      "path": "./xprng/blocks/tsconfig.lib.json"
+    },
+    {
+      "path": "./xprng/blocks/tsconfig.spec.json"
     }
   ]
 }

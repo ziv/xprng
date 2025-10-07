@@ -53,6 +53,10 @@ export class App {
     {
       label: 'Query Demo',
       route: '/query'
+    },
+    {
+      label: 'More',
+      route: '/more'
     }
   ];
 }

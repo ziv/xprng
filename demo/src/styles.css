@@ -1,7 +1,28 @@
-/* You can add global styles to this file, and also import other style files */
+@import "./reset.css";
 
 app-root {
   display: flex;
   gap: 1em;
   align-items: flex-start;
 }
+
+[xpr-icon-button] {
+  padding: 0;
+  /*background: none;*/
+  /*border: none;*/
+  /*border-radius: 25%;*/
+}
+
+/*[xpr-icon-button]:hover {*/
+/*  background: rgba(0, 0, 0, 0.05);*/
+/*}*/
+
+/*[xpr-icon-button]:active {*/
+/*  background: rgba(0, 0, 0, 0.1);*/
+/*}*/
+
+
+/* form elements */
+/*label {*/
+/*  display: block;*/
+/*}*/

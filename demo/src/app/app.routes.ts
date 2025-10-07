@@ -17,4 +17,8 @@ export const routes: Routes = [
     path: 'query',
     loadComponent: () => import('./components/query-demo'),
   },
+  {
+    path: 'more',
+    loadComponent: () => import('./components/more'),
+  }
 ];
