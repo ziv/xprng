@@ -6,7 +6,7 @@ content.
 ## Installation
 
 ```shell
-npm install @xprng/content shiki
+npm install @xprng/code shiki
 ```
 
 ## Usage
@@ -49,7 +49,7 @@ Set the `lang` attribute to specify the language of the content block, and
 
 ## Highlighting
 
-By default, content blocks are highlighted using [Shiki](https://shiki.style/).
+By default, code blocks are highlighted using [Shiki](https://shiki.style/).
 In order to keep the bundle size small, you need to import the languages you
 want to use. The bundle contains the following languages and themes by default:
 

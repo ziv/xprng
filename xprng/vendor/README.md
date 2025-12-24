@@ -2,9 +2,9 @@
 
 Binding 3rd-party libraries to the XPRNG library.
 
-| Library                       | Description                     |
-|-------------------------------|---------------------------------|
-| [Shiki](https://shiki.style/) | Syntax highlighting for content |
+| Library                       | Description                  |
+|-------------------------------|------------------------------|
+| [Shiki](https://shiki.style/) | Syntax highlighting for code |
 
 ## Installation
 

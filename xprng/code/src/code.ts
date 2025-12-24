@@ -28,7 +28,7 @@ import {Highlighter} from '@xprng/vendor';
  * ### Importing the component
  *
  * ```typescript
- * import { Code } from "@xprng/content";
+ * import { Code } from "@xprng/code";
  * ```
  *
  * ### Importing states directives
