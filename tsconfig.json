@@ -97,18 +97,6 @@
       "path": "./xprng/slides/tsconfig.spec.json"
     },
     {
-      "path": "./xprng/docs/tsconfig.lib.json"
-    },
-    {
-      "path": "./xprng/docs/tsconfig.spec.json"
-    },
-    {
-      "path": "./apps/xpd/tsconfig.app.json"
-    },
-    {
-      "path": "./apps/xpd/tsconfig.spec.json"
-    },
-    {
       "path": "./xprng/query/tsconfig.lib.json"
     },
     {
