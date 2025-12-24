@@ -65,7 +65,7 @@ jobs:
         if: contains(github.event.head_commit.message, '(markdown)')
         run: cd dist/xprng/markdown && npx semantic-release
 
-      - name: 🦋release content
+      - name: 🦋release code
         if: contains(github.event.head_commit.message, '(code)')
         run: cd dist/xprng/code && npx semantic-release
 
@@ -76,10 +76,6 @@ jobs:
       - name: 🦋release query
         if: contains(github.event.head_commit.message, '(query)')
         run: cd dist/xprng/query && npx semantic-release
-
-      - name: 🦋release docs
-        if: contains(github.event.head_commit.message, '(docs)')
-        run: cd dist/xprng/docs && npx semantic-release
 
   demo:
     name: demo
