@@ -1,15 +1,14 @@
-import {Component, inject, signal} from '@angular/core';
+import {Component, signal} from '@angular/core';
 import {Code} from '@xprng/code';
-import {FormsModule} from '@angular/forms';
 import {ErrorState} from '@xprng/common';
-import {PlatformLocation} from '@angular/common';
+import {Field, form} from '@angular/forms/signals';
 
 @Component({
   selector: 'code-demo',
   imports: [
     Code,
-    FormsModule,
-    ErrorState
+    ErrorState,
+    Field
   ],
   template: `
     <h1>Code Demo</h1>
@@ -18,17 +17,18 @@ import {PlatformLocation} from '@angular/common';
     </p>
     <article>
       <xpr-code lang="javascript"
-                [theme]="theme()"
-                [src]="src()">
-        <xpr-error-state>File at "{{ src() }}" not found.</xpr-error-state>
+                [theme]="props().theme"
+                [src]="props().src">
+        <xpr-error-state>File at "{{ props().src }}" not found.</xpr-error-state>
       </xpr-code>
     </article>
     <hr/>
+
     <h2>Options</h2>
 
     <div>
       <label for="theme">Loaded Theme: </label>
-      <select [(ngModel)]="theme" id="theme">
+      <select [field]="frm.theme" id="theme">
         <option value="nord">nord</option>
         <option value="github-light">github-light</option>
         <option value="github-dark">github-dark</option>
@@ -38,18 +38,17 @@ import {PlatformLocation} from '@angular/common';
 
     <div>
       <label for="state">Select state: </label>
-      <select [(ngModel)]="src" id="state">
-        <option [value]="valid">valid url</option>
-        <option value="http://localhost/">invalid url</option>
+      <select [field]="frm.src" id="state">
+        <option value="https://ziv.github.io/xprng/example-code.js">valid url</option>
+        <option value="http://localhost/example-code.js">invalid url</option>
       </select>
     </div>
   `
 })
 export default class CodeDemo {
-  valid = inject(PlatformLocation).getBaseHrefFromDOM() + 'example-code.js';
-
-  src = signal<string>(this.valid);
-  theme = signal<string>('catppuccin-latte');
-
-
+  protected readonly props = signal({
+    src: 'https://ziv.github.io/xprng/example-code.js',
+    theme: 'catppuccin-latte'
+  });
+  protected readonly frm = form(this.props);
 }
