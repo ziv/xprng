@@ -1,5 +1,5 @@
 import {ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection} from '@angular/core';
-import {provideRouter, withHashLocation} from '@angular/router';
+import {provideRouter, withHashLocation, withViewTransitions} from '@angular/router';
 
 import {routes} from './app.routes';
 import {provideShiki} from '@xprng/vendor';
@@ -9,7 +9,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
-    provideRouter(routes, withHashLocation()),
+    provideRouter(routes, withHashLocation(), withViewTransitions()),
     provideHttpClient(withFetch()),
 
     provideShiki({
