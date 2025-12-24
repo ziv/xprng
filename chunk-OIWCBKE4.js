@@ -1,1 +1,0 @@
-import{Oa as e}from"./chunk-IFLVXWXS.js";var s=(()=>{class t{static \u0275fac=function(r){return new(r||t)};static \u0275dir=e({type:t,selectors:[["xpr-error-state"],["","xpr-error-state",""]],hostAttrs:[1,"xpr-error-state"],exportAs:["xprErrorState"]})}return t})();export{s as a};
